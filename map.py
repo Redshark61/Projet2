@@ -7,12 +7,12 @@ class Map:
     def __init__(self, game, entity: list):
         self.game = game
         # Load the map
-        self.tmxData = pytmx.load_pygame("./assets/assetAir/airWorld.tmx")
+        self.tmxData = pytmx.load_pygame("./assets/carte_hub_p2.tmx")
         mapData = pyscroll.data.TiledMapData(self.tmxData)
         mapLayer = pyscroll.BufferedRenderer(mapData, game.screen.get_size())
         mapLayer.zoom = 2
 
-        self.group = pyscroll.PyscrollGroup(map_layer=mapLayer, default_layer=3)
+        self.group = pyscroll.PyscrollGroup(map_layer=mapLayer, default_layer=18)
         for i in entity:
             self.group.add(i)
 
