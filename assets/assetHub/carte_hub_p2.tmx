@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="125">
-  <tileset firstgid="1" source="Grass.tsx" />
-  <tileset firstgid="6" source="Bridge.tsx" />
-  <tileset firstgid="21" source="Trees.tsx" />
-  <tileset firstgid="25" source="Tower.tsx" />
-  <tileset firstgid="43" source="PurpleBarracks.tsx" />
-  <tileset firstgid="63" source="PurpleKeep.tsx" />
-  <tileset firstgid="87" source="PurpleChapels.tsx" />
-  <tileset firstgid="93" source="PurpleResources.tsx" />
-  <tileset firstgid="108" source="Tombstones.tsx" />
-  <tileset firstgid="116" source="Wheatfield.tsx" />
-  <tileset firstgid="120" source="Portal.tsx" />
-  <tileset firstgid="124" source="Chests.tsx" />
-  <tileset firstgid="126" source="QuestBoard.tsx" />
-  <tileset firstgid="130" source="PurpleTaverns.tsx" />
-  <tileset firstgid="142" source="Signs.tsx" />
-  <tileset firstgid="146" source="Winter.tsx" />
-  <tileset firstgid="154" source="TexturedGrass.tsx" />
-  <tileset firstgid="160" source="Cliff-Water.tsx" />
-  <layer id="1" name="Calque de Tuiles 1" width="50" height="50">
-    <data encoding="csv">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="129">
+ <tileset firstgid="1" source="Grass.tsx"/>
+ <tileset firstgid="6" source="Bridge.tsx"/>
+ <tileset firstgid="21" source="Trees.tsx"/>
+ <tileset firstgid="25" source="Tower.tsx"/>
+ <tileset firstgid="43" source="PurpleBarracks.tsx"/>
+ <tileset firstgid="63" source="PurpleKeep.tsx"/>
+ <tileset firstgid="87" source="PurpleChapels.tsx"/>
+ <tileset firstgid="93" source="PurpleResources.tsx"/>
+ <tileset firstgid="108" source="Tombstones.tsx"/>
+ <tileset firstgid="116" source="Wheatfield.tsx"/>
+ <tileset firstgid="120" source="Portal.tsx"/>
+ <tileset firstgid="124" source="Chests.tsx"/>
+ <tileset firstgid="126" source="QuestBoard.tsx"/>
+ <tileset firstgid="130" source="PurpleTaverns.tsx"/>
+ <tileset firstgid="142" source="Signs.tsx"/>
+ <tileset firstgid="146" source="Winter.tsx"/>
+ <tileset firstgid="154" source="TexturedGrass.tsx"/>
+ <tileset firstgid="160" source="Cliff-Water.tsx"/>
+ <tileset firstgid="190" source="../PortalHub.tsx"/>
+ <layer id="1" name="Calque de Tuiles 1" width="50" height="50">
+  <data encoding="csv">
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -71,9 +72,9 @@
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 </data>
-  </layer>
-  <layer id="4" name="grass" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="4" name="grass" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,159,159,158,159,159,158,159,159,158,159,158,159,158,156,156,156,155,155,156,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,158,158,159,159,159,158,158,159,159,159,159,158,159,156,155,156,155,154,154,159,159,159,0,158,158,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,158,158,158,158,159,159,158,159,158,158,158,158,159,155,154,156,154,156,156,158,159,158,158,158,159,159,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -125,9 +126,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,158,158,158,154,154,155,155,155,154,159,158,159,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,154,155,154,154,156,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="9" name="trees" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="9" name="trees" width="50" height="50">
+  <data encoding="csv">
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,0,0,0,0,0,0,0,0,0,0,0,0,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
@@ -179,9 +180,9 @@
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,0,0,0,0,0,0,0,0,0,0,0,0,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24
 </data>
-  </layer>
-  <layer id="10" name="trees_cut" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="10" name="trees_cut" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,0,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -233,9 +234,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="7" name="water" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="7" name="water" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -287,9 +288,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="3" name="road" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="3" name="road" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -341,9 +342,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="12" name="road in town" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="12" name="road in town" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -395,9 +396,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="15" name="chest" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="15" name="chest" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -449,9 +450,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="13" name="buildings" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="13" name="buildings" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -474,7 +475,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,133,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,64,0,0,0,0,63,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,123,0,122,0,121,0,120,0,0,0,0,0,69,70,0,0,0,0,69,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,190,0,122,0,121,0,120,0,0,0,0,0,69,70,0,0,0,0,69,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -503,9 +504,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="21" name="bridges_2" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="21" name="bridges_2" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -557,9 +558,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="8" name="water2" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="8" name="water2" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -611,9 +612,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="5" name="bridges" width="50" height="50" visible="0">
-    <data encoding="csv">
+ </layer>
+ <layer id="5" name="bridges" width="50" height="50" visible="0">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -665,9 +666,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="14" name="tree_town" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="14" name="tree_town" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -719,9 +720,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="11" name="wall" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="11" name="wall" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -773,9 +774,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="16" name="signs" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="16" name="signs" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -827,9 +828,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <layer id="18" name="dark" width="50" height="50" visible="0" opacity="0.65">
-    <data encoding="csv">
+ </layer>
+ <layer id="18" name="dark" width="50" height="50" visible="0" opacity="0.65">
+  <data encoding="csv">
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
@@ -881,9 +882,9 @@
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151
 </data>
-  </layer>
-  <layer id="19" name="dark_border" width="50" height="50" visible="0" opacity="0.53">
-    <data encoding="csv">
+ </layer>
+ <layer id="19" name="dark_border" width="50" height="50" visible="0" opacity="0.53">
+  <data encoding="csv">
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
@@ -935,9 +936,9 @@
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151
 </data>
-  </layer>
-  <layer id="22" name="cliffwater" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <layer id="22" name="cliffwater" width="50" height="50">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -989,123 +990,129 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-  </layer>
-  <objectgroup id="20" name="collision">
-    <object id="1" type="collision" x="432.5" y="239.75" width="126.75" height="32" />
-    <object id="2" type="collision" x="415.5" y="207.75" width="144.5" height="15.75" />
-    <object id="3" type="collision" x="432.25" y="287.75" width="127.25" height="32.75" />
-    <object id="5" type="collision" x="433.5" y="336" width="126" height="31" />
-    <object id="6" type="collision" x="448" y="143.667" width="207.667" height="16" />
-    <object id="7" type="collision" x="640.667" y="143.667" width="14.3333" height="208.333" />
-    <object id="8" type="collision" x="640.667" y="448.333" width="15" height="207.667" />
-    <object id="9" type="collision" x="448.333" y="640.667" width="207" height="15" />
-    <object id="10" type="collision" x="496.667" y="415.667" width="94.3333" height="128.333" />
-    <object id="11" type="collision" x="512.667" y="543.667" width="78" height="16" />
-    <object id="12" type="collision" x="416" y="415.667" width="63.6667" height="191.667" />
-    <object id="13" type="collision" x="479.333" y="559.667" width="17.3333" height="47.6667" />
-    <object id="14" type="collision" x="498" y="576" width="77.3333" height="31.6667" />
-    <object id="15" type="collision" x="560.667" y="608" width="15.3333" height="16.3333" />
-    <object id="16" type="collision" x="592" y="591.667" width="16.3333" height="32" />
-    <object id="17" type="collision" x="608" y="431.333" width="16" height="160.333" />
-    <object id="20" type="collision" x="497" y="404.667" width="14" height="10.3333" />
-    <object id="21" type="collision" x="543.667" y="175.667" width="16.3333" height="16.3333" />
-    <object id="22" type="collision" x="592" y="208.333" width="16" height="16" />
-    <object id="23" type="collision" x="576.333" y="256.667" width="15" height="16.3333" />
-    <object id="24" type="collision" x="575.667" y="320.333" width="16.3333" height="16" />
-    <object id="25" type="collision" x="271.75" y="512" width="79.75" height="63.5" />
-    <object id="26" type="collision" x="336.417" y="528.5" width="30.8333" height="110.5" />
-    <object id="27" type="collision" x="159.5" y="608" width="160.25" height="32" />
-    <object id="28" type="collision" x="144.5" y="639.75" width="207.25" height="15" />
-    <object id="29" type="collision" x="144" y="448" width="15" height="192" />
-    <object id="30" type="collision" x="160.25" y="544.25" width="47.5" height="63" />
-    <object id="31" type="collision" x="208.5" y="592" width="31.75" height="15.5" />
-    <object id="32" type="collision" x="176" y="527.75" width="47.25" height="16" />
-    <object id="33" type="collision" x="255.75" y="527.25" width="16.25" height="32.75" />
-    <object id="34" type="collision" x="256" y="575.75" width="48" height="17" />
-    <object id="35" type="collision" x="223.75" y="559.75" width="15.75" height="15.75" />
-    <object id="36" type="collision" x="240.25" y="544.25" width="15.25" height="15.5" />
-    <object id="37" type="collision" x="224" y="511.75" width="15.25" height="16.25" />
-    <object id="38" type="collision" x="239.75" y="447.75" width="16.5" height="47.75" />
-    <object id="39" type="collision" x="271.75" y="431.75" width="17" height="64.25" />
-    <object id="40" type="collision" x="288.25" y="480" width="15.75" height="16" />
-    <object id="41" type="collision" x="224" y="335.5" width="143.75" height="16.25" />
-    <object id="42" type="collision" x="143.333" y="143.667" width="16.3333" height="208.333" />
-    <object id="43" type="collision" x="160" y="143.333" width="192.667" height="17" />
-    <object id="44" type="collision" x="160" y="160.667" width="64.6667" height="62.3333" />
-    <object id="45" type="collision" x="225.333" y="160.333" width="78.6667" height="14.6667" />
-    <object id="46" type="collision" x="240" y="175" width="64" height="49.3333" />
-    <object id="47" type="collision" x="208" y="223.333" width="16.6667" height="97.3333" />
-    <object id="48" type="collision" x="240" y="256" width="16.3333" height="63.6667" />
-    <object id="49" type="collision" x="256" y="240" width="32" height="15.3333" />
-    <object id="50" type="collision" x="288" y="255.667" width="16" height="64.6667" />
-    <object id="51" type="collision" x="351.667" y="352" width="15" height="14.6667" />
-    <object id="52" type="collision" x="320" y="352" width="15.3333" height="16" />
-    <object id="53" type="collision" x="288" y="352" width="15.3333" height="15.6667" />
-    <object id="54" type="collision" x="256" y="351.667" width="15.9583" height="16" />
-    <object id="55" type="collision" x="224" y="351.667" width="16" height="15.6667" />
-    <object id="57" type="collision" x="655.833" y="415.667" width="43" height="239.833" />
-    <object id="58" type="collision" x="654.667" y="128.667" width="41.6667" height="253.833" />
-    <object id="59" type="collision" x="702.5" y="-1.5" width="96" height="145.5" />
-    <object id="60" type="collision" x="720.5" y="143.5" width="79" height="49" />
-    <object id="62" type="collision" x="736.5" y="192" width="62.5" height="15" />
-    <object id="63" x="753" y="207" width="46" height="19" />
-    <object id="65" type="collision" x="753" y="223.5" width="47" height="16.5" />
-    <object id="66" type="collision" x="782.5" y="240" width="17" height="112" />
-    <object id="67" type="collision" x="768" y="240" width="13" height="64.5" />
-    <object id="68" type="collision" x="656" y="0" width="45" height="128" />
-    <object id="69" type="collision" x="464" y="95.5" width="191.5" height="46.5" />
-    <object id="70" type="collision" x="448" y="0" width="209" height="16" />
-    <object id="71" type="collision" x="496.5" y="15.5" width="159" height="15.5" />
-    <object id="72" type="collision" x="545" y="31" width="110" height="16.5" />
-    <object id="73" type="collision" x="591" y="48" width="65" height="16" />
-    <object id="74" type="collision" x="640.5" y="63.5" width="15.5" height="17.5" />
-    <object id="75" type="collision" x="415.5" y="115.5" width="48.875" height="19.8333" />
-    <object id="76" type="collision" x="336" y="115.792" width="48" height="20.4583" />
-    <object id="77" type="collision" x="1" y="96" width="335" height="48.5" />
-    <object id="78" type="collision" x="0.5" y="1" width="143.5" height="94.5" />
-    <object id="79" type="collision" x="142.5" y="-0.5" width="97" height="47.5" />
-    <object id="80" type="collision" x="144.5" y="46" width="48.5" height="17" />
-    <object id="81" type="collision" x="143.5" y="65" width="17" height="15.5" />
-    <object id="82" type="collision" x="239.5" y="-1.5" width="64.5" height="33" />
-    <object id="83" type="collision" x="304.5" y="-1" width="47.5" height="16.5" />
-    <object id="84" type="collision" x="-1" y="143" width="66" height="65.5" />
-    <object id="85" type="collision" x="64" y="143.5" width="16" height="16.5" />
-    <object id="86" type="collision" x="-2.5" y="209.5" width="49.5" height="47" />
-    <object id="87" type="collision" x="0" y="258" width="33" height="45.5" />
-    <object id="88" type="collision" x="-0.5" y="302.5" width="16.5" height="50" />
-    <object id="89" type="collision" x="99.5" y="143.5" width="45" height="240.5" />
-    <object id="92" type="collision" x="101.5" y="415.5" width="40.25" height="385" />
-    <object id="93" type="collision" x="0" y="655" width="101.75" height="145.5" />
-    <object id="94" type="collision" x="141.333" y="720.5" width="18.5" height="79.5" />
-    <object id="95" type="collision" x="160" y="735.5" width="47" height="64" />
-    <object id="96" type="collision" x="207" y="751.5" width="48.5" height="48" />
-    <object id="97" type="collision" x="255.5" y="767.5" width="47.5" height="33" />
-    <object id="98" type="collision" x="303.5" y="783.5" width="48.5" height="17.5" />
-    <object id="99" type="collision" x="0" y="639.5" width="80.5" height="16.5" />
-    <object id="100" type="collision" x="-0.5" y="591" width="63.5" height="47" />
-    <object id="101" type="collision" x="-0.5" y="544" width="48.5" height="45.5" />
-    <object id="102" type="collision" x="0.5" y="495.5" width="30.5" height="46.5" />
-    <object id="103" type="collision" x="0" y="448" width="15" height="47" />
-    <object id="104" type="collision" x="656.5" y="656" width="143" height="142" />
-    <object id="105" type="collision" x="143" y="654.5" width="192.5" height="40.8333" />
-    <object id="106" type="collision" x="335.5" y="656.167" width="47" height="39" />
-    <object id="107" type="collision" x="464" y="655" width="192" height="40.1667" />
-    <object id="108" type="collision" x="416" y="657.167" width="48" height="39.1667" />
-    <object id="109" type="collision" x="592" y="735.5" width="64" height="64" />
-    <object id="110" type="collision" x="639.5" y="720" width="17.5" height="15" />
-    <object id="111" type="collision" x="544.5" y="751.5" width="48" height="48.5" />
-    <object id="112" type="collision" x="496" y="767.5" width="47.5" height="32" />
-    <object id="113" type="collision" x="448.5" y="784.5" width="47.5" height="14.5" />
-    <object id="114" type="collision" x="320" y="591.667" width="16" height="48" />
-    <object id="116" type="collision" x="735.667" y="607.333" width="63.6667" height="48.6667" />
-    <object id="117" type="collision" x="752" y="559.667" width="48" height="47.6667" />
-    <object id="118" type="collision" x="768.667" y="496" width="30.6667" height="64" />
-    <object id="119" type="collision" x="784" y="448.333" width="15.3333" height="47.3333" />
-    <object id="123" name="spawnPlayer" x="343.5" y="332">
-      <point />
-    </object>
-    <object id="124" name="spawnBoss" x="615" y="379">
-      <point />
-    </object>
-  </objectgroup>
+ </layer>
+ <objectgroup id="20" name="collision">
+  <object id="1" type="collision" x="432.5" y="239.75" width="126.75" height="32"/>
+  <object id="2" type="collision" x="415.5" y="207.75" width="144.5" height="15.75"/>
+  <object id="3" type="collision" x="432.25" y="287.75" width="127.25" height="32.75"/>
+  <object id="5" type="collision" x="433.5" y="336" width="126" height="31"/>
+  <object id="6" type="collision" x="448" y="143.667" width="207.667" height="16"/>
+  <object id="7" type="collision" x="640.667" y="143.667" width="14.3333" height="208.333"/>
+  <object id="8" type="collision" x="640.667" y="448.333" width="15" height="207.667"/>
+  <object id="9" type="collision" x="448.333" y="640.667" width="207" height="15"/>
+  <object id="10" type="collision" x="496.667" y="415.667" width="94.3333" height="128.333"/>
+  <object id="11" type="collision" x="512.667" y="543.667" width="78" height="16"/>
+  <object id="12" type="collision" x="416" y="415.667" width="63.6667" height="191.667"/>
+  <object id="13" type="collision" x="479.333" y="559.667" width="17.3333" height="47.6667"/>
+  <object id="14" type="collision" x="498" y="576" width="77.3333" height="31.6667"/>
+  <object id="15" type="collision" x="560.667" y="608" width="15.3333" height="16.3333"/>
+  <object id="16" type="collision" x="592" y="591.667" width="16.3333" height="32"/>
+  <object id="17" type="collision" x="608" y="431.333" width="16" height="160.333"/>
+  <object id="20" type="collision" x="497" y="404.667" width="14" height="10.3333"/>
+  <object id="21" type="collision" x="543.667" y="175.667" width="16.3333" height="16.3333"/>
+  <object id="22" type="collision" x="592" y="208.333" width="16" height="16"/>
+  <object id="23" type="collision" x="576.333" y="256.667" width="15" height="16.3333"/>
+  <object id="24" type="collision" x="575.667" y="320.333" width="16.3333" height="16"/>
+  <object id="25" type="collision" x="271.75" y="512" width="79.75" height="63.5"/>
+  <object id="26" type="collision" x="336.417" y="528.5" width="30.8333" height="110.5"/>
+  <object id="27" type="collision" x="159.5" y="608" width="160.25" height="32"/>
+  <object id="28" type="collision" x="144.5" y="639.75" width="207.25" height="15"/>
+  <object id="29" type="collision" x="144" y="448" width="15" height="192"/>
+  <object id="30" type="collision" x="160.25" y="544.25" width="47.5" height="63"/>
+  <object id="31" type="collision" x="208.5" y="592" width="31.75" height="15.5"/>
+  <object id="32" type="collision" x="176" y="527.75" width="47.25" height="16"/>
+  <object id="33" type="collision" x="255.75" y="527.25" width="16.25" height="32.75"/>
+  <object id="34" type="collision" x="256" y="575.75" width="48" height="17"/>
+  <object id="35" type="collision" x="223.75" y="559.75" width="15.75" height="15.75"/>
+  <object id="36" type="collision" x="240.25" y="544.25" width="15.25" height="15.5"/>
+  <object id="37" type="collision" x="224" y="511.75" width="15.25" height="16.25"/>
+  <object id="38" type="collision" x="239.75" y="447.75" width="16.5" height="47.75"/>
+  <object id="39" type="collision" x="271.75" y="431.75" width="17" height="64.25"/>
+  <object id="40" type="collision" x="288.25" y="480" width="15.75" height="16"/>
+  <object id="41" type="collision" x="224" y="335.5" width="143.75" height="16.25"/>
+  <object id="42" type="collision" x="143.333" y="143.667" width="16.3333" height="208.333"/>
+  <object id="43" type="collision" x="160" y="143.333" width="192.667" height="17"/>
+  <object id="44" type="collision" x="160" y="160.667" width="64.6667" height="62.3333"/>
+  <object id="45" type="collision" x="225.333" y="160.333" width="78.6667" height="14.6667"/>
+  <object id="46" type="collision" x="240" y="175" width="64" height="49.3333"/>
+  <object id="47" type="collision" x="208" y="223.333" width="16.6667" height="97.3333"/>
+  <object id="48" type="collision" x="240" y="256" width="16.3333" height="63.6667"/>
+  <object id="49" type="collision" x="256" y="240" width="32" height="15.3333"/>
+  <object id="50" type="collision" x="288" y="255.667" width="16" height="64.6667"/>
+  <object id="51" type="collision" x="351.667" y="352" width="15" height="14.6667"/>
+  <object id="52" type="collision" x="320" y="352" width="15.3333" height="16"/>
+  <object id="53" type="collision" x="288" y="352" width="15.3333" height="15.6667"/>
+  <object id="54" type="collision" x="256" y="351.667" width="15.9583" height="16"/>
+  <object id="55" type="collision" x="224" y="351.667" width="16" height="15.6667"/>
+  <object id="57" type="collision" x="655.833" y="415.667" width="43" height="239.833"/>
+  <object id="58" type="collision" x="654.667" y="128.667" width="41.6667" height="253.833"/>
+  <object id="59" type="collision" x="702.5" y="-1.5" width="96" height="145.5"/>
+  <object id="60" type="collision" x="720.5" y="143.5" width="79" height="49"/>
+  <object id="62" type="collision" x="736.5" y="192" width="62.5" height="15"/>
+  <object id="63" x="753" y="207" width="46" height="19"/>
+  <object id="65" type="collision" x="753" y="223.5" width="47" height="16.5"/>
+  <object id="66" type="collision" x="782.5" y="240" width="17" height="112"/>
+  <object id="67" type="collision" x="768" y="240" width="13" height="64.5"/>
+  <object id="68" type="collision" x="656" y="0" width="45" height="128"/>
+  <object id="69" type="collision" x="464" y="95.5" width="191.5" height="46.5"/>
+  <object id="70" type="collision" x="448" y="0" width="209" height="16"/>
+  <object id="71" type="collision" x="496.5" y="15.5" width="159" height="15.5"/>
+  <object id="72" type="collision" x="545" y="31" width="110" height="16.5"/>
+  <object id="73" type="collision" x="591" y="48" width="65" height="16"/>
+  <object id="74" type="collision" x="640.5" y="63.5" width="15.5" height="17.5"/>
+  <object id="75" type="collision" x="415.5" y="115.5" width="48.875" height="19.8333"/>
+  <object id="76" type="collision" x="336" y="115.792" width="48" height="20.4583"/>
+  <object id="77" type="collision" x="1" y="96" width="335" height="48.5"/>
+  <object id="78" type="collision" x="0.5" y="1" width="143.5" height="94.5"/>
+  <object id="79" type="collision" x="142.5" y="-0.5" width="97" height="47.5"/>
+  <object id="80" type="collision" x="144.5" y="46" width="48.5" height="17"/>
+  <object id="81" type="collision" x="143.5" y="65" width="17" height="15.5"/>
+  <object id="82" type="collision" x="239.5" y="-1.5" width="64.5" height="33"/>
+  <object id="83" type="collision" x="304.5" y="-1" width="47.5" height="16.5"/>
+  <object id="84" type="collision" x="-1" y="143" width="66" height="65.5"/>
+  <object id="85" type="collision" x="64" y="143.5" width="16" height="16.5"/>
+  <object id="86" type="collision" x="-2.5" y="209.5" width="49.5" height="47"/>
+  <object id="87" type="collision" x="0" y="258" width="33" height="45.5"/>
+  <object id="88" type="collision" x="-0.5" y="302.5" width="16.5" height="50"/>
+  <object id="89" type="collision" x="99.5" y="143.5" width="45" height="240.5"/>
+  <object id="92" type="collision" x="101.5" y="415.5" width="40.25" height="385"/>
+  <object id="93" type="collision" x="0" y="655" width="101.75" height="145.5"/>
+  <object id="94" type="collision" x="141.333" y="720.5" width="18.5" height="79.5"/>
+  <object id="95" type="collision" x="160" y="735.5" width="47" height="64"/>
+  <object id="96" type="collision" x="207" y="751.5" width="48.5" height="48"/>
+  <object id="97" type="collision" x="255.5" y="767.5" width="47.5" height="33"/>
+  <object id="98" type="collision" x="303.5" y="783.5" width="48.5" height="17.5"/>
+  <object id="99" type="collision" x="0" y="639.5" width="80.5" height="16.5"/>
+  <object id="100" type="collision" x="-0.5" y="591" width="63.5" height="47"/>
+  <object id="101" type="collision" x="-0.5" y="544" width="48.5" height="45.5"/>
+  <object id="102" type="collision" x="0.5" y="495.5" width="30.5" height="46.5"/>
+  <object id="103" type="collision" x="0" y="448" width="15" height="47"/>
+  <object id="104" type="collision" x="656.5" y="656" width="143" height="142"/>
+  <object id="105" type="collision" x="143" y="654.5" width="192.5" height="40.8333"/>
+  <object id="106" type="collision" x="335.5" y="656.167" width="47" height="39"/>
+  <object id="107" type="collision" x="464" y="655" width="192" height="40.1667"/>
+  <object id="108" type="collision" x="416" y="657.167" width="48" height="39.1667"/>
+  <object id="109" type="collision" x="592" y="735.5" width="64" height="64"/>
+  <object id="110" type="collision" x="639.5" y="720" width="17.5" height="15"/>
+  <object id="111" type="collision" x="544.5" y="751.5" width="48" height="48.5"/>
+  <object id="112" type="collision" x="496" y="767.5" width="47.5" height="32"/>
+  <object id="113" type="collision" x="448.5" y="784.5" width="47.5" height="14.5"/>
+  <object id="114" type="collision" x="320" y="591.667" width="16" height="48"/>
+  <object id="116" type="collision" x="735.667" y="607.333" width="63.6667" height="48.6667"/>
+  <object id="117" type="collision" x="752" y="559.667" width="48" height="47.6667"/>
+  <object id="118" type="collision" x="768.667" y="496" width="30.6667" height="64"/>
+  <object id="119" type="collision" x="784" y="448.333" width="15.3333" height="47.3333"/>
+  <object id="123" name="spawnPlayer" x="343.5" y="332">
+   <point/>
+  </object>
+  <object id="124" name="spawnBoss" x="615" y="379">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="23" name="objects">
+  <object id="125" name="toFeu" x="239.5" y="351.5" width="17" height="32.5"/>
+  <object id="126" name="toTerre" x="271.25" y="352.25" width="17.25" height="32.25"/>
+  <object id="127" name="toAir" x="302.5" y="352.25" width="17.5" height="32"/>
+  <object id="128" name="toEau" x="334.5" y="352" width="18.5" height="31.75"/>
+ </objectgroup>
 </map>
