@@ -2,7 +2,7 @@ import time
 import pygame
 from pygame.constants import MOUSEBUTTONDOWN
 from player import Boss, Player
-from map import Map
+from map import MapManager
 
 
 class Game:
@@ -13,7 +13,7 @@ class Game:
         self.player = Player("Soldiers/Melee/AssasinTemplate", 16, self.screen)
         self.boss = Boss("Monsters/Demons/RedDemon", 16)
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
-        self.map = Map(self, [self.player, self.boss])
+        self.map = MapManager(self, [self.player, self.boss])
         self.map.teleportPlayer("spawnPlayer", self.player)
         self.map.teleportPlayer("spawnBoss", self.boss)
         self.bossSpawn = self.boss.getPosition()
