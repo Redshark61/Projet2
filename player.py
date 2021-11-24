@@ -5,20 +5,20 @@ from projectile import Projectile
 
 class AnimateSprite(pygame.sprite.Sprite):
 
-    def __init__(self, name: str, sideLength):
+    def __init__(self, name: str):
         super().__init__()
-        self.sideLength = sideLength
         # Load the asset of the required sprite
         self.spriteSheet = pygame.image.load(f'./assets/Characters/{name}.png')
+        print(self.spriteSheet)
         # The sprite sheet is divided into 3 rows of 3 images
         self.animationIndex = 0
 
         # Get differents images of the player when he moves
         self.images = {
             'down': self.getImages(0),
-            'up': self.getImages(1*sideLength),
-            'right': self.getImages(2*sideLength),
-            'left': self.getImages(3*sideLength)
+            'up': self.getImages(1*16),
+            'right': self.getImages(2*16),
+            'left': self.getImages(3*16)
         }
         self.image = ""
         self.clock = 0
@@ -28,8 +28,8 @@ class AnimateSprite(pygame.sprite.Sprite):
         """
         Return a single image from the sprite sheet
         """
-        image = pygame.Surface([self.sideLength, self.sideLength]).convert()
-        image.blit(self.spriteSheet, (0, 0), (x, y, self.sideLength, self.sideLength))
+        image = pygame.Surface([16, 16]).convert()
+        image.blit(self.spriteSheet, (0, 0), (x, y, 16, 16))
         image.set_colorkey([0, 0, 0])
         return image
 
@@ -39,7 +39,7 @@ class AnimateSprite(pygame.sprite.Sprite):
         """
         images = []
         for i in range(0, 5):
-            x = i * self.sideLength
+            x = i * 16
             image = self.getImage(x, y)
             images.append(image)
 
@@ -64,11 +64,13 @@ class AnimateSprite(pygame.sprite.Sprite):
 
 
 class Entity(AnimateSprite):
-    def __init__(self, name, sideLength):
-        super().__init__(name, sideLength)
+    def __init__(self, name):
+        super().__init__(name)
         self.image = self.getImage(0, 0)
+        self.image.set_colorkey([0, 0, 0])
         self.rect = self.image.get_rect()
         self.velocity = 5
+        self.oldPosition = self.rect.x, self.rect.y
 
     def moveUp(self):
         self.rect.y -= self.velocity
@@ -86,14 +88,17 @@ class Entity(AnimateSprite):
         self.rect.x += self.velocity
         self.changeAnimation('right')
 
+    def saveLocation(self):
+        self.oldPosition = self.rect.x, self.rect.y
+
 
 class Player(Entity, pygame.sprite.Sprite):
     """
     Player class
     """
 
-    def __init__(self, name, sideLength, screen):
-        super().__init__(name, sideLength)
+    def __init__(self, name, screen):
+        super().__init__(name)
         # Get the center of the screen
         self.center = (screen.get_width() // 2, screen.get_height() // 2)
         # Get the half of the screen
@@ -137,15 +142,14 @@ class Player(Entity, pygame.sprite.Sprite):
             print(f"{self.health=}")
 
 
-class Boss(Entity):
+class NPC(Entity):
     """
     Boss class
     """
 
-    def __init__(self, name, sideLength):
-        super().__init__(name, sideLength)
+    def __init__(self, name):
+        super().__init__(name)
         self.direction = "right"
-        self.rockGroup = pygame.sprite.Group()
 
     def getPosition(self):
         return self.rect.x, self.rect.y
@@ -155,3 +159,11 @@ class Boss(Entity):
         stepx, stepy = (dx / 25., dy / 25.)
         self.rect.x += stepx
         self.rect.y += stepy
+
+    def teleportSpawn(self, destination):
+        """
+        Teleport the NPC to its spawn point
+        """
+        self.rect.x = destination.x
+        self.rect.y = destination.y
+        self.saveLocation()

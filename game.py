@@ -1,8 +1,8 @@
 import time
 import pygame
 from pygame.constants import MOUSEBUTTONDOWN
-from player import Boss, Player
-from map import Map
+from player import NPC, Player
+from map import MapManager
 
 
 class Game:
@@ -10,13 +10,10 @@ class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Pygamon - aventure")
-        self.player = Player("Soldiers/Melee/AssasinTemplate", 16, self.screen)
-        self.boss = Boss("Monsters/Demons/RedDemon", 16)
+        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen)
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
-        self.map = Map(self, [self.player, self.boss])
-        self.map.teleportPlayer("spawnPlayer", self.player)
-        self.map.teleportPlayer("spawnBoss", self.boss)
-        self.bossSpawn = self.boss.getPosition()
+        self.map = MapManager(self)
+        self.map.teleportPlayer("spawnPlayer")
         self.isLaunched = False
 
     def handleInput(self):
@@ -50,16 +47,10 @@ class Game:
 
             self.screen.fill((0, 0, 0))
             self.screen.blit(self.player.image, self.player.rect)
-            self.screen.blit(self.boss.image, self.boss.rect)
             self.handleInput()
-            # Wait for 5seconds
-            if lastTime + 2 < time.time():
-                pass
-            self.boss.move(self.player)
-            self.boss.changeAnimation('down')
             self.map.updateMap()
             self.map.drawMap()
-            self.player.checkCollision(self.boss)
+            # self.player.checkCollision(self.boss)
             self.player.drawHealthBar()
             self.player.bombGroup.draw(self.screen)
 
