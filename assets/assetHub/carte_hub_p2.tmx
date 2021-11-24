@@ -1110,22 +1110,9 @@
     </object>
   </objectgroup>
   <objectgroup id="23" name="objects">
-    <null
-      <null
-        <null
-          <null
-            <null
-              <null
-                <HEAD
-                  <object id="125" name="toAir" x="302.364" y="351.273" width="17.6364" height="24.7273" />
-                  <object id="126" name="toTerre" x="270.909" y="350.727" width="18.1818" height="27.4545" />
-                  <object id="127" name="toWater" x="335.273" y="351.455" width="16.7273" height="22.9091" />
-                  <object id="128" name="toFire" x="239.386" y="351.705" width="16.5455" height="26.1818" />
-                  =======
-                  <object id="125" name="toFeu" x="239.5" y="351.5" width="17" height="32.5" />
-                  <object id="126" name="toTerre" x="271.25" y="352.25" width="17.25" height="32.25" />
-                  <object id="127" name="toAir" x="302.5" y="352.25" width="17.5" height="32" />
-                  <object id="128" name="toEau" x="334.5" y="352" width="18.5" height="31.75" />
-                  >>>>>>> 5fdc6aa549d7653e2d436392490e56b3f33d3f7d
+    <object id="125" name="toFeu" x="239.5" y="351.5" width="17" height="32.5" />
+    <object id="126" name="toTerre" x="271.25" y="352.25" width="17.25" height="32.25" />
+    <object id="127" name="toAir" x="302.5" y="352.25" width="17.5" height="32" />
+    <object id="128" name="toEau" x="334.5" y="352" width="18.5" height="31.75" />
   </objectgroup>
 </map>
