@@ -35,7 +35,10 @@ class MapManager:
         self.currentMap = "assetHub/carte_hub_p2"
         self.registerMap("assetHub/carte_hub_p2",
                          portals=[
-                             Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer")
+                             Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone", "toFeu", "spawnPlayer"),
+
                          ],
                          entity=[NPC("Monsters/Demons/RedDemon")])
         self.registerMap("assetAir/airWorld",
@@ -43,7 +46,19 @@ class MapManager:
                              Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")
                          ],
                          entity=[NPC("Monsters/Demons/RedDemon")])
-        self.teleportNPC("spawnBoss")
+
+        self.registerMap("assetTerre/mapTerre",
+                         portals=[
+                             Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")
+                         ],
+                         entity=[NPC("Monsters/Demons/RedDemon")])
+
+        # self.registerMap("assetFeu/Fire_zone",
+        #                  portals=[
+        #                      Portal("assetFeu/Fire_zone", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")
+        #                  ],
+        #                  entity=[NPC("Monsters/Demons/RedDemon")])
+        # self.teleportNPC("spawnBoss")
 
     def checkCollision(self):
         for portal in self.getMap().portals:
