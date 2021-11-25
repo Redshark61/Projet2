@@ -38,7 +38,7 @@ class MapManager:
                          portals=[
                              Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
-                             Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone", "toFeu", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
                          ],
                          entity=[NPC("Monsters/Demons/RedDemon")])
@@ -54,7 +54,7 @@ class MapManager:
                              Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")
                          ],
                          entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetFeu/Fire_zone", portals=[Portal("assetFeu/Fire_zone", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
+        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
         self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
 
         self.teleportNPC("spawnBoss")
