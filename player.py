@@ -68,8 +68,17 @@ class Entity(AnimateSprite):
         self.image = self.getImage(0, 0)
         self.image.set_colorkey([0, 0, 0])
         self.rect = self.image.get_rect()
-        self.velocity = 5
+        self.velocity = 3
+        # self.position = [0, 0]
         self.oldPosition = self.rect.x, self.rect.y
+        self.feet = pygame.Rect(0, 0, self.rect.width*0.5, 6)
+
+    def update(self):
+        """
+        Update the position of the player on the map
+        """
+        self.rect.topleft = self.rect.x, self.rect.y
+        self.feet.midbottom = self.rect.midbottom
 
     def moveUp(self):
         self.rect.y -= self.velocity
@@ -88,6 +97,7 @@ class Entity(AnimateSprite):
         self.changeAnimation('right')
 
     def saveLocation(self):
+        self.feet.midbottom = self.rect.midbottom
         self.oldPosition = self.rect.x, self.rect.y
 
 
