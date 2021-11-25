@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="141">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="200">
+ <editorsettings>
+  <export target="Fire_zone..tmx" format="tmx"/>
+ </editorsettings>
  <tileset firstgid="1" source="Lava.tsx"/>
  <tileset firstgid="2" source="magma.tsx"/>
  <tileset firstgid="3" source="CobbledGrounnd.tsx"/>
@@ -7,14 +10,14 @@
  <tileset firstgid="5" source="Cliff-Lava.tsx"/>
  <tileset firstgid="125" source="IronBridge.tsx"/>
  <tileset firstgid="140" source="CastleWall.tsx"/>
- <tileset firstgid="158" source="../AllAsset.tsx"/>
+ <tileset firstgid="158" source="AllAsset.tsx"/>
  <tileset firstgid="1507" source="Castle.tsx"/>
  <tileset firstgid="1531" source="Staires.tsx"/>
  <tileset firstgid="1594" source="Village.tsx"/>
  <tileset firstgid="1599" source="Tomb.tsx"/>
  <tileset firstgid="1607" source="Boat.tsx"/>
  <tileset firstgid="1655" source="FireMausoleum.tsx"/>
- <tileset firstgid="1727" source="../assetHub/Portal.tsx"/>
+ <tileset firstgid="1727" source="Portal.tsx"/>
  <layer id="1" name="Lava" width="50" height="50">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -26,7 +29,7 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1730,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -336,7 +339,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1727,0,0,0,0
 </data>
  </layer>
  <layer id="10" name="Village" width="50" height="50">
@@ -351,7 +354,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,1730,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -609,7 +612,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="15" name="objects">
+ <objectgroup id="15" name="Calque d'Objets">
   <object id="1" type="collision" x="32" y="495.5" width="127.5" height="47.5"/>
   <object id="2" type="collision" x="80" y="542.5" width="32.5" height="50"/>
   <object id="3" type="collision" x="63.5" y="592" width="176" height="10.5"/>
@@ -708,7 +711,7 @@
   <object id="118" type="magma" x="224.667" y="384" width="79" height="15.6667"/>
   <object id="119" type="magma" x="0.333333" y="287.667" width="47.3333" height="16.3333"/>
   <object id="120" type="magma" x="31.3333" y="303.333" width="16.6667" height="15.6667"/>
-  <object id="122" type="collision" x="750.667" y="269.333" width="48.6667" height="51.3333"/>
+  <object id="122" type="collision" x="752" y="272" width="47.3334" height="48.6666"/>
   <object id="123" type="collision" x="768.667" y="320.667" width="30" height="16.6667"/>
   <object id="124" type="collision" x="624" y="416" width="45.3333" height="46"/>
   <object id="125" type="collision" x="546" y="543.333" width="74.6667" height="68"/>
@@ -723,12 +726,67 @@
   <object id="134" type="collision" x="655.333" y="0" width="16.6667" height="124"/>
   <object id="136" type="collision" x="655.455" y="108.364" width="112.727" height="19.4545"/>
   <object id="137" type="collision" x="784.364" y="108.545" width="15.8182" height="19.0909"/>
-  <object id="138" name="spawnPlayer" x="132.5" y="178.75">
-   <point/>
-  </object>
-  <object id="139" name="spawnBoss" x="216.667" y="555.333">
-   <point/>
-  </object>
-  <object id="140" name="toHub" x="8.5" y="154.25" width="28" height="31"/>
+  <object id="138" type="toHub" x="719" y="767.75" width="16.5" height="32.25"/>
+  <object id="139" type="magma" x="736" y="256.667" width="63.6667" height="15.6667"/>
+  <object id="140" type="magma" x="671.667" y="271.333" width="79.3333" height="16.3333"/>
+  <object id="141" type="magma" x="639.333" y="288" width="48" height="15.3333"/>
+  <object id="142" type="magma" x="624" y="302.667" width="31" height="13.3333"/>
+  <object id="143" type="magma" x="609.667" y="352" width="14" height="47.6667"/>
+  <object id="144" type="magma" x="591.667" y="384" width="16.3333" height="32"/>
+  <object id="145" type="magma" x="576" y="401" width="14.6667" height="32"/>
+  <object id="146" type="magma" x="559.667" y="416.333" width="15.3333" height="32.3333"/>
+  <object id="147" type="magma" x="543.667" y="431.667" width="15" height="66"/>
+  <object id="148" type="magma" x="528.333" y="480.333" width="16.6667" height="128"/>
+  <object id="149" type="magma" x="512" y="592" width="15.3333" height="47.3333"/>
+  <object id="150" type="magma" x="527.818" y="623.455" width="16.1818" height="31.4545"/>
+  <object id="151" type="magma" x="544" y="639.818" width="15.4545" height="15.2727"/>
+  <object id="152" type="magma" x="560.182" y="624.182" width="15.8182" height="15.0909"/>
+  <object id="153" type="magma" x="576.364" y="639.818" width="15.2727" height="16.3636"/>
+  <object id="154" type="magma" x="592.182" y="623.818" width="80" height="16.1818"/>
+  <object id="155" type="magma" x="480.364" y="784.545" width="15.6364" height="15.4545"/>
+  <object id="156" type="magma" x="495.636" y="752.364" width="16.3636" height="30.9091"/>
+  <object id="157" type="magma" x="512.364" y="752" width="15.4545" height="16.1818"/>
+  <object id="158" type="magma" x="528" y="704.364" width="15.6364" height="47.6364"/>
+  <object id="159" type="magma" x="544" y="704" width="47.6364" height="16.1818"/>
+  <object id="160" type="magma" x="575.273" y="671.455" width="16.5455" height="31.8182"/>
+  <object id="161" type="magma" x="591.818" y="671.455" width="32.5455" height="16.1818"/>
+  <object id="162" type="magma" x="607.091" y="640.182" width="17.0909" height="30.9091"/>
+  <object id="163" type="magma" x="688.364" y="751.818" width="15.4545" height="15.8182"/>
+  <object id="164" type="magma" x="655.818" y="735.818" width="32" height="15.6364"/>
+  <object id="165" type="magma" x="639.455" y="672" width="16.5455" height="48.3636"/>
+  <object id="166" type="magma" x="656" y="703.818" width="16.7273" height="32.1818"/>
+  <object id="167" type="magma" x="655.636" y="640.545" width="15.8182" height="47.0909"/>
+  <object id="168" type="magma" x="624" y="576.182" width="15.6364" height="46.9091"/>
+  <object id="169" type="magma" x="639.818" y="559.636" width="15.6364" height="31.8182"/>
+  <object id="170" type="magma" x="656.182" y="544.364" width="15.8182" height="30.7273"/>
+  <object id="171" type="magma" x="672.545" y="544.364" width="46.9091" height="16.1818"/>
+  <object id="172" type="magma" x="735.818" y="752.182" width="16.7273" height="46.9091"/>
+  <object id="173" type="magma" x="752" y="736.909" width="15.6364" height="30.5455"/>
+  <object id="174" type="magma" x="768" y="719.818" width="16.5455" height="32"/>
+  <object id="175" type="magma" x="751.636" y="687.818" width="31.6364" height="16.1818"/>
+  <object id="176" type="magma" x="751.818" y="656.182" width="15.8182" height="31.2727"/>
+  <object id="177" type="magma" x="720" y="656" width="31.8182" height="15.6364"/>
+  <object id="178" type="magma" x="704.182" y="640" width="31.8182" height="16"/>
+  <object id="179" type="magma" x="704" y="592" width="16" height="47.2727"/>
+  <object id="180" type="magma" x="720.364" y="560" width="15.8182" height="47.8182"/>
+  <object id="181" type="magma" x="704.182" y="560.364" width="15.4545" height="14.9091"/>
+  <object id="182" type="magma" x="687.818" y="496.182" width="16.1818" height="48.1818"/>
+  <object id="183" type="magma" x="672" y="432" width="15.6364" height="79.4545"/>
+  <object id="184" type="magma" x="687.636" y="431.818" width="16.3636" height="16.7273"/>
+  <object id="185" type="magma" x="336" y="704.667" width="15.3333" height="94.6667"/>
+  <object id="186" type="magma" x="351.455" y="640.182" width="16.3636" height="79.2727"/>
+  <object id="187" type="magma" x="336.182" y="624.182" width="15.4545" height="16.3636"/>
+  <object id="188" type="magma" x="303.636" y="608" width="31.6364" height="15.8182"/>
+  <object id="189" type="magma" x="303.818" y="527.455" width="16.1818" height="81.2727"/>
+  <object id="190" type="magma" x="272" y="527.455" width="31.4545" height="15.8182"/>
+  <object id="191" type="magma" x="256.182" y="512.182" width="30.7273" height="15.4545"/>
+  <object id="192" type="magma" x="239.818" y="496.364" width="32.3636" height="15.4545"/>
+  <object id="193" type="magma" x="223.273" y="463.636" width="16.1818" height="32.5455"/>
+  <object id="194" type="magma" x="239.818" y="479.455" width="15.6364" height="16.9091"/>
+  <object id="195" type="magma" x="160.182" y="463.818" width="32" height="16.5455"/>
+  <object id="196" type="magma" x="127.818" y="480.182" width="32.1818" height="15.0909"/>
+  <object id="197" type="magma" x="95.8182" y="464" width="47.6364" height="16"/>
+  <object id="198" type="magma" x="15.2727" y="447.636" width="96.1818" height="16"/>
+  <object id="199" type="magma" x="0" y="463.636" width="31.4545" height="16.3636"/>
  </objectgroup>
 </map>
