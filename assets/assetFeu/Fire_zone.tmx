@@ -14,7 +14,7 @@
   <tileset firstgid="1599" source="Tomb.tsx" />
   <tileset firstgid="1607" source="Boat.tsx" />
   <tileset firstgid="1655" source="FireMausoleum.tsx" />
-  <tileset firstgid="1727" source="Portal.tsx" />
+  <tileset firstgid="1727" source="../assetHub/Portal.tsx" />
   <layer id="1" name="Lava" width="50" height="50">
     <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
