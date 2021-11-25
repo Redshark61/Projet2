@@ -47,6 +47,7 @@ class Game:
 
             self.screen.fill((0, 0, 0))
             self.screen.blit(self.player.image, self.player.rect)
+            self.player.saveLocation()
             self.handleInput()
             self.map.updateMap()
             self.map.drawMap()
