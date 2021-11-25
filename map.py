@@ -70,7 +70,7 @@ class MapManager:
                     self.currentMap = portal.toWorld
                     self.teleportPlayer(copyPortal.destinationPoint)
 
-        if self.player.rect.collidelist(self.getMap().walls) > -1:
+        if self.player.feet.collidelist(self.getMap().walls) > -1:
             print("collided with walls")
             self.player.rect.topleft = self.player.oldPosition
 
@@ -109,7 +109,7 @@ class MapManager:
             if obj.type == "collision":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
-        group = pyscroll.PyscrollGroup(map_layer=mapLayer, default_layer=10)
+        group = pyscroll.PyscrollGroup(map_layer=mapLayer, default_layer=20)
         group.add(self.player)
 
         for i in entity:

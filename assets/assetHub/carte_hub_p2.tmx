@@ -1102,7 +1102,7 @@
   <object id="117" type="collision" x="752" y="559.667" width="48" height="47.6667"/>
   <object id="118" type="collision" x="768.667" y="496" width="30.6667" height="64"/>
   <object id="119" type="collision" x="784" y="448.333" width="15.3333" height="47.3333"/>
-  <object id="123" name="spawnPlayer" x="344.5" y="323">
+  <object id="123" name="spawnPlayer" x="399.5" y="47">
    <point/>
   </object>
   <object id="124" name="spawnBoss" x="615" y="379">
