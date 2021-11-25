@@ -9,7 +9,6 @@ class AnimateSprite(pygame.sprite.Sprite):
         super().__init__()
         # Load the asset of the required sprite
         self.spriteSheet = pygame.image.load(f'./assets/Characters/{name}.png')
-        print(self.spriteSheet)
         # The sprite sheet is divided into 3 rows of 3 images
         self.animationIndex = 0
 

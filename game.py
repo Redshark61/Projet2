@@ -12,7 +12,7 @@ class Game:
         pygame.display.set_caption("Pygamon - aventure")
         self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen)
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
-        self.map = MapManager(self)
+        self.map = MapManager(self, self.screen)
         self.map.teleportPlayer("spawnPlayer")
         self.isLaunched = False
 
