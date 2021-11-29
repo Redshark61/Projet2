@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="129">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="133">
  <tileset firstgid="1" source="Grass.tsx"/>
  <tileset firstgid="6" source="Bridge.tsx"/>
  <tileset firstgid="21" source="Trees.tsx"/>
@@ -1110,9 +1110,21 @@
   </object>
  </objectgroup>
  <objectgroup id="23" name="objects">
-  <object id="125" name="toFeu" x="239.5" y="351.5" width="17" height="32.5"/>
-  <object id="126" name="toTerre" x="271.25" y="352.25" width="17.25" height="32.25"/>
-  <object id="127" name="toAir" x="302.5" y="352.25" width="17.5" height="32"/>
-  <object id="128" name="toEau" x="334.5" y="352" width="18.5" height="31.75"/>
+  <object id="125" name="toFeu" x="239.5" y="351.5" width="17" height="22.9545"/>
+  <object id="126" name="toTerre" x="271.25" y="352.25" width="17.25" height="21.0682"/>
+  <object id="127" name="toAir" x="302.5" y="352.25" width="17.5" height="21.5455"/>
+  <object id="128" name="toEau" x="334.5" y="352" width="18.5" height="21.2955"/>
+  <object id="129" name="fromEau" x="342.5" y="400.25">
+   <point/>
+  </object>
+  <object id="130" name="fromAir" x="311.75" y="400.75">
+   <point/>
+  </object>
+  <object id="131" name="fromTerre" x="280" y="400.5">
+   <point/>
+  </object>
+  <object id="132" name="fromFeu" x="246.75" y="397.5">
+   <point/>
+  </object>
  </objectgroup>
 </map>

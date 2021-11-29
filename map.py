@@ -35,13 +35,28 @@ class MapManager:
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
 
-        # Load all the maps
-        self.registerMap("assetHub/carte_hub_p2", portals=[Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"), Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"), Portal(
-            "assetHub/carte_hub_p2", "assetFeu/Fire_zone", "toFeu", "spawnPlayer"), Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"), ], entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetAir/airWorld", portals=[Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetTerre/mapTerre", portals=[Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetFeu/Fire_zone", portals=[Portal("assetFeu/Fire_zone", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon")])
+        self.registerMap("assetHub/carte_hub_p2",
+                         portals=[
+                             Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
+                         ],
+                         entity=[NPC("Monsters/Demons/RedDemon")])
+
+        self.registerMap("assetAir/airWorld",
+                         portals=[
+                             Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir")
+                         ],
+                         entity=[NPC("Monsters/Demons/RedDemon")])
+
+        self.registerMap("assetTerre/mapTerre",
+                         portals=[
+                             Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre")
+                         ],
+                         entity=[NPC("Monsters/Demons/RedDemon")])
+        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[NPC("Monsters/Demons/RedDemon")])
+        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[NPC("Monsters/Demons/RedDemon")])
 
         self.teleportNPC("spawnBoss")
 
