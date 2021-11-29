@@ -27,11 +27,12 @@ class Map:
 class MapManager:
 
     def __init__(self, game, screen):
+        # Initalize the variables
         self.game = game
         self.player = self.game.player
         self.screen = screen
         self.maps = {}
-        # Load the map
+        # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
 
         self.registerMap("assetHub/carte_hub_p2",
@@ -60,7 +61,9 @@ class MapManager:
         self.teleportNPC("spawnBoss")
 
     def checkCollision(self):
+        # Loop over all the portals
         for portal in self.getMap().portals:
+            # If the portal start from the current map
             if self.currentMap == portal.fromWorld:
                 point = self.getObject(portal.originPoint)
                 rect = pygame.Rect(point.x, point.y, point.width, point.height)
@@ -71,7 +74,6 @@ class MapManager:
                     self.teleportPlayer(copyPortal.destinationPoint)
 
         if self.player.feet.collidelist(self.getMap().walls) > -1:
-            print("collided with walls")
             self.player.rect.topleft = self.player.oldPosition
 
     def getMap(self):
@@ -99,8 +101,6 @@ class MapManager:
     def registerMap(self, mapName, portals, entity):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
-        # print(type(mapData))
-        print(self.screen.get_size())
         mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size())
         mapLayer.zoom = 2
 
