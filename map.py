@@ -107,8 +107,12 @@ class MapManager:
     def registerMap(self, mapName, portals, entity):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
-        mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size())
-        mapLayer.zoom = 2
+        mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
+
+        if 'donjon' in mapName:
+            mapLayer.zoom = 1.75
+        else:
+            mapLayer.zoom = 2
 
         walls = []
         for obj in tmxData.objects:

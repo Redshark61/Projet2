@@ -193,8 +193,8 @@ class NPC(Entity):
         Check if the player is colliding with an enemy
         """
         for bomb in self.game.player.bombGroup:
-            print(f"{bomb.rect=}")
-            print(f"{self.rect=}")
-            if self.rect.x <= bomb.rect.x <= self.rect.x + self.rect.width and self.rect.y <= bomb.rect.y <= self.rect.y + self.rect.height:
+
+            if (self.rect.x*1.75 <= bomb.rect.x <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y <= (self.rect.y*1.75 + self.rect.height*1.75)):
+                bomb.kill()
                 print("collided")
                 return True
