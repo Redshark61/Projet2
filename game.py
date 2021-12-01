@@ -44,7 +44,7 @@ class Game:
                     running = False
 
                 # If the player left click
-                if event.type == MOUSEBUTTONDOWN:
+                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name:
                     self.player.lauchProjectile()
 
             # Move every projectile
