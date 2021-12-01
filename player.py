@@ -67,9 +67,8 @@ class Entity(AnimateSprite):
         super().__init__(name)
         self.image = self.getImage(0, 0)
         self.image.set_colorkey([0, 0, 0])
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(topleft=(0, 0))
         self.velocity = 3
-        # self.position = [0, 0]
         self.oldPosition = self.rect.x, self.rect.y
         self.feet = pygame.Rect(0, 0, self.rect.width*0.5, 6)
 
@@ -169,13 +168,14 @@ class NPC(Entity):
         """
         self.health -= damage
         self.health = max(0, self.health)
-        print(f"{self.health=}")
+
+        if self.health <= 0:
+            self.kill()
 
     def getPosition(self):
         return self.rect.x, self.rect.y
 
     def move(self, player):
-        print(f"start {self.rect.x=} {self.rect.y=}")
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
         stepx, stepy = (dx / 25., dy / 25.)
         self.rect.x += stepx
@@ -185,19 +185,30 @@ class NPC(Entity):
         """
         Teleport the NPC to its spawn point
         """
-
-        self.rect.x = destination.x
-        self.rect.y = destination.y
-        print(f"destination {destination.x=} {destination.y=}")
+        self.rect.x = destination[0]
+        self.rect.y = destination[1]
         self.saveLocation()
 
     def hasCollided(self):
         """
-        Check if the player is colliding with an enemy
+        Check if the monster is colliding with a bomb
         """
         for bomb in self.game.player.bombGroup:
 
-            if (self.rect.x*1.75 <= bomb.rect.x <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y <= (self.rect.y*1.75 + self.rect.height*1.75)):
+            if (self.rect.x*1.75 <= bomb.rect.x+8 <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y+8 <= (self.rect.y*1.75 + self.rect.height*1.75)):
                 bomb.kill()
-                print("collided")
                 return True
+            else:
+                return False
+
+    def drawHealthBar(self):
+        """
+        Draw the health bar
+        """
+        maxWidth = self.maxHealth
+        width = self.health
+        x, y = self.rect.x*1.75+8, self.rect.y*1.75+8
+        # Get the center of the bar in order to place it above the monster
+        centerX = maxWidth//2 - 8
+        pygame.draw.rect(self.game.screen, (255, 0, 0), [x-centerX, y-20, maxWidth, 3])
+        pygame.draw.rect(self.game.screen, (0, 255, 0), [x-centerX, y-20, width, 3])
