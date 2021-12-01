@@ -42,22 +42,23 @@ class MapManager:
                              Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon")])
+                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
 
         self.registerMap("assetAir/airWorld",
                          portals=[
-                             Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir")
+                             Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir"),
+                             Portal("assetAir/airWorld", "assetAir/donjon/donjon", "toAirDonjon", "spawnPlayer"),
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon")])
+                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
 
         self.registerMap("assetTerre/mapTerre",
                          portals=[
                              Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre")
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[NPC("Monsters/Demons/RedDemon")])
-        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[NPC("Monsters/Demons/RedDemon")])
-
+                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+        self.registerMap("assetAir/donjon/donjon", portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
         self.teleportNPC("spawnBoss")
 
     def checkCollision(self):
@@ -91,6 +92,11 @@ class MapManager:
         self.checkCollision()
         for npc in self.getMap().npcs:
             npc.move(self.player)
+            print(f"{npc.health=}")
+            bomb = npc.hasCollided()
+            if bomb:
+                # bomb.remove()
+                npc.damage(1)
 
     def teleportPlayer(self, destinationName):
         point = self.getObject(destinationName)
@@ -101,8 +107,12 @@ class MapManager:
     def registerMap(self, mapName, portals, entity):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
-        mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size())
-        mapLayer.zoom = 2
+        mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
+
+        if 'donjon' in mapName:
+            mapLayer.zoom = 1.75
+        else:
+            mapLayer.zoom = 2
 
         walls = []
         for obj in tmxData.objects:

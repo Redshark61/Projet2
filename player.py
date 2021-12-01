@@ -148,7 +148,6 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         if self.rect.colliderect(entity.rect):
             self.damage(0.2)
-            print(f"{self.health=}")
 
 
 class NPC(Entity):
@@ -156,9 +155,21 @@ class NPC(Entity):
     Boss class
     """
 
-    def __init__(self, name):
+    def __init__(self, name, game):
         super().__init__(name)
+        self.maxHealth = 100
+        self.health = self.maxHealth
         self.direction = "right"
+        self.game = game
+        self.monster = pygame.sprite.GroupSingle()
+
+    def damage(self, damage):
+        """
+        Take damage
+        """
+        self.health -= damage
+        self.health = max(0, self.health)
+        print(f"{self.health=}")
 
     def getPosition(self):
         return self.rect.x, self.rect.y
@@ -176,3 +187,14 @@ class NPC(Entity):
         self.rect.x = destination.x
         self.rect.y = destination.y
         self.saveLocation()
+
+    def hasCollided(self):
+        """
+        Check if the player is colliding with an enemy
+        """
+        for bomb in self.game.player.bombGroup:
+
+            if (self.rect.x*1.75 <= bomb.rect.x <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y <= (self.rect.y*1.75 + self.rect.height*1.75)):
+                bomb.kill()
+                print("collided")
+                return True

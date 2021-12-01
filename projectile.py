@@ -10,7 +10,7 @@ class Projectile(pygame.sprite.Sprite):
         self.center = (screen.get_width() // 2, screen.get_height() // 2)
         self.player = player
         self.destinationPoint = destinationPoint
-        self.beginPos = self.center
+        self.beginPos = (self.player.rect.x)*(1.75), (self.player.rect.y)*(1.75)
         print("beginPos:", self.beginPos)
         self.spriteSheet = pygame.image.load(f"./assets/Objects/{name}.png")
         self.image = pygame.Surface([16, 16]).convert_alpha()
