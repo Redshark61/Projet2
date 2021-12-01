@@ -41,25 +41,25 @@ class MapManager:
                              Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
-                         ],
-                         entity=[])
+                         ], entityNames=[])
 
         self.registerMap("assetAir/airWorld",
                          portals=[
                              Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir"),
                              Portal("assetAir/airWorld", "assetAir/donjon/donjon", "toAirDonjon", "spawnPlayer"),
                          ],
-                         entity=[])
+                         entityNames=[])
 
         self.registerMap("assetTerre/mapTerre",
                          portals=[
                              Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre")
                          ],
-                         entity=[])
-        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[])
-        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[])
-        self.registerMap("assetAir/donjon/donjon", portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
-        self.teleportNPC("spawnBoss")
+                         entityNames=[])
+        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entityNames=[])
+        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entityNames=[])
+        self.registerMap("assetAir/donjon/donjon", portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld",
+                         "toAir", "spawnPlayer")], entityNames=["Monsters/Demons/RedDemon"], spawnName="AirSpawnMonster")
+        # self.teleportNPC("spawnMonster")
 
     def checkCollision(self):
         # Loop over all the portals
@@ -77,6 +77,9 @@ class MapManager:
         if self.player.feet.collidelist(self.getMap().walls) > -1:
             self.player.rect.topleft = self.player.oldPosition
 
+        for npc in self.getMap().npcs:
+            self.player.checkCollision(npc)
+
     def getMap(self):
         return self.maps[self.currentMap]
 
@@ -85,18 +88,23 @@ class MapManager:
 
     def drawMap(self):
         self.getGroup().draw(self.game.screen)
+        for npc in self.getMap().npcs:
+            npc.drawHealthBar()
+
         self.getGroup().center(self.game.player.rect.center)
 
     def updateMap(self):
         self.getGroup().update()
         self.checkCollision()
 
-        for npc in self.getMap().npcs:
-            npc.move(self.player)
-            print(f"{npc.health=}")
+        for index, npc in enumerate(self.getMap().npcs):
+            npc.drawHealthBar()
+            # npc.move(self.player)
             bomb = npc.hasCollided()
             if bomb:
-                npc.damage(1)
+                npc.damage(6)
+            if npc.health <= 0:
+                self.getMap().npcs.pop(index)
 
     def teleportPlayer(self, destinationName):
         point = self.getObject(destinationName)
@@ -104,7 +112,7 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-    def registerMap(self, mapName, portals, entity):
+    def registerMap(self, mapName, portals, entityNames, spawnName=""):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
         mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
@@ -122,10 +130,21 @@ class MapManager:
         group = pyscroll.PyscrollGroup(map_layer=mapLayer, default_layer=20)
         group.add(self.player)
 
-        for i in entity:
-            group.add(i)
+        entity = []
+        spawnPoints = []
+        for obj in tmxData.objects:
+            if obj.type == spawnName:
+                spawnPoints.append((obj.x, obj.y))
+
+        for spawnPoint in spawnPoints:
+            monster = NPC(entityNames[0], self.game)
+            entity.append(monster)
+            group.add(monster)
 
         self.maps[mapName] = Map(mapName, walls, group, tmxData, portals, entity)
+
+        for monster, spawnPoint in zip(entity, spawnPoints):
+            self.teleportNPC(spawnPoint, monster)
 
     def getObject(self, name, mapData=None):
         if mapData is None:
@@ -133,11 +152,9 @@ class MapManager:
         else:
             return mapData.tmxData.get_object_by_name(name)
 
-    def teleportNPC(self, spawnName):
-        for map in self.maps:
-            mapData = self.maps[map]
-            npcs = mapData.npcs
+    def teleportNPC(self, point, npc):
+        # for map in self.maps:
+        #     mapData = self.maps[map]
+        #     npcs = mapData.npcs
 
-            for npc in npcs:
-                point = self.getObject(spawnName, mapData)
-                npc.teleportSpawn(point)
+        npc.teleportSpawn(point)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="44">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="54">
  <tileset firstgid="1" source="0x72_16x16DungeonTileset_walls.v2.tsx"/>
  <tileset firstgid="257" source="0x72_16x16DungeonTileset.v4.tsx"/>
  <layer id="1" name="floor" width="38" height="25">
@@ -152,9 +152,6 @@
   <object id="2" name="spawnPlayer" x="214.667" y="179.167">
    <point/>
   </object>
-  <object id="3" name="spawnBoss" x="139.833" y="276.5">
-   <point/>
-  </object>
   <object id="15" type="collision" x="9" y="11" width="490" height="18"/>
   <object id="16" type="collision" x="492" y="4.75" width="6.5" height="109"/>
   <object id="17" type="collision" x="490.5" y="89" width="95.5" height="23.75"/>
@@ -183,5 +180,34 @@
   <object id="40" type="collision" x="79" y="204.25" width="17" height="18.25"/>
   <object id="41" type="collision" x="89.75" y="219.5" width="22.25" height="21.5"/>
   <object id="42" type="collision" x="107.5" y="220.75" width="2.75" height="68.75"/>
+ </objectgroup>
+ <objectgroup id="7" name="spawnMonsters">
+  <object id="45" type="AirSpawnMonster" x="120" y="214.666">
+   <point/>
+  </object>
+  <object id="46" type="AirSpawnMonster" x="171" y="253.334">
+   <point/>
+  </object>
+  <object id="47" type="AirSpawnMonster" x="450.334" y="351.334">
+   <point/>
+  </object>
+  <object id="48" type="AirSpawnMonster" x="440.666" y="258">
+   <point/>
+  </object>
+  <object id="49" type="AirSpawnMonster" x="513.334" y="188">
+   <point/>
+  </object>
+  <object id="50" type="AirSpawnMonster" x="452" y="68.3333">
+   <point/>
+  </object>
+  <object id="51" type="AirSpawnMonster" x="302.333" y="60.6667">
+   <point/>
+  </object>
+  <object id="52" type="AirSpawnMonster" x="160" y="63.6667">
+   <point/>
+  </object>
+  <object id="53" type="AirSpawnMonster" x="55.6667" y="119.333">
+   <point/>
+  </object>
  </objectgroup>
 </map>
