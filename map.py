@@ -42,22 +42,22 @@ class MapManager:
                              Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+                         entity=[])
 
         self.registerMap("assetAir/airWorld",
                          portals=[
                              Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir"),
                              Portal("assetAir/airWorld", "assetAir/donjon/donjon", "toAirDonjon", "spawnPlayer"),
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+                         entity=[])
 
         self.registerMap("assetTerre/mapTerre",
                          portals=[
                              Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre")
                          ],
-                         entity=[NPC("Monsters/Demons/RedDemon", self.game)])
-        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
-        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
+                         entity=[])
+        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entity=[])
+        self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entity=[])
         self.registerMap("assetAir/donjon/donjon", portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")], entity=[NPC("Monsters/Demons/RedDemon", self.game)])
         self.teleportNPC("spawnBoss")
 
@@ -90,12 +90,12 @@ class MapManager:
     def updateMap(self):
         self.getGroup().update()
         self.checkCollision()
+
         for npc in self.getMap().npcs:
             npc.move(self.player)
             print(f"{npc.health=}")
             bomb = npc.hasCollided()
             if bomb:
-                # bomb.remove()
                 npc.damage(1)
 
     def teleportPlayer(self, destinationName):
@@ -127,14 +127,17 @@ class MapManager:
 
         self.maps[mapName] = Map(mapName, walls, group, tmxData, portals, entity)
 
-    def getObject(self, name):
-        return self.getMap().tmxData.get_object_by_name(name)
+    def getObject(self, name, mapData=None):
+        if mapData is None:
+            return self.getMap().tmxData.get_object_by_name(name)
+        else:
+            return mapData.tmxData.get_object_by_name(name)
 
     def teleportNPC(self, spawnName):
-        point = self.getObject(spawnName)
         for map in self.maps:
             mapData = self.maps[map]
             npcs = mapData.npcs
 
-        for npc in npcs:
-            npc.teleportSpawn(point)
+            for npc in npcs:
+                point = self.getObject(spawnName, mapData)
+                npc.teleportSpawn(point)

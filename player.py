@@ -175,6 +175,7 @@ class NPC(Entity):
         return self.rect.x, self.rect.y
 
     def move(self, player):
+        print(f"start {self.rect.x=} {self.rect.y=}")
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
         stepx, stepy = (dx / 25., dy / 25.)
         self.rect.x += stepx
@@ -184,8 +185,10 @@ class NPC(Entity):
         """
         Teleport the NPC to its spawn point
         """
+
         self.rect.x = destination.x
         self.rect.y = destination.y
+        print(f"destination {destination.x=} {destination.y=}")
         self.saveLocation()
 
     def hasCollided(self):
