@@ -1,4 +1,3 @@
-import time
 import pygame
 from pygame.constants import MOUSEBUTTONDOWN
 from player import Player
