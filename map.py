@@ -60,11 +60,21 @@ class MapManager:
 
         self.registerMap("assetTerre/mapTerre",
                          portals=[
-                             Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre")
+                             Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre"),
+                             Portal("assetTerre/mapTerre", "assetTerre/donjon/donjon", "toTerreDonjon", "spawnPlayer"),
                          ],
                          entityData=[])
         self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entityData=[])
         self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entityData=[])
+        
+        self.registerMap("assetTerre/donjon/donjon",
+                         portals=[Portal("assetTerre/donjon/donjon", "assetTerre/mapTerre", "toTerre", "spawnToDonjon")],
+                         entityData=[
+                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                         ],
+                         spawnName="TerreSpawnMonster")
+        
         self.registerMap("assetAir/donjon/donjon",
                          portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
                          entityData=[
@@ -72,6 +82,7 @@ class MapManager:
                              Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="AirSpawnMonster")
+        
 
     def checkCollision(self):
         # Loop over all the portals
