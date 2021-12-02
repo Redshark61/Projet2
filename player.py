@@ -113,6 +113,29 @@ class Player(Entity, pygame.sprite.Sprite):
         self.bomb = ''
         self.health = self.maxHealth
         self.monsterKilled = 0
+        self.maxXP = 100
+        self.currentXP = 0
+        self.currentLevel = 0
+
+    def drawLevelBar(self):
+        """
+        Draw the level bar
+        """
+        pygame.draw.rect(self.screen, (100, 100, 100), [300, 0, self.maxXP, 20])
+        pygame.draw.rect(self.screen, (0, 100, 200), [300, 0, self.currentXP, 20])
+
+        # Draw the current level next to the level bar
+        levelText = pygame.font.SysFont('Arial', 20).render(f'Level: {self.currentLevel}', True, (255, 0, 0))
+        self.screen.blit(levelText, (420, 0))
+
+    def gainXP(self, xp):
+        """
+        Gain XP
+        """
+        self.currentXP += xp
+        if self.currentXP >= self.maxXP:
+            self.currentXP = self.currentXP - self.maxXP
+            self.currentLevel += 1
 
     def drawHealthBar(self):
         """
@@ -150,8 +173,9 @@ class NPC(Entity):
     Boss class
     """
 
-    def __init__(self, name, game):
+    def __init__(self, name, game, xp):
         super().__init__(name)
+        self.xp = xp
         self.maxHealth = 100
         self.health = self.maxHealth
         self.direction = "right"
@@ -168,6 +192,7 @@ class NPC(Entity):
 
         if self.health <= 0:
             self.player.monsterKilled += 1
+            self.player.gainXP(self.xp)
             self.kill()
 
     def getPosition(self):

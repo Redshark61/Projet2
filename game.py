@@ -22,13 +22,13 @@ class Game:
 
     def handleInput(self):
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_UP]:
+        if pressed[pygame.K_z]:
             self.player.moveUp()
-        elif pressed[pygame.K_DOWN]:
+        elif pressed[pygame.K_s]:
             self.player.moveDown()
-        elif pressed[pygame.K_LEFT]:
+        elif pressed[pygame.K_q]:
             self.player.moveLeft()
-        elif pressed[pygame.K_RIGHT]:
+        elif pressed[pygame.K_d]:
             self.player.moveRight()
 
     def run(self):
@@ -63,6 +63,8 @@ class Game:
             self.map.drawMap()
             # Draw the health bar
             self.player.drawHealthBar()
+            # Draw the xp bar
+            self.player.drawLevelBar()
             # Draw the projectiles
             self.player.bombGroup.draw(self.screen)
 
