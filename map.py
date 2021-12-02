@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+import random
 import pytmx
 import pyscroll
 import pygame
-
 from player import NPC
 
 
@@ -12,6 +12,14 @@ class Portal:
     toWorld: str
     originPoint: str
     destinationPoint: str
+
+
+@dataclass
+class Monster:
+    name: str
+    xp: int
+    speed: int
+    health: int = 100
 
 
 @dataclass
@@ -57,9 +65,13 @@ class MapManager:
                          entityData=[])
         self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entityData=[])
         self.registerMap("assetWater/WaterWorld", portals=[Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau")], entityData=[])
-        self.registerMap("assetAir/donjon/donjon", portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld",
-                         "toAir", "spawnPlayer")], entityData=["Monsters/Demons/RedDemon", 30], spawnName="AirSpawnMonster")
-        # self.teleportNPC("spawnMonster")
+        self.registerMap("assetAir/donjon/donjon",
+                         portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
+                         entityData=[
+                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                         ],
+                         spawnName="AirSpawnMonster")
 
     def checkCollision(self):
         # Loop over all the portals
@@ -104,7 +116,7 @@ class MapManager:
 
         for index, npc in enumerate(self.getMap().npcs):
             npc.drawHealthBar()
-            # npc.move(self.player)
+            npc.move(self.player, self.getMap().walls)
             bomb = npc.hasCollided()
             if bomb:
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
@@ -112,6 +124,8 @@ class MapManager:
                 npc.damage(damage)
             if npc.health <= 0:
                 self.getMap().npcs.pop(index)
+
+            # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
         point = self.getObject(destinationName)
@@ -144,9 +158,12 @@ class MapManager:
                 spawnPoints.append((obj.x, obj.y))
 
         for spawnPoint in spawnPoints:
-            entityName = entityData[0]
-            entityXP = entityData[1]
-            monster = NPC(entityName, self.game, entityXP)
+            randomMonster = random.choice(entityData)
+            entityName = randomMonster.name
+            entityXP = randomMonster.xp
+            entityHealth = randomMonster.health
+            entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1])
+            monster = NPC(entityName, self.game, entityXP, entityHealth, entitySpeed)
             entity.append(monster)
             group.add(monster)
 

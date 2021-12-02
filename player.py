@@ -173,15 +173,16 @@ class NPC(Entity):
     Boss class
     """
 
-    def __init__(self, name, game, xp):
+    def __init__(self, name, game, xp, maxHealth, speed):
         super().__init__(name)
         self.xp = xp
-        self.maxHealth = 100
+        self.maxHealth = maxHealth
         self.health = self.maxHealth
         self.direction = "right"
         self.game = game
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
+        self.speed = 100 - speed
 
     def damage(self, damage):
         """
@@ -198,11 +199,16 @@ class NPC(Entity):
     def getPosition(self):
         return self.rect.x, self.rect.y
 
-    def move(self, player):
+    def move(self, player, walls):
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
-        stepx, stepy = (dx / 25., dy / 25.)
+        stepx, stepy = (dx / self.speed, dy / self.speed)
         self.rect.x += stepx
         self.rect.y += stepy
+        # print(f"{self.rect=}")
+        # print(f"{self.oldPosition=}")
+        if not self.checkCollisionWalls(walls):
+            # print("saving position")
+            self.saveLocation()
 
     def teleportSpawn(self, destination):
         """
@@ -223,12 +229,18 @@ class NPC(Entity):
                 return True
             return False
 
+    def checkCollisionWalls(self, walls):
+        if self.rect.collidelist(walls) > -1:
+            self.rect.topleft = self.oldPosition
+            return True
+        return False
+
     def drawHealthBar(self):
         """
         Draw the health bar
         """
-        maxWidth = self.maxHealth
-        width = self.health
+        maxWidth = 100
+        width = self.health / self.maxHealth * 100
         x, y = self.rect.x*1.75+8, self.rect.y*1.75+8
         # Get the center of the bar in order to place it above the monster
         centerX = maxWidth//2 - 8
