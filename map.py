@@ -120,7 +120,6 @@ class MapManager:
             bomb = npc.hasCollided()
             if bomb:
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
-                print(damage)
                 npc.damage(damage)
             if npc.health <= 0:
                 self.getMap().npcs.pop(index)
