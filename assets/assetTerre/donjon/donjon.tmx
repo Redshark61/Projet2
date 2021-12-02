@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="97">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="101">
  <tileset firstgid="1" source="0x72_16x16DungeonTileset_walls.v2.tsx"/>
  <tileset firstgid="257" source="0x72_16x16DungeonTileset.v4.tsx"/>
  <layer id="1" name="Background" width="38" height="25">
@@ -199,5 +199,9 @@
   <object id="96" type="TerreSpawnMonster" x="473.868" y="199.523">
    <point/>
   </object>
+  <object id="97" type="collision" x="335.228" y="22.7398" width="6.60187" height="121.034"/>
+  <object id="98" type="collision" x="256.006" y="255.272" width="46.2131" height="16.1379"/>
+  <object id="99" type="collision" x="49.1473" y="160.646" width="30.8087" height="13.9373"/>
+  <object id="100" type="collision" x="81.4231" y="173.116" width="12.4702" height="19.8056"/>
  </objectgroup>
 </map>
