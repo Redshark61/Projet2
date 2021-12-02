@@ -38,6 +38,7 @@
 
   ---
   Pour le **paramètre entityData**, il faut mettre une liste d'instance de `Monstre` à créer. Par exemple :
+  
   ```python
   entityData = [
     Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
