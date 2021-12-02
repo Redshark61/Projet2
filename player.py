@@ -173,10 +173,10 @@ class NPC(Entity):
     Boss class
     """
 
-    def __init__(self, name, game, xp):
+    def __init__(self, name, game, xp, maxHealth):
         super().__init__(name)
         self.xp = xp
-        self.maxHealth = 100
+        self.maxHealth = maxHealth
         self.health = self.maxHealth
         self.direction = "right"
         self.game = game
@@ -227,8 +227,8 @@ class NPC(Entity):
         """
         Draw the health bar
         """
-        maxWidth = self.maxHealth
-        width = self.health
+        maxWidth = 100
+        width = self.health / self.maxHealth * 100
         x, y = self.rect.x*1.75+8, self.rect.y*1.75+8
         # Get the center of the bar in order to place it above the monster
         centerX = maxWidth//2 - 8
