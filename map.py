@@ -80,6 +80,11 @@ class MapManager:
         for npc in self.getMap().npcs:
             self.player.checkCollision(npc)
 
+        for bomb in self.player.bombGroup:
+            for wall in self.getMap().walls:
+                if (wall.x*1.75 <= bomb.rect.x+8 <= (wall.x*1.75 + wall.width*1.75)) and (wall.y*1.75 <= bomb.rect.y+8 <= (wall.y*1.75 + wall.height*1.75)):
+                    bomb.kill()
+
     def getMap(self):
         return self.maps[self.currentMap]
 
@@ -149,12 +154,8 @@ class MapManager:
     def getObject(self, name, mapData=None):
         if mapData is None:
             return self.getMap().tmxData.get_object_by_name(name)
-        else:
-            return mapData.tmxData.get_object_by_name(name)
+        return mapData.tmxData.get_object_by_name(name)
 
-    def teleportNPC(self, point, npc):
-        # for map in self.maps:
-        #     mapData = self.maps[map]
-        #     npcs = mapData.npcs
-
+    @staticmethod
+    def teleportNPC(point, npc):
         npc.teleportSpawn(point)

@@ -107,16 +107,12 @@ class Player(Entity, pygame.sprite.Sprite):
 
     def __init__(self, name, screen):
         super().__init__(name)
-        # Get the center of the screen
-        self.center = (screen.get_width() // 2, screen.get_height() // 2)
-        # Get the half of the screen
-        self.half = (screen.get_width() // 2, screen.get_height() // 2)
         self.bombGroup = pygame.sprite.Group()
-        self.bx, self.by = 0, 0
         self.screen = screen
         self.maxHealth = 100
         self.bomb = ''
         self.health = self.maxHealth
+        self.monsterKilled = 0
 
     def drawHealthBar(self):
         """
@@ -161,6 +157,7 @@ class NPC(Entity):
         self.direction = "right"
         self.game = game
         self.monster = pygame.sprite.GroupSingle()
+        self.player = self.game.player
 
     def damage(self, damage):
         """
@@ -170,6 +167,7 @@ class NPC(Entity):
         self.health = max(0, self.health)
 
         if self.health <= 0:
+            self.player.monsterKilled += 1
             self.kill()
 
     def getPosition(self):
@@ -193,13 +191,12 @@ class NPC(Entity):
         """
         Check if the monster is colliding with a bomb
         """
-        for bomb in self.game.player.bombGroup:
+        for bomb in self.player.bombGroup:
 
             if (self.rect.x*1.75 <= bomb.rect.x+8 <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y+8 <= (self.rect.y*1.75 + self.rect.height*1.75)):
                 bomb.kill()
                 return True
-            else:
-                return False
+            return False
 
     def drawHealthBar(self):
         """
