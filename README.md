@@ -1,12 +1,10 @@
 # projet2
 
-- [Spécificités techniques](#specificites-techniques)
+- [Créer une nouvelle map](#creer-une-nouvelle-map)
 
 ## Français
 
-### Spécificités techniques
-
-#### Créer une nouvelle map
+### Créer une nouvelle map
 
 - Overworld :
 
@@ -36,9 +34,15 @@
   3. La collision qui permet de rentrer dans le monde
   4. Le point de spawn du joueur
 
+  **IMPORTANT :** il faut qu'il y ait de le mot *donjon* dans le nom de votre map si c'est un donjon.
+
   ---
-  Pour le **paramètre entityData**, il faut mettre une liste d'instance de `Monstre` à créer. Par exemple :
+  Pour le **paramètre entityData**, il faut mettre une liste d'instance de `Monstre` à créer.
   
+  Si aucun monstre ne doit être créé, mettre une liste vide.
+  
+  Par exemple :
+
   ```python
   entityData = [
     Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
@@ -54,5 +58,19 @@
 
   ---
   Pour le **paramètre spawnName**, il faut mettre le nom du point de spawn des monstres.
+
+  Laisser une string vide si aucun monstre ne doit spawner.
   
   **Ce nom doit être différent pour chaque donjon !**
+
+  *Exemple* :
+
+  ```python
+        self.registerMap("assetAir/donjon/donjon",
+                        portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
+                        entityData=[
+                            Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                            Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                        ],
+                        spawnName="AirSpawnMonster")
+  ```
