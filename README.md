@@ -1,12 +1,10 @@
 # projet2
 
-- [Spécificités techniques](#specificites-techniques)
+- [Créer une nouvelle map](#creer-une-nouvelle-map)
 
 ## Français
 
-### Spécificités techniques
-
-#### Créer une nouvelle map
+### Créer une nouvelle map
 
 - Overworld :
 
@@ -26,14 +24,53 @@
     ```python
     self.registerMap("monde 2/monde 2", portals=[
         Portal("monde 2/monde 2", "monde 3/monde 3", "toMonde3", "spawnPlayer")
-    ], entityData=[])
+    ], entityData=[], spawnName="")
     ```
 
     Les paramètres sont dans l'ordre:
 
   1. Le chemin du monde d'où l'on vient
-  1. Le chemin du monde vers lequel on va
-  1. La collision qui permet de rentrer dans le monde
-  1. Le point de spawn du joueur
+  2. Le chemin du monde vers lequel on va
+  3. La collision qui permet de rentrer dans le monde
+  4. Le point de spawn du joueur
 
-- Donjon :
+  **IMPORTANT :** il faut qu'il y ait de le mot *donjon* dans le nom de votre map si c'est un donjon.
+
+  ---
+  Pour le **paramètre entityData**, il faut mettre une liste d'instance de `Monstre` à créer.
+  
+  Si aucun monstre ne doit être créé, mettre une liste vide.
+  
+  Par exemple :
+
+  ```python
+  entityData = [
+    Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+    Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+  ]
+  ```
+
+  Paramètres :
+  1. *Chemin* qui mène au PNG du monstre (en partant de assets/Characters).
+  2. *Nombre d'expérience* que le monstre donne quand il meurt.
+  3. *Vitesse* du monstre (aléatoire entre les deux valeurs). *Maximum 100*
+  4. Enfin le paramètre *health* est optionnel, si il n'est pas précisé, le monstre a 100pv.
+
+  ---
+  Pour le **paramètre spawnName**, il faut mettre le nom du point de spawn des monstres.
+
+  Laisser une string vide si aucun monstre ne doit spawner.
+  
+  **Ce nom doit être différent pour chaque donjon !**
+
+  *Exemple* :
+
+  ```python
+        self.registerMap("assetAir/donjon/donjon",
+                        portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
+                        entityData=[
+                            Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                            Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                        ],
+                        spawnName="AirSpawnMonster")
+  ```

@@ -49,6 +49,7 @@ class MapManager:
                              Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
                              Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
+                             Portal("assetHub/carte_hub_p2", "assetHub/donjonHub/carteDonjonHub", "toDonjonHub", "spawnPlayer"),
                          ], entityData=[])
 
         self.registerMap("assetAir/airWorld",
@@ -82,7 +83,17 @@ class MapManager:
                              Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="AirSpawnMonster")
-        
+
+
+        self.registerMap("assetHub/donjonHub/carteDonjonHub",
+                         portals=[Portal("assetHub/donjonHub/carteDonjonHub", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")],
+                         entityData=[
+                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                         ],
+                         spawnName="hubSpawnMonster")
+
+
 
     def checkCollision(self):
         # Loop over all the portals
@@ -131,7 +142,6 @@ class MapManager:
             bomb = npc.hasCollided()
             if bomb:
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
-                print(damage)
                 npc.damage(damage)
             if npc.health <= 0:
                 self.getMap().npcs.pop(index)
@@ -149,7 +159,7 @@ class MapManager:
         mapData = pyscroll.data.TiledMapData(tmxData)
         mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
 
-        if 'donjon' in mapName:
+        if 'donjon' in mapName.lower():
             mapLayer.zoom = 1.75
         else:
             mapLayer.zoom = 2
