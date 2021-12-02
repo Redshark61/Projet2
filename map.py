@@ -79,8 +79,8 @@ class MapManager:
         self.registerMap("assetAir/donjon/donjon",
                          portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
                          entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(3, 4)),
+                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(1, 2)),
                          ],
                          spawnName="AirSpawnMonster")
 
@@ -92,8 +92,6 @@ class MapManager:
                              Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="hubSpawnMonster")
-
-
 
     def checkCollision(self):
         # Loop over all the portals
@@ -146,6 +144,11 @@ class MapManager:
             if npc.health <= 0:
                 self.getMap().npcs.pop(index)
 
+            if self.getMap().npcs == []:
+                self.game.player.currentLevel += 1
+                self.game.player.maxHealth += 10
+                self.game.player.health = self.game.player.maxHealth
+
             # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
@@ -183,7 +186,7 @@ class MapManager:
             entityName = randomMonster.name
             entityXP = randomMonster.xp
             entityHealth = randomMonster.health
-            entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1])
+            entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1]) / 20
             monster = NPC(entityName, self.game, entityXP, entityHealth, entitySpeed)
             entity.append(monster)
             group.add(monster)

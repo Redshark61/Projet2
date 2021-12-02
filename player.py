@@ -1,3 +1,4 @@
+import math
 import pygame
 
 from projectile import Projectile
@@ -116,35 +117,49 @@ class Player(Entity, pygame.sprite.Sprite):
         self.maxXP = 100
         self.currentXP = 0
         self.currentLevel = 0
+        self.totalXP = 0
 
     def drawLevelBar(self):
         """
         Draw the level bar
         """
-        pygame.draw.rect(self.screen, (100, 100, 100), [300, 0, self.maxXP, 20])
-        pygame.draw.rect(self.screen, (0, 100, 200), [300, 0, self.currentXP, 20])
+        maxWidth = 200
+        width = self.currentXP / self.maxXP * 200
+
+        pygame.draw.rect(self.screen, (100, 100, 100), [300, 0, maxWidth, 20])
+        pygame.draw.rect(self.screen, (0, 100, 200), [300, 0, width, 20])
 
         # Draw the current level next to the level bar
-        levelText = pygame.font.SysFont('Arial', 20).render(f'Level: {self.currentLevel}', True, (255, 0, 0))
-        self.screen.blit(levelText, (420, 0))
+        levelText = pygame.font.SysFont('Arial', 18).render(f'XP: {self.totalXP}', True, (255, 0, 0))
+        self.screen.blit(levelText, (300, 19))
+
+        # Draw the current XP next to the level bar
+        xpText = pygame.font.SysFont('Arial', 20).render(f'LEVEL : {self.currentLevel}', True, (255, 0, 0))
+        self.screen.blit(xpText, (300, -2))
 
     def gainXP(self, xp):
         """
         Gain XP
         """
         self.currentXP += xp
+        self.totalXP += xp
         if self.currentXP >= self.maxXP:
             self.currentXP = self.currentXP - self.maxXP
             self.currentLevel += 1
+            self.maxXP += 50
 
     def drawHealthBar(self):
         """
         Draw the health bar
         """
-        maxWidth = self.maxHealth * 2
-        width = self.health * 2
+        maxWidth = 200
+        width = self.health / self.maxHealth * 200
         pygame.draw.rect(self.screen, (255, 0, 0), [0, 0, maxWidth, 20])
         pygame.draw.rect(self.screen, (0, 255, 0), [0, 0, width, 20])
+
+        # Write the current health on the screen under the health bar
+        healthText = pygame.font.SysFont('Arial', 20).render(f'Health: {self.health}', True, (255, 0, 0))
+        self.screen.blit(healthText, (10, 0))
 
     def damage(self, damage):
         """
@@ -182,7 +197,7 @@ class NPC(Entity):
         self.game = game
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
-        self.speed = 100 - speed
+        self.speed = speed
 
     def damage(self, damage):
         """
@@ -201,13 +216,16 @@ class NPC(Entity):
 
     def move(self, player, walls):
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
-        stepx, stepy = (dx / self.speed, dy / self.speed)
-        self.rect.x += stepx
-        self.rect.y += stepy
-        # print(f"{self.rect=}")
-        # print(f"{self.oldPosition=}")
+        dist = math.hypot(dx, dy)
+        try:
+            dx, dy = dx / dist, dy / dist
+            self.rect.y += dy * self.speed
+            self.rect.x += dx * self.speed
+        except ZeroDivisionError:
+            self.rect.y += 0
+            self.rect.x += 0
+
         if not self.checkCollisionWalls(walls):
-            # print("saving position")
             self.saveLocation()
 
     def teleportSpawn(self, destination):
