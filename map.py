@@ -18,6 +18,7 @@ class Portal:
 class Monster:
     name: str
     xp: int
+    speed: int
     health: int = 100
 
 
@@ -67,8 +68,8 @@ class MapManager:
         self.registerMap("assetAir/donjon/donjon",
                          portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
                          entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200),
+                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
+                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="AirSpawnMonster")
 
@@ -115,7 +116,7 @@ class MapManager:
 
         for index, npc in enumerate(self.getMap().npcs):
             npc.drawHealthBar()
-            # npc.move(self.player)
+            npc.move(self.player, self.getMap().walls)
             bomb = npc.hasCollided()
             if bomb:
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
@@ -123,6 +124,8 @@ class MapManager:
                 npc.damage(damage)
             if npc.health <= 0:
                 self.getMap().npcs.pop(index)
+
+            # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
         point = self.getObject(destinationName)
@@ -159,7 +162,8 @@ class MapManager:
             entityName = randomMonster.name
             entityXP = randomMonster.xp
             entityHealth = randomMonster.health
-            monster = NPC(entityName, self.game, entityXP, entityHealth)
+            entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1])
+            monster = NPC(entityName, self.game, entityXP, entityHealth, entitySpeed)
             entity.append(monster)
             group.add(monster)
 
