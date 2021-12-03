@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="101">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="111">
  <tileset firstgid="1" source="0x72_16x16DungeonTileset_walls.v2.tsx"/>
  <tileset firstgid="257" source="0x72_16x16DungeonTileset.v4.tsx"/>
  <layer id="1" name="Background" width="38" height="25">
@@ -135,7 +135,7 @@
   <object id="14" type="collision" x="446.286" y="174.857" width="18.2857" height="17.7143"/>
   <object id="15" type="collision" x="480.571" y="176" width="18.8571" height="15.4286"/>
   <object id="16" type="collision" x="459.429" y="61.1429" width="4" height="81.1429"/>
-  <object id="17" type="collision" x="464.571" y="60" width="18.8571" height="21.1429"/>
+  <object id="17" type="collision" x="464.571" y="63.5" width="18.8571" height="17.6429"/>
   <object id="18" type="collision" x="480.571" y="84" width="3.42857" height="25.1429"/>
   <object id="19" type="collision" x="484.571" y="92.5714" width="26.2857" height="18.2857"/>
   <object id="20" type="collision" x="507.429" y="113.143" width="2.85714" height="28.5714"/>
@@ -167,7 +167,7 @@
   <object id="68" type="TerreSpawnMonster" x="40.0696" y="314.435">
    <point/>
   </object>
-  <object id="69" type="TerreSpawnMonster" x="469.148" y="300.522">
+  <object id="69" type="TerreSpawnMonster" x="474.148" y="321.522">
    <point/>
   </object>
   <object id="70" type="TerreSpawnMonster" x="551.513" y="72.9043">
@@ -196,12 +196,27 @@
   <object id="92" type="collision" x="97.561" y="334.495" width="11.7367" height="16.8714"/>
   <object id="93" type="collision" x="129.837" y="334.495" width="11.0031" height="16.1379"/>
   <object id="95" name="toTerre" x="465.065" y="110.031" width="14.6708" height="17.605"/>
-  <object id="96" type="TerreSpawnMonster" x="473.868" y="199.523">
+  <object id="96" type="TerreSpawnMonster" x="451.368" y="167.523">
    <point/>
   </object>
   <object id="97" type="collision" x="335.228" y="22.7398" width="6.60187" height="121.034"/>
   <object id="98" type="collision" x="256.006" y="255.272" width="46.2131" height="16.1379"/>
   <object id="99" type="collision" x="49.1473" y="160.646" width="30.8087" height="13.9373"/>
   <object id="100" type="collision" x="81.4231" y="173.116" width="12.4702" height="19.8056"/>
+  <object id="101" type="collision" x="400" y="286.5" width="47" height="14.5"/>
+  <object id="102" type="collision" x="447" y="301"/>
+  <object id="103" type="collision" x="416.5" y="273" width="30.5" height="11.5"/>
+  <object id="104" type="collision" x="497" y="271.5" width="2.5" height="15.5"/>
+  <object id="105" type="collision" x="257" y="227" width="14.5" height="27"/>
+  <object id="106" type="collision" x="273" y="241.5" width="14" height="14"/>
+  <object id="107" type="TerreSpawnMonster" x="278.5" y="284.5">
+   <point/>
+  </object>
+  <object id="109" type="TerreSpawnMonster" x="46" y="191">
+   <point/>
+  </object>
+  <object id="110" type="TerreSpawnMonster" x="46" y="191">
+   <point/>
+  </object>
  </objectgroup>
 </map>
