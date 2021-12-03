@@ -1,3 +1,4 @@
+import time
 import pygame
 
 
@@ -53,4 +54,11 @@ class Quest:
     def updateNumberOfMonster(self, number):
         self.numberOfEnemies = number
         self.textNumberEnemies = self.font.render(str(self.numberOfEnemies), True, (0, 0, 0))
-        pygame.draw.rect(self.surface, (0, 0, 0), (0, 60, self.numberOfEnemies * 10, 10))
+
+    def winText(self):
+        # display "you have win" in the center of the screen in 60px font for 5seconds
+
+        font = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 60)
+        text = font.render("You have win", True, (0, 255, 0))
+        self.screen.blit(text, (self.screen.get_width()/2 - text.get_width()/2, self.screen.get_height()/2 - text.get_height()/2))
+        pygame.display.update()
