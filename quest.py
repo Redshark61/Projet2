@@ -5,6 +5,7 @@ import pygame
 class Quest:
 
     index = 1
+    isHidden = False
 
     def __init__(self, numberOfEnemies, name, screen):
         self.originalNumberOfEnemies = numberOfEnemies
@@ -62,3 +63,11 @@ class Quest:
         text = font.render("You have win", True, (0, 255, 0))
         self.screen.blit(text, (self.screen.get_width()/2 - text.get_width()/2, self.screen.get_height()/2 - text.get_height()/2))
         pygame.display.update()
+
+    def tryToDrawnQuestPanel(self):
+        if not Quest.isHidden:
+            self.drawQuestRect()
+
+    @classmethod
+    def hideQuestPanel(cls):
+        cls.isHidden = not cls.isHidden

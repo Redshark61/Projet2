@@ -159,7 +159,7 @@ class MapManager:
 
         for quest in self.listOfquest:
             quest.updateNumberOfMonster(len(self.maps[quest.originalName].npcs))
-            quest.drawQuestRect()
+            quest.tryToDrawnQuestPanel()
 
             if quest.originalName == self.currentMap and self.isDungeonFinished:
                 timeToWait = 5

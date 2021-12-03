@@ -2,6 +2,7 @@ import pygame
 from pygame.constants import MOUSEBUTTONDOWN
 from player import Player
 from map import MapManager
+from quest import Quest
 
 
 class Game:
@@ -26,7 +27,7 @@ class Game:
             self.player.moveUp()
         elif pressed[pygame.K_s]:
             self.player.moveDown()
-        elif pressed[pygame.K_q]:
+        if pressed[pygame.K_q]:
             self.player.moveLeft()
         elif pressed[pygame.K_d]:
             self.player.moveRight()
@@ -46,6 +47,9 @@ class Game:
                 # If the player left click
                 if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name:
                     self.player.lauchProjectile()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_p:
+                        Quest.hideQuestPanel()
 
             # Move every projectile
             for projectile in self.player.bombGroup:
