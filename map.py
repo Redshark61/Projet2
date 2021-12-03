@@ -70,10 +70,10 @@ class MapManager:
         self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entityData=[])
         self.registerMap("assetWater/WaterWorld",
                          portals=[
-                            Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau"),
-                            Portal("assetWater/WaterWorld", "assetWater/donjon/Donjon eau","toWaterDonjon", "spawnPlayer"),
-                        ],
-                        entityData=[])
+                             Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau"),
+                             Portal("assetWater/WaterWorld", "assetWater/donjon/Donjon eau", "toWaterDonjon", "spawnPlayer"),
+                         ],
+                         entityData=[])
 
         self.registerMap("assetTerre/donjon/donjon",
                          portals=[Portal("assetTerre/donjon/donjon", "assetTerre/mapTerre", "toTerre", "spawnToDonjon")],
@@ -99,8 +99,6 @@ class MapManager:
                          ],
                          spawnName="hubSpawnMonster")
 
-
-
         self.registerMap("assetWater/donjon/Donjon eau",
                          portals=[Portal("assetWater/donjon/Donjon eau", "assetWater/WaterWorld", "toWater", "spawnPlayer")],
                          entityData=[
@@ -108,8 +106,6 @@ class MapManager:
                              Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="waterSpawnMonster")
-
-
 
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
@@ -172,6 +168,7 @@ class MapManager:
                         quest.winText()
                     else:
                         self.isDungeonFinished = False
+                        self.isWinScenePlaying = False
                 else:
                     self.isWinScenePlaying = True
                     self.timeInTimeToWait = time.time() + timeToWait
