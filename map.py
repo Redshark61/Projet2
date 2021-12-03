@@ -72,8 +72,8 @@ class MapManager:
         self.registerMap("assetTerre/donjon/donjon",
                          portals=[Portal("assetTerre/donjon/donjon", "assetTerre/mapTerre", "toTerre", "spawnToDonjon")],
                          entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                             Monster("Monsters/Demons/PurpleDemon", xp=30, speed=(50, 60)),
+                             Monster("Monsters/Orcs/KamikazeGoblin", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="TerreSpawnMonster")
 
