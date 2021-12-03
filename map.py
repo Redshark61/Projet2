@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import random
+import time
 import pytmx
 import pyscroll
 import pygame
@@ -92,7 +93,9 @@ class MapManager:
                              Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
                          ],
                          spawnName="hubSpawnMonster")
-
+        self.isDungeonFinished = False
+        self.isWinScenePlaying = False
+        self.timeInTimeToWait = 0
         self.getNumberOfDungeon()
 
     def getNumberOfDungeon(self):
@@ -143,6 +146,17 @@ class MapManager:
             quest.updateNumberOfMonster(len(self.maps[quest.originalName].npcs))
             quest.drawQuestRect()
 
+            if quest.originalName == self.currentMap and self.isDungeonFinished:
+                timeToWait = 5
+                if self.isWinScenePlaying:
+                    if time.time() < self.timeInTimeToWait:
+                        quest.winText()
+                    else:
+                        self.isDungeonFinished = False
+                else:
+                    self.isWinScenePlaying = True
+                    self.timeInTimeToWait = time.time() + timeToWait
+
         self.getGroup().center(self.game.player.rect.center)
 
     def updateMap(self):
@@ -157,7 +171,14 @@ class MapManager:
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
                 npc.damage(damage)
             if npc.health <= 0:
+                previousNumberOfMonster = len(self.getMap().npcs)
                 self.getMap().npcs.pop(index)
+                currentNumberOfMonster = len(self.getMap().npcs)
+
+                if previousNumberOfMonster == 1 and currentNumberOfMonster == 0:
+                    print('Le donjon est fini')
+                    self.isDungeonFinished = True
+                    previousNumberOfMonster = 0
 
             if self.getMap().npcs == []:
                 self.game.player.currentLevel += 1
