@@ -125,17 +125,18 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         maxWidth = 200
         width = self.currentXP / self.maxXP * 200
+        height = 30
 
-        pygame.draw.rect(self.screen, (100, 100, 100), [300, 0, maxWidth, 20])
-        pygame.draw.rect(self.screen, (0, 100, 200), [300, 0, width, 20])
+        pygame.draw.rect(self.screen, (100, 100, 100), [230, 0, maxWidth, height])
+        pygame.draw.rect(self.screen, (0, 100, 200), [230, 0, width, height])
 
         # Draw the current level next to the level bar
-        levelText = pygame.font.SysFont('./assets/font/Knewave-Regular.ttf', 25).render(f'XP: {self.totalXP}', True, (255, 0, 0))
-        self.screen.blit(levelText, (300, 21))
+        xpText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 16).render(f'XP: {self.totalXP}', True, (255, 0, 0))
+        self.screen.blit(xpText, (350, 2))
 
         # Draw the current XP next to the level bar
-        xpText = pygame.font.SysFont('./assets/font/Knewave-Regular.ttf', 32).render(f'LEVEL : {self.currentLevel}', True, (255, 0, 0))
-        self.screen.blit(xpText, (300, 0))
+        levelText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 18).render(f'LEVEL: {self.currentLevel}', True, (255, 0, 0))
+        self.screen.blit(levelText, (240, 0))
 
     def gainXP(self, xp):
         """
@@ -153,12 +154,13 @@ class Player(Entity, pygame.sprite.Sprite):
         Draw the health bar
         """
         maxWidth = 200
+        height = 30
         width = self.health / self.maxHealth * 200
-        pygame.draw.rect(self.screen, (255, 0, 0), [0, 0, maxWidth, 20])
-        pygame.draw.rect(self.screen, (0, 255, 0), [0, 0, width, 20])
+        pygame.draw.rect(self.screen, (255, 0, 0), [0, 0, maxWidth, height])
+        pygame.draw.rect(self.screen, (0, 255, 0), [0, 0, width, height])
 
         # Write the current health on the screen under the health bar
-        healthText = pygame.font.SysFont('./assets/font/Knewave-Regular.ttf', 32).render(f'Health: {round(self.health, 2)}', True, (255, 0, 0))
+        healthText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 18).render(f'Health: {round(self.health, 2)}', True, (255, 0, 0))
         self.screen.blit(healthText, (10, 0))
 
     def damage(self, damage):

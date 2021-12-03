@@ -4,6 +4,7 @@ import pytmx
 import pyscroll
 import pygame
 from player import NPC
+from quest import Quest
 
 
 @dataclass
@@ -92,6 +93,17 @@ class MapManager:
                          ],
                          spawnName="hubSpawnMonster")
 
+        self.getNumberOfDungeon()
+
+    def getNumberOfDungeon(self):
+        self.numberOfDungeon = 0
+        self.listOfquest = []
+
+        for key, value in self.maps.items():
+            if "donjon" in value.name:
+                self.numberOfDungeon += 1
+                self.listOfquest.append(Quest(len(value.npcs), key, self.screen))
+
     def checkCollision(self):
         # Loop over all the portals
         for portal in self.getMap().portals:
@@ -126,6 +138,10 @@ class MapManager:
         self.getGroup().draw(self.game.screen)
         for npc in self.getMap().npcs:
             npc.drawHealthBar()
+
+        for quest in self.listOfquest:
+            quest.updateNumberOfMonster(len(self.maps[quest.originalName].npcs))
+            quest.drawQuestRect()
 
         self.getGroup().center(self.game.player.rect.center)
 
