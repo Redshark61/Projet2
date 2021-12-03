@@ -167,7 +167,7 @@
   <object id="68" type="TerreSpawnMonster" x="40.0696" y="314.435">
    <point/>
   </object>
-  <object id="69" type="TerreSpawnMonster" x="469.148" y="300.522">
+  <object id="69" type="TerreSpawnMonster" x="474.148" y="321.522">
    <point/>
   </object>
   <object id="70" type="TerreSpawnMonster" x="551.513" y="72.9043">
@@ -196,7 +196,7 @@
   <object id="92" type="collision" x="97.561" y="334.495" width="11.7367" height="16.8714"/>
   <object id="93" type="collision" x="129.837" y="334.495" width="11.0031" height="16.1379"/>
   <object id="95" name="toTerre" x="465.065" y="110.031" width="14.6708" height="17.605"/>
-  <object id="96" type="TerreSpawnMonster" x="472.868" y="172.023">
+  <object id="96" type="TerreSpawnMonster" x="451.368" y="167.523">
    <point/>
   </object>
   <object id="97" type="collision" x="335.228" y="22.7398" width="6.60187" height="121.034"/>
