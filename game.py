@@ -71,6 +71,8 @@ class Game:
             self.player.drawLevelBar()
             # Draw the projectiles
             self.player.bombGroup.draw(self.screen)
+            # make the player respawn when health drop to 0
+            self.map.respawn()
 
             pygame.display.update()
             pygame.display.flip()
