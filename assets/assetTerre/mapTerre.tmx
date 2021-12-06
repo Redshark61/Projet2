@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="135">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="136">
  <tileset firstgid="1" source="Cliff.tsx"/>
  <tileset firstgid="64" source="TexturedGrass.tsx"/>
  <tileset firstgid="70" source="AllAssetsPreview.tsx"/>
@@ -575,5 +575,6 @@
   <object id="134" name="spawnToDonjon" x="448.28" y="348.122">
    <point/>
   </object>
+  <object id="135" type="collision" x="258.661" y="352.012" width="94.3236" height="14.5861"/>
  </objectgroup>
 </map>
