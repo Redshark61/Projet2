@@ -104,7 +104,7 @@ class MapManager:
                          entityData=[
                              Monster("Monsters/Pirates/PirateCaptain", xp=70, speed=(50, 60)),
                              Monster("Monsters/Pirates/PirateGunner", xp=50, health=200, speed=(20, 30)),
-                             Monster("Monsters/Pirates/PirateGrunt", xp=30, speed=(15,25))
+                             Monster("Monsters/Pirates/PirateGrunt", xp=30, speed=(15, 25))
                          ],
                          spawnName="waterSpawnMonster")
 
@@ -210,10 +210,9 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-
     def respawn(self):
         if self.player.health == 0:
-            print("tu est mort")
+            print("tu es mort")
             self.currentMap = "assetHub/carte_hub_p2"
             self.teleportPlayer("spawnPlayer")
             self.player.health = self.player.maxHealth
@@ -261,9 +260,6 @@ class MapManager:
         if mapData is None:
             return self.getMap().tmxData.get_object_by_name(name)
         return mapData.tmxData.get_object_by_name(name)
-
-
-
 
     @staticmethod
     def teleportNPC(point, npc):

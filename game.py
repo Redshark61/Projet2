@@ -50,6 +50,10 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
                         Quest.hideQuestPanel()
+                    elif event.key == pygame.K_c:
+                        self.player.maxHealth += 300
+                        self.player.health = self.player.maxHealth
+                        self.player.currentLevel += 5
 
             # Move every projectile
             for projectile in self.player.bombGroup:
