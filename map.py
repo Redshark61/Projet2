@@ -4,7 +4,7 @@ import time
 import pytmx
 import pyscroll
 import pygame
-from player import NPC
+from player import NPC, Player
 from quest import Quest
 
 
@@ -102,8 +102,9 @@ class MapManager:
         self.registerMap("assetWater/donjon/Donjon eau",
                          portals=[Portal("assetWater/donjon/Donjon eau", "assetWater/WaterWorld", "toWater", "spawnPlayer")],
                          entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                             Monster("Monsters/Pirates/PirateCaptain", xp=70, speed=(50, 60)),
+                             Monster("Monsters/Pirates/PirateGunner", xp=50, health=200, speed=(20, 30)),
+                             Monster("Monsters/Pirates/PirateGrunt", xp=30, speed=(15,25))
                          ],
                          spawnName="waterSpawnMonster")
 
@@ -209,6 +210,14 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
+
+    def respawn(self):
+        if self.player.health == 0:
+            print("tu est mort")
+            self.currentMap = "assetHub/carte_hub_p2"
+            self.teleportPlayer("spawnPlayer")
+            self.player.health = self.player.maxHealth
+
     def registerMap(self, mapName, portals, entityData, spawnName=""):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
@@ -252,6 +261,9 @@ class MapManager:
         if mapData is None:
             return self.getMap().tmxData.get_object_by_name(name)
         return mapData.tmxData.get_object_by_name(name)
+
+
+
 
     @staticmethod
     def teleportNPC(point, npc):

@@ -60,7 +60,7 @@ class Quest:
         # display "you have win" in the center of the screen in 60px font for 5seconds
 
         font = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 60)
-        text = font.render("You have win", True, (0, 255, 0))
+        text = font.render("You have won", True, (0, 255, 0))
         self.screen.blit(text, (self.screen.get_width()/2 - text.get_width()/2, self.screen.get_height()/2 - text.get_height()/2))
         pygame.display.update()
 

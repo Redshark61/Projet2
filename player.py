@@ -184,6 +184,9 @@ class Player(Entity, pygame.sprite.Sprite):
         if self.rect.colliderect(entity.rect):
             self.damage(0.2)
 
+   
+            
+
 
 class NPC(Entity):
     """
