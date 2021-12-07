@@ -1,5 +1,5 @@
 import pygame
-from pygame.constants import MOUSEBUTTONDOWN
+from pygame.constants import K_ESCAPE, MOUSEBUTTONDOWN
 from player import Player
 from map import MapManager
 from quest import Quest
@@ -54,6 +54,9 @@ class Game:
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
                         self.player.currentLevel += 5
+                    elif event.key == K_ESCAPE:
+                        self.player.playerDB.updateValue()
+                        print("Saving...")
 
             # Move every projectile
             for projectile in self.player.bombGroup:

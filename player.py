@@ -1,4 +1,5 @@
 import math
+import random
 import pygame
 from db.playerData import PlayerData as PlayerDB
 
@@ -120,11 +121,10 @@ class Player(Entity, pygame.sprite.Sprite):
         self.currentXP = 0
         self.currentLevel = 0
         self.totalXP = 0
-        self.playerName = name.split('/')[-1]
+        self.playerName = name.split('/')[-1] + str(random.randint(0, 100))
         self.name = name
         self.map = 'assetHub/carte_hub_p2'
-        player = PlayerDB(self)
-        print(player)
+        self.playerDB = PlayerDB(self)
 
     def drawLevelBar(self):
         """
