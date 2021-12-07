@@ -1,5 +1,6 @@
 import math
 import pygame
+from db.playerData import PlayerData as PlayerDB
 
 from projectile import Projectile
 
@@ -106,8 +107,9 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, name, screen):
+    def __init__(self, name, screen, game):
         super().__init__(name)
+        self.game = game
         self.bombGroup = pygame.sprite.Group()
         self.screen = screen
         self.maxHealth = 100
@@ -118,6 +120,11 @@ class Player(Entity, pygame.sprite.Sprite):
         self.currentXP = 0
         self.currentLevel = 0
         self.totalXP = 0
+        self.playerName = name.split('/')[-1]
+        self.name = name
+        self.map = 'assetHub/carte_hub_p2'
+        player = PlayerDB(self)
+        print(player)
 
     def drawLevelBar(self):
         """
@@ -183,9 +190,6 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         if self.rect.colliderect(entity.rect):
             self.damage(0.2)
-
-   
-            
 
 
 class NPC(Entity):

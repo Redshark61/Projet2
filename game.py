@@ -12,11 +12,11 @@ class Game:
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Super jeu")
         # Creation of the player
-        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen)
-        # The target for the boss
-        self.ax, self.ay = self.player.rect.x, self.player.rect.y
+        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen, self)
         # Initialize the map
         self.map = MapManager(self, self.screen)
+        # The target for the boss
+        self.ax, self.ay = self.player.rect.x, self.player.rect.y
         # Teleport the player to the start of the map
         self.map.teleportPlayer("spawnPlayer")
         # self.isLaunched = False
