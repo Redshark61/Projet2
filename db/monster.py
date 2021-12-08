@@ -1,17 +1,15 @@
-from db.dungeon import Dungeon
+from db.db import Database
 
 
 class Monster:
 
-    modelList = []
+    @classmethod
+    def addMonster(cls, dungeonID, monster, index):
+        # Insert a new monster into the database
+        query = f"""
+        INSERT INTO monster 
+        (dungeonid, spritepath, positionx, positiony, health, speed, xp, id) 
+        VALUES 
+        ({dungeonID}, '{monster.name}', {monster.rect.x}, {monster.rect.y}, {monster.health}, {monster.speed}, {monster.xp}, {index})"""
 
-    def __init__(self, data):
-        self.dungeonID = data[0]
-        self.spritePath = data[1]
-        self.position = (data[2], data[3])
-        self.xp = data[4]
-        self.health = data[5]
-        self.speed = data[6]
-        self.damage = data[7]
-        self.dungeonPath = [dungeon.dungeonPath for dungeon in Dungeon.modelList if dungeon.id == self.dungeonID][0]
-        Monster.modelList.append(self)
+        Database.query(query)

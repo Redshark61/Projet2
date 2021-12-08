@@ -4,7 +4,10 @@ import time
 import pytmx
 import pyscroll
 import pygame
-from player import NPC, Player
+from db.db import Database
+from db.dungeon import Dungeon
+from db.playerData import PlayerData
+from player import NPC
 from quest import Quest
 
 
@@ -111,7 +114,6 @@ class MapManager:
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
         self.timeInTimeToWait = 0
-
         self.getNumberOfDungeon()
 
     def getNumberOfDungeon(self):
@@ -121,7 +123,16 @@ class MapManager:
         for key, value in self.maps.items():
             if "donjon" in value.name:
                 self.numberOfDungeon += 1
-                self.listOfquest.append(Quest(len(value.npcs), key, self.screen))
+                self.listOfquest.append(Quest(key, self.screen))
+
+    def updateDungeon(self, mapName):
+        """
+        Update the player from the database
+        """
+        results = Database.query(f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}'")
+        Dungeon.addPlayer(self.player)
+        Dungeon.addDungeon(mapName)
+        print(results)
 
     def checkCollision(self):
         # Loop over all the portals
@@ -224,6 +235,7 @@ class MapManager:
 
         if 'donjon' in mapName.lower():
             mapLayer.zoom = 1.75
+            self.updateDungeon(mapName)
         else:
             mapLayer.zoom = 2
 
@@ -247,7 +259,7 @@ class MapManager:
             entityXP = randomMonster.xp
             entityHealth = randomMonster.health
             entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1]) / 20
-            monster = NPC(entityName, self.game, entityXP, entityHealth, entitySpeed)
+            monster = NPC(mapName, entityName, self.game, entityXP, entityHealth, entitySpeed)
             entity.append(monster)
             group.add(monster)
 

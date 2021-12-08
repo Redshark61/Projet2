@@ -16,6 +16,7 @@ class Game:
             self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
         else:
             self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
+
         # Initialize the map
         self.map = MapManager(self, self.screen)
         # The target for the boss

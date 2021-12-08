@@ -1,6 +1,8 @@
 import math
 import random
 import pygame
+from db.db import Database
+from db.dungeon import Dungeon
 from db.playerData import PlayerData as PlayerDB
 
 from projectile import Projectile
@@ -132,12 +134,6 @@ class Player(Entity, pygame.sprite.Sprite):
         else:
             self.playerDB.upload(self, choice)
 
-    def updateFromBDD(self, data):
-        """
-        Update the player from the database
-        """
-        self.playerDB.updateFromBDD(data)
-
     def drawLevelBar(self):
         """
         Draw the level bar
@@ -208,9 +204,11 @@ class NPC(Entity):
     """
     Boss class
     """
+    index = 0
 
-    def __init__(self, name, game, xp, maxHealth, speed):
+    def __init__(self, mapName, name, game, xp, maxHealth, speed):
         super().__init__(name)
+        self.name = name
         self.xp = xp
         self.maxHealth = maxHealth
         self.health = self.maxHealth
@@ -219,6 +217,9 @@ class NPC(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed
+        self.index = NPC.index
+        NPC.index += 1
+        Dungeon.addMonsters(mapName, self.index, self)
 
     def damage(self, damage):
         """
