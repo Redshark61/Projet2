@@ -18,7 +18,11 @@ def main():
         print(f"{len(results)} players, wich one do you want to play with?")
         for index, result in enumerate(results):
             print(f"{index} - {result[2]}")
+        print(f"{len(results)} - New player")
         choice = int(input(""))
+
+        if choice == len(results):
+            choice = None
 
     pygame.init()
     game = Game(choice)
