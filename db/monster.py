@@ -13,3 +13,13 @@ class Monster:
         ({dungeonID}, '{monster.name}', {monster.rect.x}, {monster.rect.y}, {monster.health}, {monster.speed}, {monster.xp}, {index})"""
 
         Database.query(query)
+
+    @staticmethod
+    def update(monsters):
+        # Update a monster in the database
+        for monster in monsters:
+            query = f"""
+            UPDATE monster 
+            SET positionx = {monster.rect.x}, positiony = {monster.rect.y}, health = {monster.health}, updated = true
+            WHERE id = {monster.index}"""
+            Database.query(query)

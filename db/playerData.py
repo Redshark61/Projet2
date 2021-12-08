@@ -33,7 +33,7 @@ class PlayerData:
         Database.query(query)
 
     def updateValue(self):
-        self.health = self.player.health
+        self.health = int(self.player.health)
         self.xp = self.player.totalXP
         self.level = self.player.currentLevel
         self.position = (self.player.rect.x, self.player.rect.y)

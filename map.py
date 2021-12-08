@@ -9,6 +9,7 @@ from db.dungeon import Dungeon
 from db.playerData import PlayerData
 from player import NPC
 from quest import Quest
+from db.monster import Monster as MonsterDB
 
 
 @dataclass
@@ -164,6 +165,10 @@ class MapManager:
     def getGroup(self):
         return self.getMap().group
 
+    def updateMonsterInDB(self):
+        for quest in self.listOfquest:
+            MonsterDB.update(self.maps[quest.originalName].npcs)
+
     def drawMap(self):
         self.getGroup().draw(self.game.screen)
         for npc in self.getMap().npcs:
@@ -200,7 +205,8 @@ class MapManager:
                 npc.damage(damage)
             if npc.health <= 0:
                 previousNumberOfMonster = len(self.getMap().npcs)
-                self.getMap().npcs.pop(index)
+                deadMonster = self.getMap().npcs.pop(index)
+                deadMonster.removeFromDB()
                 currentNumberOfMonster = len(self.getMap().npcs)
 
                 if previousNumberOfMonster == 1 and currentNumberOfMonster == 0:

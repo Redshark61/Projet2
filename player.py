@@ -221,6 +221,13 @@ class NPC(Entity):
         NPC.index += 1
         Dungeon.addMonsters(mapName, self.index, self)
 
+    def removeFromDB(self):
+        query = f"""
+        DELETE FROM monster
+        WHERE id = '{self.index}'
+        """
+        Database.query(query)
+
     def damage(self, damage):
         """
         Take damage

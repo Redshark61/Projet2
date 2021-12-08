@@ -61,6 +61,7 @@ class Game:
                         self.player.currentLevel += 5
                     elif event.key == K_ESCAPE:
                         self.player.playerDB.updateValue()
+                        self.map.updateMonsterInDB()
                         print("Saving...")
 
             # Move every projectile
