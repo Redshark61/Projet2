@@ -12,6 +12,8 @@ class Player:
         self.spritePath = self.playerData.spritePath
         self.name = self.playerData.playerName
         self.creationDate = time.strftime("%d/%m/%Y %H:%M:%S")
+
+    def addNewPlayer(self):
         Player.modelList.append(self)
         self.addPlayer()
 

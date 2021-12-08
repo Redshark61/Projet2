@@ -7,18 +7,22 @@ from quest import Quest
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, choice=None):
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Super jeu")
         # Creation of the player
-        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen, self)
+        if choice is None:
+            self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
+        else:
+            self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
         # Initialize the map
         self.map = MapManager(self, self.screen)
         # The target for the boss
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
         # Teleport the player to the start of the map
-        self.map.teleportPlayer("spawnPlayer")
+        if choice is None:
+            self.map.teleportPlayer("spawnPlayer")
         # self.isLaunched = False
 
     def handleInput(self):

@@ -11,8 +11,11 @@ class PlayerData:
         self.player = player
         self.playerID = None
         self.updateValue()
+        self.playerDB = Player(self)
+
+    def addToList(self):
         PlayerData.modelList.append(self)
-        Player(self)
+        self.playerDB.addNewPlayer()
         self.addPlayer()
 
     def __str__(self) -> str:
@@ -46,3 +49,20 @@ class PlayerData:
         query = f"""UPDATE playerdata SET health = '{self.health}', xp = '{self.xp}', level = '{self.level}', positionx = '{self.position[0]}', positiony = '{self.position[1]}', currentmap = '{self.currentMap}', difficultyid = '{self.difficultyID}'
                     WHERE playerid = '{self.playerID}'"""
         Database.query(query)
+
+    def upload(self, player, choice):
+        query = """SELECT * FROM playerdata"""
+        result = Database.query(query)[choice]
+        self.playerID = result[0]
+        player.health = result[1]
+        player.totalXP = result[2]
+        player.currentLevel = result[3]
+        player.rect.x = result[4]
+        player.rect.y = result[5]
+        player.map = result[6]
+
+    @staticmethod
+    def getSpritePath(choice):
+        query = """SELECT spritepath FROM player"""
+        result = Database.query(query)[choice]
+        return result[0]

@@ -11,9 +11,17 @@ def main():
     results = db.query("SELECT * FROM difficulty")
     for result in results:
         Difficulty(result)
+    choice = None
+    results = db.query("SELECT * FROM player")
+
+    if len(results) >= 1:
+        print(f"{len(results)} players, wich one do you want to play with?")
+        for index, result in enumerate(results):
+            print(f"{index} - {result[2]}")
+        choice = int(input(""))
 
     pygame.init()
-    game = Game()
+    game = Game(choice)
     game.run()
 
 

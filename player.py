@@ -8,9 +8,11 @@ from projectile import Projectile
 
 class AnimateSprite(pygame.sprite.Sprite):
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, choice):
         super().__init__()
         # Load the asset of the required sprite
+        if choice is not None:
+            name = PlayerDB.getSpritePath(choice)
         self.spriteSheet = pygame.image.load(f'./assets/Characters/{name}.png')
         # The sprite sheet is divided into 3 rows of 3 images
         self.animationIndex = 0
@@ -66,8 +68,8 @@ class AnimateSprite(pygame.sprite.Sprite):
 
 
 class Entity(AnimateSprite):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, choice=None):
+        super().__init__(name, choice)
         self.image = self.getImage(0, 0)
         self.image.set_colorkey([0, 0, 0])
         self.rect = self.image.get_rect(topleft=(0, 0))
@@ -108,8 +110,8 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, name, screen, game):
-        super().__init__(name)
+    def __init__(self, screen, game, name='', hasToUpload=False, choice=None):
+        super().__init__(name, choice)
         self.game = game
         self.bombGroup = pygame.sprite.Group()
         self.screen = screen
@@ -125,6 +127,16 @@ class Player(Entity, pygame.sprite.Sprite):
         self.name = name
         self.map = 'assetHub/carte_hub_p2'
         self.playerDB = PlayerDB(self)
+        if not hasToUpload:
+            self.playerDB.addToList()
+        else:
+            self.playerDB.upload(self, choice)
+
+    def updateFromBDD(self, data):
+        """
+        Update the player from the database
+        """
+        self.playerDB.updateFromBDD(data)
 
     def drawLevelBar(self):
         """
