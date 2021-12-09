@@ -211,11 +211,25 @@ class MapManager:
         self.player.saveLocation()
 
     def respawn(self):
+        
+
+        background = pygame.image.load('assets/Background Game Over.png')
+        background2 = pygame.Surface(self.screen.get_size())
+        background2.fill((0, 0, 0))
+        banner = pygame.image.load('assets/Banner Game Over.png')
+        quitButton = pygame.image.load('assets/Quit Button.png')
+        quitButtonRect = quitButton.get_rect()
+        retourButton = pygame.image.load('assets/RetourMenu.png')
+
+
         if self.player.health == 0:
-            print("tu es mort")
-            self.currentMap = "assetHub/carte_hub_p2"
-            self.teleportPlayer("spawnPlayer")
-            self.player.health = self.player.maxHealth
+            self.screen.blit(background2, (0, 0))
+            self.screen.blit(background, (30, 0))
+            self.screen.blit(banner, (280,50))
+            self.screen.blit(quitButton, (750,600))
+            self.screen.blit(retourButton, (30,600))
+
+            pygame.display.flip()
 
     def registerMap(self, mapName, portals, entityData, spawnName=""):
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
