@@ -50,7 +50,8 @@ class PlayerData:
                     WHERE playerid = '{PlayerData.playerID}'"""
         Database.query(query)
 
-    def upload(self, player, choice):
+    @staticmethod
+    def upload(player, choice):
         query = """SELECT * FROM playerdata"""
         result = Database.query(query)[choice]
         PlayerData.playerID = result[0]
@@ -66,3 +67,9 @@ class PlayerData:
         query = """SELECT spritepath FROM player"""
         result = Database.query(query)[choice]
         return result[0]
+
+    @staticmethod
+    def setCurrentMap(map):
+        query = f"""SELECT currentmap FROM playerdata WHERE playerid = '{PlayerData.playerID}'"""
+        results = Database.query(query)[0][0]
+        map.currentMap = results

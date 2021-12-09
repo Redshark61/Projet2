@@ -48,7 +48,9 @@ class MapManager:
         self.maps = {}
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
-
+        self.results = MonsterDB.getAllMonster()
+        print(self.results)
+        self.isDBEmpty = len(self.results) == 0
         self.registerMap("assetHub/carte_hub_p2",
                          portals=[
                              Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
@@ -115,6 +117,8 @@ class MapManager:
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
         self.timeInTimeToWait = 0
+        # NPC.uploadFromDB(self.maps)
+        PlayerData.setCurrentMap(self)
         self.getNumberOfDungeon()
 
     def getNumberOfDungeon(self):
@@ -130,10 +134,10 @@ class MapManager:
         """
         Update the player from the database
         """
-        results = Database.query(f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}'")
-        Dungeon.addPlayer(self.player)
-        Dungeon.addDungeon(mapName)
-        print(results)
+        results = Database.query(f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}' and dungeon.dungeonpath = '{mapName}'")
+        if len(results) == 0:
+            Dungeon.addPlayer(self.player)
+            Dungeon.addDungeon(mapName)
 
     def checkCollision(self):
         # Loop over all the portals
@@ -171,6 +175,7 @@ class MapManager:
 
     def drawMap(self):
         self.getGroup().draw(self.game.screen)
+        self.player.map = self.currentMap
         for npc in self.getMap().npcs:
             npc.drawHealthBar()
 
@@ -235,6 +240,7 @@ class MapManager:
             self.player.health = self.player.maxHealth
 
     def registerMap(self, mapName, portals, entityData, spawnName=""):
+        results = MonsterDB.getMonsterFromMap(mapName)
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
         mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
@@ -259,15 +265,25 @@ class MapManager:
             if obj.type == spawnName:
                 spawnPoints.append((obj.x, obj.y))
 
-        for spawnPoint in spawnPoints:
-            randomMonster = random.choice(entityData)
-            entityName = randomMonster.name
-            entityXP = randomMonster.xp
-            entityHealth = randomMonster.health
-            entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1]) / 20
-            monster = NPC(mapName, entityName, self.game, entityXP, entityHealth, entitySpeed)
-            entity.append(monster)
-            group.add(monster)
+        for i, spawnPoint in enumerate(spawnPoints):
+            if self.isDBEmpty:
+                randomMonster = random.choice(entityData)
+                entityName = randomMonster.name
+                entityXP = randomMonster.xp
+                entityHealth = randomMonster.health
+                entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1]) / 20
+                monster = NPC(mapName, entityName, self.game, entityXP, entityHealth, entitySpeed)
+                entity.append(monster)
+                group.add(monster)
+            else:
+                if results[i][8]:
+                    monster = NPC(mapName, results[i][1], self.game, results[i][4], results[i][5], results[i][6], self.isDBEmpty)
+                    monster.rect.x = results[i][2]
+                    monster.rect.y = results[i][3]
+                    monster.alive = results[i][8]
+                    monster.index = results[i][9]
+                    entity.append(monster)
+                    group.add(monster)
 
         self.maps[mapName] = Map(mapName, walls, group, tmxData, portals, entity)
 

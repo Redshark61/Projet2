@@ -4,6 +4,7 @@ import pygame
 from db.db import Database
 from db.dungeon import Dungeon
 from db.playerData import PlayerData as PlayerDB
+from db.monster import Monster as MonsterDB
 
 from projectile import Projectile
 
@@ -204,12 +205,12 @@ class NPC(Entity):
     """
     Boss class
     """
-    index = 0
 
-    def __init__(self, mapName, name, game, xp, maxHealth, speed):
+    def __init__(self, mapName, name, game, xp, maxHealth, speed, isDBempty=True):
         super().__init__(name)
         self.name = name
         self.xp = xp
+        self.mapName = mapName
         self.maxHealth = maxHealth
         self.health = self.maxHealth
         self.direction = "right"
@@ -217,13 +218,15 @@ class NPC(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed
-        self.index = NPC.index
-        NPC.index += 1
-        Dungeon.addMonsters(mapName, self.index, self)
+        self.alive = True
+        self.index = 0
+        if isDBempty:
+            self.index = Dungeon.addMonsters(mapName, self)
 
     def removeFromDB(self):
         query = f"""
-        DELETE FROM monster
+        UPDATE monster
+        SET alive = False
         WHERE id = '{self.index}'
         """
         Database.query(query)

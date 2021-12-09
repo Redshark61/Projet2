@@ -22,14 +22,15 @@ class Dungeon:
         return Database.query(query)
 
     @classmethod
-    def addMonsters(cls, mapName, index, monster):
+    def addMonsters(cls, mapName, monster):
         playerID = PlayerData.playerID
         # Get the dungeon id from the playerID
         query = f"SELECT * FROM dungeon WHERE playerid = '{playerID}'"
         results = Database.query(query)
         for dungeon in results:
             if dungeon[1] == mapName:
-                Monster.addMonster(dungeon[0], monster, index)
+                id = Monster.addMonster(dungeon[0], monster)
+                return id
 
     @classmethod
     def updateMonster(cls):
