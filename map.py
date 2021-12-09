@@ -49,7 +49,6 @@ class MapManager:
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
         self.results = MonsterDB.getAllMonster()
-        print(self.results)
         self.isDBEmpty = len(self.results) == 0
         self.registerMap("assetHub/carte_hub_p2",
                          portals=[
@@ -215,7 +214,6 @@ class MapManager:
                 currentNumberOfMonster = len(self.getMap().npcs)
 
                 if previousNumberOfMonster == 1 and currentNumberOfMonster == 0:
-                    print('Le donjon est fini')
                     self.isDungeonFinished = True
                     previousNumberOfMonster = 0
 
@@ -234,7 +232,6 @@ class MapManager:
 
     def respawn(self):
         if self.player.health == 0:
-            print("tu es mort")
             self.currentMap = "assetHub/carte_hub_p2"
             self.teleportPlayer("spawnPlayer")
             self.player.health = self.player.maxHealth

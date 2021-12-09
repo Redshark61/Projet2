@@ -25,15 +25,15 @@ class PlayerData:
         results = Database.query(f"""
         SELECT player.id FROM player WHERE player.spritepath = '{self.spritePath}' and player.name = '{self.playerName}'
         """)
-        print(results)
         PlayerData.playerID = results[0][0]
         # playerID = [player.id for player in Player.modelList if player.playerName == self.playerName][0]
-        query = f"""INSERT INTO playerdata (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid)
-                    VALUES ('{int(PlayerData.playerID)}','{self.health}', '{self.xp}', '{self.level}', '{self.position[0]}', '{self.position[1]}', '{self.currentMap}', '{self.difficultyID}')"""
+        query = f"""INSERT INTO playerdata (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
+                    VALUES ('{int(PlayerData.playerID)}','{self.health}', '{self.xp}', '{self.level}', '{self.position[0]}', '{self.position[1]}', '{self.currentMap}', '{self.difficultyID}', '{self.maxHealth}')"""
         Database.query(query)
 
     def updateValue(self):
         self.health = int(self.player.health)
+        self.maxHealth = int(self.player.maxHealth)
         self.xp = self.player.totalXP
         self.level = self.player.currentLevel
         self.position = (self.player.rect.x, self.player.rect.y)
@@ -46,8 +46,13 @@ class PlayerData:
             self.updateDB()
 
     def updateDB(self):
-        query = f"""UPDATE playerdata SET health = '{self.health}', xp = '{self.xp}', level = '{self.level}', positionx = '{self.position[0]}', positiony = '{self.position[1]}', currentmap = '{self.currentMap}', difficultyid = '{self.difficultyID}'
-                    WHERE playerid = '{PlayerData.playerID}'"""
+        query = f"""
+        UPDATE playerdata 
+        SET health = '{self.health}', xp = '{self.xp}', 
+        level = '{self.level}', positionx = '{self.position[0]}', positiony = '{self.position[1]}', 
+        currentmap = '{self.currentMap}', difficultyid = '{self.difficultyID}',
+        maxhealth = '{self.maxHealth}'
+        WHERE playerid = '{PlayerData.playerID}'"""
         Database.query(query)
 
     @staticmethod
@@ -61,6 +66,7 @@ class PlayerData:
         player.rect.x = result[4]
         player.rect.y = result[5]
         player.map = result[6]
+        player.maxHealth = result[8]
 
     @staticmethod
     def getSpritePath(choice):
