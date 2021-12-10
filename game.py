@@ -1,5 +1,6 @@
+# pylint: disable=W0201
 import pygame
-from pygame.constants import MOUSEBUTTONDOWN
+from pygame.constants import K_ESCAPE, MOUSEBUTTONDOWN
 from player import Player
 from map import MapManager
 from quest import Quest
@@ -11,15 +12,21 @@ class Game:
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Super jeu")
+
+    def initalize(self, choice=None):
         # Creation of the player
-        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen)
-        # The target for the boss
-        self.ax, self.ay = self.player.rect.x, self.player.rect.y
+        if choice == 'new':
+            self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
+        else:
+            self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
+
         # Initialize the map
         self.map = MapManager(self, self.screen)
+        # The target for the boss
+        self.ax, self.ay = self.player.rect.x, self.player.rect.y
         # Teleport the player to the start of the map
-        self.map.teleportPlayer("spawnPlayer")
-        # self.isLaunched = False
+        if choice == 'new':
+            self.map.teleportPlayer("spawnPlayer")
 
     def handleInput(self):
         pressed = pygame.key.get_pressed()
@@ -58,6 +65,10 @@ class Game:
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
                         self.player.currentLevel += 5
+                    elif event.key == K_ESCAPE:
+                        self.player.playerDB.updateValue()
+                        self.map.updateMonsterInDB()
+                        print("Saving...")
 
             # Move every projectile
             for projectile in self.player.bombGroup:

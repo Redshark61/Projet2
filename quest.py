@@ -1,13 +1,16 @@
-import time
 import pygame
+
+from db.dungeon import Dungeon
 
 
 class Quest:
 
     index = 1
     isHidden = False
+    questList = []
 
-    def __init__(self, numberOfEnemies, name, screen):
+    def __init__(self, name, screen):
+        result, numberOfEnemies = Dungeon.getMonster(name)
         self.originalNumberOfEnemies = numberOfEnemies
         self.numberOfEnemies = numberOfEnemies
         self.originalName = name
@@ -24,6 +27,7 @@ class Quest:
         self.textName = self.font.render(self.name, True, (0, 0, 0))
 
         self.textNumberEnemies = self.font.render(str(self.numberOfEnemies), True, (0, 0, 0))
+        Quest.questList.append(self)
 
     @classmethod
     def setIndex(cls):

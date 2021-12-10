@@ -1,14 +1,19 @@
 import math
+import random
 import pygame
-
+from db.db import Database
+from db.dungeon import Dungeon
+from db.playerData import PlayerData as PlayerDB
 from projectile import Projectile
 
 
 class AnimateSprite(pygame.sprite.Sprite):
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, choice):
         super().__init__()
         # Load the asset of the required sprite
+        if choice is not None:
+            name = PlayerDB.getSpritePath(choice)
         self.spriteSheet = pygame.image.load(f'./assets/Characters/{name}.png')
         # The sprite sheet is divided into 3 rows of 3 images
         self.animationIndex = 0
@@ -64,8 +69,8 @@ class AnimateSprite(pygame.sprite.Sprite):
 
 
 class Entity(AnimateSprite):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, choice=None):
+        super().__init__(name, choice)
         self.image = self.getImage(0, 0)
         self.image.set_colorkey([0, 0, 0])
         self.rect = self.image.get_rect(topleft=(0, 0))
@@ -106,8 +111,9 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, name, screen):
-        super().__init__(name)
+    def __init__(self, screen, game, name='', hasToUpload=False, choice=None):
+        super().__init__(name, choice)
+        self.game = game
         self.bombGroup = pygame.sprite.Group()
         self.screen = screen
         self.maxHealth = 100
@@ -118,6 +124,14 @@ class Player(Entity, pygame.sprite.Sprite):
         self.currentXP = 0
         self.currentLevel = 0
         self.totalXP = 0
+        self.playerName = name.split('/')[-1] + str(random.randint(0, 100))
+        self.name = name
+        self.map = 'assetHub/carte_hub_p2'
+        self.playerDB = PlayerDB(self)
+        if not hasToUpload:
+            self.playerDB.addToList()
+        else:
+            self.playerDB.upload(self, choice)
 
     def drawLevelBar(self):
         """
@@ -184,18 +198,17 @@ class Player(Entity, pygame.sprite.Sprite):
         if self.rect.colliderect(entity.rect):
             self.damage(0.2)
 
-   
-            
-
 
 class NPC(Entity):
     """
     Boss class
     """
 
-    def __init__(self, name, game, xp, maxHealth, speed):
+    def __init__(self, mapName, name, game, xp, maxHealth, speed, isDBempty=True):
         super().__init__(name)
+        self.name = name
         self.xp = xp
+        self.mapName = mapName
         self.maxHealth = maxHealth
         self.health = self.maxHealth
         self.direction = "right"
@@ -203,6 +216,18 @@ class NPC(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed
+        self.alive = True
+        self.index = 0
+        if isDBempty:
+            self.index = Dungeon.addMonsters(mapName, self)
+
+    def removeFromDB(self):
+        query = f"""
+        UPDATE monster
+        SET alive = False
+        WHERE id = '{self.index}'
+        """
+        Database.query(query)
 
     def damage(self, damage):
         """
