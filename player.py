@@ -4,8 +4,6 @@ import pygame
 from db.db import Database
 from db.dungeon import Dungeon
 from db.playerData import PlayerData as PlayerDB
-from db.monster import Monster as MonsterDB
-
 from projectile import Projectile
 
 

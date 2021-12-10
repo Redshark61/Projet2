@@ -1,3 +1,4 @@
+# pylint: disable=W0201
 import pygame
 from pygame.constants import K_ESCAPE, MOUSEBUTTONDOWN
 from player import Player
@@ -7,12 +8,14 @@ from quest import Quest
 
 class Game:
 
-    def __init__(self, choice=None):
+    def __init__(self):
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Super jeu")
+
+    def initalize(self, choice=None):
         # Creation of the player
-        if choice is None:
+        if choice == 'new':
             self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
         else:
             self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
@@ -22,9 +25,8 @@ class Game:
         # The target for the boss
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
         # Teleport the player to the start of the map
-        if choice is None:
+        if choice == 'new':
             self.map.teleportPlayer("spawnPlayer")
-        # self.isLaunched = False
 
     def handleInput(self):
         pressed = pygame.key.get_pressed()
