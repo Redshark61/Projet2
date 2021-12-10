@@ -6,6 +6,7 @@ import pyscroll
 import pygame
 from player import NPC, Player
 from quest import Quest
+from circle import Circle
 
 
 @dataclass
@@ -207,10 +208,14 @@ class MapManager:
             # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
+        
         point = self.getObject(destinationName)
         self.player.rect.x = point.x
         self.player.rect.y = point.y
         self.player.saveLocation()
+
+        circle = Circle()
+        circle.rotateLogo()
 
     def respawn(self):
 
