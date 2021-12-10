@@ -42,8 +42,8 @@ class MapManager:
         self.player = self.game.player
         self.screen = screen
         self.maps = {}
-        self.quitButton = None
-        self.returnButton = None
+        self.quitButtonRect = None
+        self.returnButtonRect = None
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
 
