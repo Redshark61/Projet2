@@ -42,6 +42,8 @@ class MapManager:
         self.player = self.game.player
         self.screen = screen
         self.maps = {}
+        self.quitButton = None
+        self.returnButton = None
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
 
@@ -211,23 +213,26 @@ class MapManager:
         self.player.saveLocation()
 
     def respawn(self):
-        
-
-        background = pygame.image.load('assets/Background Game Over.png')
-        background2 = pygame.Surface(self.screen.get_size())
-        background2.fill((0, 0, 0))
-        banner = pygame.image.load('assets/Banner Game Over.png')
-        quitButton = pygame.image.load('assets/Quit Button.png')
-        quitButtonRect = quitButton.get_rect()
-        retourButton = pygame.image.load('assets/RetourMenu.png')
-
 
         if self.player.health == 0:
+
+            background = pygame.image.load('assets/Background Game Over.png')
+            background2 = pygame.Surface(self.screen.get_size())
+            background2.fill((0, 0, 0))
+            banner = pygame.image.load('assets/Banner Game Over.png')
+            quitButton = pygame.image.load('assets/Quit Button.png')
+            returnButton = pygame.image.load('assets/RetourMenu.png')
+
             self.screen.blit(background2, (0, 0))
             self.screen.blit(background, (30, 0))
             self.screen.blit(banner, (280,50))
             self.screen.blit(quitButton, (750,600))
-            self.screen.blit(retourButton, (30,600))
+            self.quitButtonRect = quitButton.get_rect()
+            self.quitButtonRect.x, self.quitButtonRect.y = 750, 600
+            self.screen.blit(returnButton, (30,600))
+            self.returnButtonRect = returnButton.get_rect()
+            self.returnButtonRect.x, self.returnButtonRect.y = 30, 600
+
 
             pygame.display.flip()
 
