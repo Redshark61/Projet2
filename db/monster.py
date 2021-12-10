@@ -38,10 +38,11 @@ class Monster:
     @staticmethod
     def getAllMonster():
         # Get the current dungeon
-        query = """
+        query = f"""
         SELECT * FROM monster
         INNER JOIN dungeon ON monster.dungeonid = dungeon.id
         INNER JOIN player ON dungeon.playerid = player.id
+        WHERE player.id = {PlayerData.playerID}
         """
         results = Database.query(query)
         return results
