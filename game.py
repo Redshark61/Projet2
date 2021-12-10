@@ -1,33 +1,35 @@
-import time
 import pygame
 from pygame.constants import MOUSEBUTTONDOWN
-from player import Boss, Player
-from map import Map
+from player import Player
+from map import MapManager
+from quest import Quest
 
 
 class Game:
 
     def __init__(self):
+        # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
-        pygame.display.set_caption("Pygamon - aventure")
-        self.player = Player("Soldiers/Melee/AssasinTemplate", 16, self.screen)
-        self.boss = Boss("Monsters/Demons/RedDemon", 16)
+        pygame.display.set_caption("Super jeu")
+        # Creation of the player
+        self.player = Player("Soldiers/Melee/AssasinTemplate",  self.screen)
+        # The target for the boss
         self.ax, self.ay = self.player.rect.x, self.player.rect.y
-        self.map = Map(self, [self.player, self.boss])
-        self.map.teleportPlayer("spawnPlayer", self.player)
-        self.map.teleportPlayer("spawnBoss", self.boss)
-        self.bossSpawn = self.boss.getPosition()
-        self.isLaunched = False
+        # Initialize the map
+        self.map = MapManager(self, self.screen)
+        # Teleport the player to the start of the map
+        self.map.teleportPlayer("spawnPlayer")
+        # self.isLaunched = False
 
     def handleInput(self):
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_UP]:
+        if pressed[pygame.K_z]:
             self.player.moveUp()
-        elif pressed[pygame.K_DOWN]:
+        elif pressed[pygame.K_s]:
             self.player.moveDown()
-        elif pressed[pygame.K_LEFT]:
+        if pressed[pygame.K_q]:
             self.player.moveLeft()
-        elif pressed[pygame.K_RIGHT]:
+        elif pressed[pygame.K_d]:
             self.player.moveRight()
 
     def run(self):
@@ -35,33 +37,46 @@ class Game:
 
         # Set the clock to 60fps
         clock = pygame.time.Clock()
-        lastTime = time.time()
 
         while running:
+            # Handling the quit event
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-                if event.type == MOUSEBUTTONDOWN:
+                # If the player left click
+                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name:
                     self.player.lauchProjectile()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_p:
+                        Quest.hideQuestPanel()
+                    elif event.key == pygame.K_c:
+                        self.player.maxHealth += 300
+                        self.player.health = self.player.maxHealth
+                        self.player.currentLevel += 5
 
+            # Move every projectile
             for projectile in self.player.bombGroup:
                 projectile.move()
 
             self.screen.fill((0, 0, 0))
+            # Display the player
             self.screen.blit(self.player.image, self.player.rect)
-            self.screen.blit(self.boss.image, self.boss.rect)
+            # Save its previous location
+            self.player.saveLocation()
             self.handleInput()
-            # Wait for 5seconds
-            if lastTime + 2 < time.time():
-                pass
-            self.boss.move(self.player)
-            self.boss.changeAnimation('down')
+            # Update the map
             self.map.updateMap()
+            # Draw the map
             self.map.drawMap()
-            self.player.checkCollision(self.boss)
+            # Draw the health bar
             self.player.drawHealthBar()
+            # Draw the xp bar
+            self.player.drawLevelBar()
+            # Draw the projectiles
             self.player.bombGroup.draw(self.screen)
+            # make the player respawn when health drop to 0
+            self.map.respawn()
 
             pygame.display.update()
             pygame.display.flip()

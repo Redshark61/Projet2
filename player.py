@@ -1,3 +1,4 @@
+import math
 import pygame
 
 from projectile import Projectile
@@ -5,9 +6,8 @@ from projectile import Projectile
 
 class AnimateSprite(pygame.sprite.Sprite):
 
-    def __init__(self, name: str, sideLength):
+    def __init__(self, name: str):
         super().__init__()
-        self.sideLength = sideLength
         # Load the asset of the required sprite
         self.spriteSheet = pygame.image.load(f'./assets/Characters/{name}.png')
         # The sprite sheet is divided into 3 rows of 3 images
@@ -16,9 +16,9 @@ class AnimateSprite(pygame.sprite.Sprite):
         # Get differents images of the player when he moves
         self.images = {
             'down': self.getImages(0),
-            'up': self.getImages(1*sideLength),
-            'right': self.getImages(2*sideLength),
-            'left': self.getImages(3*sideLength)
+            'up': self.getImages(1*16),
+            'right': self.getImages(2*16),
+            'left': self.getImages(3*16)
         }
         self.image = ""
         self.clock = 0
@@ -28,8 +28,8 @@ class AnimateSprite(pygame.sprite.Sprite):
         """
         Return a single image from the sprite sheet
         """
-        image = pygame.Surface([self.sideLength, self.sideLength]).convert()
-        image.blit(self.spriteSheet, (0, 0), (x, y, self.sideLength, self.sideLength))
+        image = pygame.Surface([16, 16]).convert()
+        image.blit(self.spriteSheet, (0, 0), (x, y, 16, 16))
         image.set_colorkey([0, 0, 0])
         return image
 
@@ -39,7 +39,7 @@ class AnimateSprite(pygame.sprite.Sprite):
         """
         images = []
         for i in range(0, 5):
-            x = i * self.sideLength
+            x = i * 16
             image = self.getImage(x, y)
             images.append(image)
 
@@ -64,11 +64,21 @@ class AnimateSprite(pygame.sprite.Sprite):
 
 
 class Entity(AnimateSprite):
-    def __init__(self, name, sideLength):
-        super().__init__(name, sideLength)
+    def __init__(self, name):
+        super().__init__(name)
         self.image = self.getImage(0, 0)
-        self.rect = self.image.get_rect()
-        self.velocity = 5
+        self.image.set_colorkey([0, 0, 0])
+        self.rect = self.image.get_rect(topleft=(0, 0))
+        self.velocity = 3
+        self.oldPosition = self.rect.x, self.rect.y
+        self.feet = pygame.Rect(0, 0, self.rect.width*0.5, 6)
+
+    def update(self):
+        """
+        Update the position of the player on the map
+        """
+        self.rect.topleft = self.rect.x, self.rect.y
+        self.feet.midbottom = self.rect.midbottom
 
     def moveUp(self):
         self.rect.y -= self.velocity
@@ -86,33 +96,72 @@ class Entity(AnimateSprite):
         self.rect.x += self.velocity
         self.changeAnimation('right')
 
+    def saveLocation(self):
+        self.feet.midbottom = self.rect.midbottom
+        self.oldPosition = self.rect.x, self.rect.y
+
 
 class Player(Entity, pygame.sprite.Sprite):
     """
     Player class
     """
 
-    def __init__(self, name, sideLength, screen):
-        super().__init__(name, sideLength)
-        # Get the center of the screen
-        self.center = (screen.get_width() // 2, screen.get_height() // 2)
-        # Get the half of the screen
-        self.half = (screen.get_width() // 2, screen.get_height() // 2)
+    def __init__(self, name, screen):
+        super().__init__(name)
         self.bombGroup = pygame.sprite.Group()
-        self.bx, self.by = 0, 0
         self.screen = screen
         self.maxHealth = 100
         self.bomb = ''
         self.health = self.maxHealth
+        self.monsterKilled = 0
+        self.maxXP = 100
+        self.currentXP = 0
+        self.currentLevel = 0
+        self.totalXP = 0
+
+    def drawLevelBar(self):
+        """
+        Draw the level bar
+        """
+        maxWidth = 200
+        width = self.currentXP / self.maxXP * 200
+        height = 30
+
+        pygame.draw.rect(self.screen, (100, 100, 100), [230, 0, maxWidth, height])
+        pygame.draw.rect(self.screen, (0, 100, 200), [230, 0, width, height])
+
+        # Draw the current level next to the level bar
+        xpText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 16).render(f'XP: {self.totalXP}', True, (255, 0, 0))
+        self.screen.blit(xpText, (350, 2))
+
+        # Draw the current XP next to the level bar
+        levelText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 18).render(f'LEVEL: {self.currentLevel}', True, (255, 0, 0))
+        self.screen.blit(levelText, (240, 0))
+
+    def gainXP(self, xp):
+        """
+        Gain XP
+        """
+        self.currentXP += xp
+        self.totalXP += xp
+        if self.currentXP >= self.maxXP:
+            self.currentXP = self.currentXP - self.maxXP
+            self.currentLevel += 1
+            self.maxXP += 50
 
     def drawHealthBar(self):
         """
         Draw the health bar
         """
-        maxWidth = self.maxHealth * 2
-        width = self.health * 2
-        pygame.draw.rect(self.screen, (255, 0, 0), [0, 0, maxWidth, 20])
-        pygame.draw.rect(self.screen, (0, 255, 0), [0, 0, width, 20])
+        maxWidth = 200
+        height = 30
+        width = self.health / self.maxHealth * 200
+        pygame.draw.rect(self.screen, (255, 0, 0), [0, 0, maxWidth, height])
+        pygame.draw.rect(self.screen, (0, 255, 0), [0, 0, width, height])
+
+        # Write the current health on the screen under the health bar
+        healthText = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 18).render(f'Health: {round(self.health, 2)}', True, (255, 0, 0))
+        self.screen.blit(healthText, (10, 0))
 
     def damage(self, damage):
         """
@@ -134,24 +183,89 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         if self.rect.colliderect(entity.rect):
             self.damage(0.2)
-            print(f"{self.health=}")
+
+   
+            
 
 
-class Boss(Entity):
+class NPC(Entity):
     """
     Boss class
     """
 
-    def __init__(self, name, sideLength):
-        super().__init__(name, sideLength)
+    def __init__(self, name, game, xp, maxHealth, speed):
+        super().__init__(name)
+        self.xp = xp
+        self.maxHealth = maxHealth
+        self.health = self.maxHealth
         self.direction = "right"
-        self.rockGroup = pygame.sprite.Group()
+        self.game = game
+        self.monster = pygame.sprite.GroupSingle()
+        self.player = self.game.player
+        self.speed = speed
+
+    def damage(self, damage):
+        """
+        Take damage
+        """
+        self.health -= damage
+        self.health = max(0, self.health)
+
+        if self.health <= 0:
+            self.player.monsterKilled += 1
+            self.player.gainXP(self.xp)
+            self.kill()
 
     def getPosition(self):
         return self.rect.x, self.rect.y
 
-    def move(self, player):
+    def move(self, player, walls):
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
-        stepx, stepy = (dx / 25., dy / 25.)
-        self.rect.x += stepx
-        self.rect.y += stepy
+        dist = math.hypot(dx, dy)
+        try:
+            dx, dy = dx / dist, dy / dist
+            self.rect.y += dy * self.speed
+            self.rect.x += dx * self.speed
+        except ZeroDivisionError:
+            self.rect.y += 0
+            self.rect.x += 0
+
+        if not self.checkCollisionWalls(walls):
+            self.saveLocation()
+
+    def teleportSpawn(self, destination):
+        """
+        Teleport the NPC to its spawn point
+        """
+        self.rect.x = destination[0]
+        self.rect.y = destination[1]
+        self.saveLocation()
+
+    def hasCollided(self):
+        """
+        Check if the monster is colliding with a bomb
+        """
+        for bomb in self.player.bombGroup:
+
+            if (self.rect.x*1.75 <= bomb.rect.x+8 <= (self.rect.x*1.75 + self.rect.width*1.75)) and (self.rect.y*1.75 <= bomb.rect.y+8 <= (self.rect.y*1.75 + self.rect.height*1.75)):
+                bomb.kill()
+                return True
+            return False
+
+    def checkCollisionWalls(self, walls):
+        if self.rect.collidelist(walls) > -1:
+            self.rect.topleft = self.oldPosition
+            return True
+        return False
+
+    def drawHealthBar(self):
+        """
+        Draw the health bar
+        """
+        maxWidth = 100
+        width = self.health / self.maxHealth * 100
+        x, y = self.rect.x*1.75+8, self.rect.y*1.75+8
+        # Get the center of the bar in order to place it above the monster
+        centerX = maxWidth//2 - 8
+        pygame.draw.rect(self.game.screen, (255, 0, 0), [x-centerX, y-20, maxWidth, 3])
+        pygame.draw.rect(self.game.screen, (0, 255, 0), [x-centerX, y-20, width, 3])
