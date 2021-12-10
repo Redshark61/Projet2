@@ -42,8 +42,9 @@ class Game:
             # Handling the quit event
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
-                        running = False
+                    if self.map.quitButtonRect is not None :
+                        if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
+                           running = False
                 if event.type == pygame.QUIT:
                     running = False
 
