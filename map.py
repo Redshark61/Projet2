@@ -10,6 +10,7 @@ from db.playerData import PlayerData
 from player import NPC
 from quest import Quest
 from db.monster import Monster as MonsterDB
+from circle import Circle
 
 
 @dataclass
@@ -46,6 +47,8 @@ class MapManager:
         self.player = self.game.player
         self.screen = screen
         self.maps = {}
+        self.quitButtonRect = None
+        self.returnButtonRect = None
         # Set the current map
         self.currentMap = "assetHub/carte_hub_p2"
         self.results = MonsterDB.getAllMonster()
@@ -225,16 +228,41 @@ class MapManager:
             # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
+        
         point = self.getObject(destinationName)
         self.player.rect.x = point.x
         self.player.rect.y = point.y
         self.player.saveLocation()
 
+        circle = Circle()
+        circle.rotateLogo()
+
     def respawn(self):
+
         if self.player.health == 0:
-            self.currentMap = "assetHub/carte_hub_p2"
-            self.teleportPlayer("spawnPlayer")
-            self.player.health = self.player.maxHealth
+#             self.currentMap = "assetHub/carte_hub_p2"
+#             self.teleportPlayer("spawnPlayer")
+#             self.player.health = self.player.maxHealth
+
+            background = pygame.image.load('assets/Background Game Over.png')
+            background2 = pygame.Surface(self.screen.get_size())
+            background2.fill((0, 0, 0))
+            banner = pygame.image.load('assets/Banner Game Over.png')
+            quitButton = pygame.image.load('assets/Quit Button.png')
+            returnButton = pygame.image.load('assets/RetourMenu.png')
+
+            self.screen.blit(background2, (0, 0))
+            self.screen.blit(background, (30, 0))
+            self.screen.blit(banner, (280,50))
+            self.screen.blit(quitButton, (750,600))
+            self.quitButtonRect = quitButton.get_rect()
+            self.quitButtonRect.x, self.quitButtonRect.y = 750, 600
+            self.screen.blit(returnButton, (30,600))
+            self.returnButtonRect = returnButton.get_rect()
+            self.returnButtonRect.x, self.returnButtonRect.y = 30, 600
+
+
+            pygame.display.flip()
 
     def registerMap(self, mapName, portals, entityData, spawnName=""):
         results = MonsterDB.getMonsterFromMap(mapName)
