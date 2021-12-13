@@ -23,6 +23,8 @@ class Menu:
         self.isMainMenuOpen = True
         self.isOptionsMenuOpen = False
         self.players = self.choosePlayer()
+        self.titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
+        self.buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
 
     def run(self):
         while self.running:
@@ -61,10 +63,8 @@ class Menu:
     def playMenu(self):
 
         #### TITLE ####
-        # Load the title font
-        titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
         # Create the title text
-        titleText = titleFont.render("Choisir une partie", True, (255, 255, 255))
+        titleText = self.titleFont.render("Choisir une partie", True, (255, 255, 255))
         # center the title text on x-axis
         titleTextRect = titleText.get_rect()
         titleTextRect.centerx = (self.screen.get_width() / 2)
@@ -73,29 +73,24 @@ class Menu:
         self.screen.blit(titleText, titleTextRect)
 
         #### Create a new game button ####
-        # Load the button font
-        newGameButtonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
         # Create the button text
-        newGameButtonText = newGameButtonFont.render("Nouvelle Partie", True, (255, 255, 255))
+        newGameButtonText = self.buttonFont.render("Nouvelle Partie", True, (255, 255, 255))
         # center the button text on x-axis
         newGameButtonTextRect = newGameButtonText.get_rect()
         bgNewGame = pygame.Surface((newGameButtonTextRect.width + 10, newGameButtonTextRect.height + 10))
         bgNewGame.fill((0, 0, 0))
         bgNewGame.set_alpha(200)
         bgNewGame.blit(newGameButtonText, newGameButtonTextRect)
-        # center the bg
         bgNewGameRect = bgNewGame.get_rect()
 
         #### Create different player's save buttons ####
-        # Load the button font
-        buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
 
         if len(self.players) > 0:
             for player in self.players:
                 # Load the bin image
                 binImage = pygame.image.load("./assets/User Interface/poubelle.png")
                 # Create the button text
-                buttonText = buttonFont.render(player.name, True, (255, 255, 255))
+                buttonText = self.buttonFont.render(player.name, True, (255, 255, 255))
                 # center the button text on x-axis
                 buttonTextRect = buttonText.get_rect()
                 scale = binImage.get_height() / buttonTextRect.height
@@ -104,7 +99,6 @@ class Menu:
                 bg.fill((0, 0, 0))
                 bg.set_alpha(200)
                 bg.blit(buttonText, buttonTextRect)
-                # center the bg
                 bgRect = bg.get_rect()
                 bgRect.height += 20
                 bgRect.centerx = (self.screen.get_width() / 2)
@@ -144,22 +138,17 @@ class Menu:
             bgNewGame.set_alpha(255)
 
         #### Create the back button ####
-        # Load the button font
-        backButtonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
-        # Create the button text
-        backButtonText = backButtonFont.render("Retour", True, (255, 255, 255))
-        # place the button on the top left corner
+        backButtonText = self.buttonFont.render("Retour", True, (0, 0, 0))
         backButtonTextRect = backButtonText.get_rect()
 
         bgBack = pygame.Surface((backButtonTextRect.width + 10, backButtonTextRect.height + 10))
-        bgBack.fill((0, 0, 0))
+        bgBack.fill((255, 255, 255))
         bgBack.set_alpha(200)
         bgBack.blit(backButtonText, backButtonTextRect)
-        # center the bg
         bgBackRect = bgBack.get_rect()
         bgBackRect.height += 20
         bgBackRect.width += 20
-        bgBackRect.x += 20
+        bgBackRect.x += 50
         bgBackRect.y = self.screen.get_height() - bgBackRect.height
 
         # hover effect
@@ -177,10 +166,8 @@ class Menu:
     def mainMenu(self):
 
         #### TITLE ####
-        # Load the title font
-        titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
         # Create the title text
-        titleText = titleFont.render("Les AUTRES", True, (255, 255, 255))
+        titleText = self.titleFont.render("Les AUTRES", True, (255, 255, 255))
         # center the title text on x-axis
         titleTextRect = titleText.get_rect()
         titleTextRect.centerx = (self.screen.get_width() / 2)
