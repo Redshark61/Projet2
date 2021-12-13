@@ -119,7 +119,7 @@ class MapManager:
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
         self.timeInTimeToWait = 0
-        # NPC.uploadFromDB(self.maps)
+
         PlayerData.setCurrentMap(self)
         self.getNumberOfDungeon()
 
@@ -228,7 +228,7 @@ class MapManager:
             # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
-        
+
         point = self.getObject(destinationName)
         self.player.rect.x = point.x
         self.player.rect.y = point.y
@@ -240,9 +240,9 @@ class MapManager:
     def respawn(self):
 
         if self.player.health == 0:
-#             self.currentMap = "assetHub/carte_hub_p2"
-#             self.teleportPlayer("spawnPlayer")
-#             self.player.health = self.player.maxHealth
+            #             self.currentMap = "assetHub/carte_hub_p2"
+            #             self.teleportPlayer("spawnPlayer")
+            #             self.player.health = self.player.maxHealth
 
             background = pygame.image.load('assets/Background Game Over.png')
             background2 = pygame.Surface(self.screen.get_size())
@@ -253,14 +253,13 @@ class MapManager:
 
             self.screen.blit(background2, (0, 0))
             self.screen.blit(background, (30, 0))
-            self.screen.blit(banner, (280,50))
-            self.screen.blit(quitButton, (750,600))
+            self.screen.blit(banner, (280, 50))
+            self.screen.blit(quitButton, (750, 600))
             self.quitButtonRect = quitButton.get_rect()
             self.quitButtonRect.x, self.quitButtonRect.y = 750, 600
-            self.screen.blit(returnButton, (30,600))
+            self.screen.blit(returnButton, (30, 600))
             self.returnButtonRect = returnButton.get_rect()
             self.returnButtonRect.x, self.returnButtonRect.y = 30, 600
-
 
             pygame.display.flip()
 
