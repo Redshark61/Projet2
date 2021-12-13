@@ -57,8 +57,8 @@ class PlayerData:
 
     @staticmethod
     def upload(player, choice):
-        query = """SELECT * FROM playerdata"""
-        result = Database.query(query)[choice]
+        query = f"""SELECT * FROM playerdata WHERE playerdata.playerid = '{choice}'"""
+        result = Database.query(query)[0]
         PlayerData.playerID = result[0]
         player.health = result[1]
         player.totalXP = result[2]
@@ -70,8 +70,8 @@ class PlayerData:
 
     @staticmethod
     def getSpritePath(choice):
-        query = """SELECT spritepath FROM player"""
-        result = Database.query(query)[choice]
+        query = f"""SELECT spritepath FROM player WHERE id = '{choice}'"""
+        result = Database.query(query)[0]
         return result[0]
 
     @staticmethod
@@ -79,3 +79,20 @@ class PlayerData:
         query = f"""SELECT currentmap FROM playerdata WHERE playerid = '{PlayerData.playerID}'"""
         results = Database.query(query)[0][0]
         map.currentMap = results
+
+    @staticmethod
+    def deletePlayer(playerid):
+        query = f"""DELETE FROM monster
+        USING dungeon
+        WHERE dungeon.playerid = '{playerid}' AND dungeon.id = monster.dungeonid
+        """
+        Database.query(query)
+        query = f"""
+        DELETE FROM dungeon
+        WHERE dungeon.playerid = '{playerid}'
+        """
+        Database.query(query)
+        query = f"""DELETE FROM player WHERE id = '{playerid}'"""
+        Database.query(query)
+        query = f"""DELETE FROM playerdata WHERE playerid = '{playerid}'"""
+        Database.query(query)
