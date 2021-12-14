@@ -84,8 +84,8 @@ class MapManager:
                              
                          ],
                          entityData=[
-                            Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                            Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
+                            Monster("Monsters\Monsters\Dragons\BlackDragon", xp=70, speed=(50, 80)),
+                            Monster("Monsters\Monsters\Dragons\RedDragon", xp=100, health=600, speed=(70, 90)),
 
                          ], spawnName="fireMonstersSpawn")
 
