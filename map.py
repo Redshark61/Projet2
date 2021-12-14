@@ -11,7 +11,7 @@ from player import NPC
 from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
-
+from musics import Music
 
 @dataclass
 class Portal:
@@ -75,7 +75,6 @@ class MapManager:
                     entitiesList.append(Monster(entity[0], entity[6], entity[2], speed, entity[5], entity[1], entity[1]))
 
             self.registerMap(result[1], portalsList, entitiesList, result[3])
-
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
         self.timeInTimeToWait = 0
@@ -88,7 +87,7 @@ class MapManager:
         self.listOfquest = []
 
         for key, value in self.maps.items():
-            if "donjon" in value.name:
+            if "donjon" in value.name.lower():
                 self.numberOfDungeon += 1
                 self.listOfquest.append(Quest(key, self.screen))
 
@@ -130,6 +129,7 @@ class MapManager:
                     bomb.kill()
 
     def getMap(self):
+       
         return self.maps[self.currentMap]
 
     def getGroup(self):
@@ -154,13 +154,14 @@ class MapManager:
                 if self.isWinScenePlaying:
                     if time.time() < self.timeInTimeToWait:
                         quest.winText()
+                        
                     else:
                         self.isDungeonFinished = False
                         self.isWinScenePlaying = False
                 else:
                     self.isWinScenePlaying = True
                     self.timeInTimeToWait = time.time() + timeToWait
-
+        
         self.getGroup().center(self.game.player.rect.center)
 
     def updateMap(self):
@@ -198,8 +199,13 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-        circle = Circle()
-        circle.rotateLogo()
+        
+        self.circle.rotateLogo()
+
+        if "donjon" in self.currentMap:
+            self.playMusic.play("dungeon",-1)
+        else:
+            self.playMusic.play("outdoor",-1)
 
     def respawn(self):
 

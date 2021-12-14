@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="247">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="251">
  <tileset firstgid="1" source="Lava.tsx"/>
  <tileset firstgid="2" source="magma.tsx"/>
  <tileset firstgid="3" source="CobbledGrounnd.tsx"/>
@@ -718,7 +718,7 @@
   <object id="133" type="collision" x="510" y="766.667" width="30.6667" height="33.3333"/>
   <object id="134" type="collision" x="655.333" y="0" width="16.6667" height="124"/>
   <object id="136" type="collision" x="655.455" y="108.364" width="112.727" height="19.4545"/>
-  <object id="137" type="collision" x="784.364" y="108.545" width="15.8182" height="19.0909"/>
+  <object id="137" type="collision" x="787.364" y="108.545" width="12.8182" height="19.0909"/>
   <object id="138" name="toHub" x="719" y="767.75" width="16.5" height="32.25"/>
   <object id="139" type="magma" x="736" y="256.667" width="63.6667" height="15.6667"/>
   <object id="140" type="magma" x="671.667" y="271.333" width="79.3333" height="16.3333"/>
@@ -809,11 +809,11 @@
   <object id="225" type="collision" x="1.5" y="780" width="12.75" height="3.75"/>
   <object id="226" type="collision" x="49.75" y="778.75" width="12.75" height="4.5"/>
   <object id="227" type="collision" x="752.25" y="127.5" width="15.25" height="47.75"/>
-  <object id="228" type="collision" x="783.75" y="127.25" width="16.25" height="48.75"/>
-  <object id="229" type="collision" x="767" y="168" width="17" height="8"/>
+  <object id="228" type="collision" x="784.875" y="127.25" width="15.125" height="48.75"/>
+  <object id="229" name="Boat2Entry" x="767" y="163" width="17" height="8"/>
   <object id="230" type="collision" x="417.88" y="209.128" width="13.9064" height="29.4897"/>
   <object id="231" type="collision" x="449.703" y="208.875" width="16.4167" height="30"/>
-  <object id="232" type="collision" x="431.031" y="230.293" width="18.9244" height="8.08205"/>
+  <object id="232" name="Boat1Entry" x="431.031" y="224.293" width="18.9244" height="8.08205"/>
   <object id="233" type="collision" x="-1" y="799" width="803" height="2.5"/>
   <object id="234" type="collision" x="-2" y="-3" width="3.5" height="802.5"/>
   <object id="235" type="collision" x="-1" y="-2.5" width="804.5" height="3.5"/>
@@ -827,5 +827,15 @@
   <object id="244" type="collision" x="272.364" y="0.727273" width="14.5455" height="160"/>
   <object id="245" type="collision" x="128" y="-0.545455" width="14.9091" height="113.091"/>
   <object id="246" type="collision" x="0" y="95.8182" width="80.3636" height="16"/>
+  <object id="247" name="DonjonExit" x="736.333" y="103.667">
+   <point/>
+  </object>
+  <object id="248" name="Boat1Exit" x="776.625" y="109.708">
+   <point/>
+  </object>
+  <object id="249" name="DonjonEntry" type="DonjonEntry" x="726.333" y="54.3333" width="19" height="14.6667"/>
+  <object id="250" name="Boat2Exit" x="439" y="183.667">
+   <point/>
+  </object>
  </objectgroup>
 </map>

@@ -1,5 +1,6 @@
 import time
 import pygame
+from musics import Music
 
 pygame.init()
 
@@ -12,6 +13,9 @@ class Circle():
 
         self.screen = pygame.display.set_mode((width, height))
 
+        self.screen = pygame.display.set_mode((width,height))
+        self.music = Music()
+
         self.loadLogo = pygame.transform.scale(pygame.image.load("assets/logop2_3.png"), (720, 720))
         self.logoRect = self.loadLogo.get_rect()
         self.logoRect.x = self.screen.get_width() / 6
@@ -21,9 +25,10 @@ class Circle():
         pygame.display.flip()
 
     def rotateLogo(self):
-        for _ in range(4):
+        self.music.play("loading",0)
+        for i in range(4):
             self.rotateRadius += 90
             self.rotate = pygame.transform.rotate(self.loadLogo, self.rotateRadius)
             self.screen.blit(self.rotate, self.logoRect)
-            time.sleep(0.5)
+            time.sleep(0.4)
             pygame.display.update()

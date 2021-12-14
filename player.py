@@ -5,7 +5,7 @@ from db.db import Database
 from db.dungeon import Dungeon
 from db.playerData import PlayerData as PlayerDB
 from projectile import Projectile
-
+from musics import Music
 
 class AnimateSprite(pygame.sprite.Sprite):
 
@@ -127,6 +127,8 @@ class Player(Entity, pygame.sprite.Sprite):
         self.playerName = name.split('/')[-1] + str(random.randint(0, 100))
         self.name = name
         self.map = 'assetHub/carte_hub_p2'
+        self.projectileSound = Music()
+        self.levelMusic = Music()
         self.playerDB = PlayerDB(self)
         if not hasToUpload:
             self.playerDB.addToList()
@@ -162,6 +164,7 @@ class Player(Entity, pygame.sprite.Sprite):
             self.currentXP = self.currentXP - self.maxXP
             self.currentLevel += 1
             self.maxXP += 50
+            self.levelMusic.playIfReady("levelUp",0)
 
     def drawHealthBar(self):
         """
@@ -190,6 +193,7 @@ class Player(Entity, pygame.sprite.Sprite):
         mousePos = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         bomb = Projectile(self, "FireballProjectile", mousePos, self.screen)
         self.bombGroup.add(bomb)
+        self.projectileSound.play("fireball",0)
 
     def checkCollision(self, entity):
         """
@@ -203,9 +207,11 @@ class NPC(Entity):
     """
     Boss class
     """
+    hitSound = Music()
 
     def __init__(self, monsterID, mapName, name, game, xp, maxHealth, speed, id=0, isDBempty=True):
         super().__init__(name)
+        
         self.name = name
         self.index = id
         self.monsterID = monsterID
@@ -222,6 +228,7 @@ class NPC(Entity):
         if isDBempty:
             self.index = Dungeon.addMonsters(self)
 
+        
     def removeFromDB(self):
         query = f"""
         DELETE FROM monstercreated
@@ -235,6 +242,8 @@ class NPC(Entity):
         """
         self.health -= damage
         self.health = max(0, self.health)
+        
+        self.hitSound.play("hitEnemy",0)
 
         if self.health <= 0:
             self.player.monsterKilled += 1

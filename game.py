@@ -4,6 +4,7 @@ from pygame.constants import K_ESCAPE, MOUSEBUTTONDOWN
 from player import Player
 from map import MapManager
 from quest import Quest
+from musics import Music
 
 
 class Game:
@@ -12,6 +13,11 @@ class Game:
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
         pygame.display.set_caption("Super jeu")
+        # Initialize Musics
+        self.stepMusic = Music()
+        self.startMusic = Music()
+        self.eventMusic = Music()
+        
 
     def initalize(self, choice=None):
         # Creation of the player
@@ -32,21 +38,28 @@ class Game:
     def handleInput(self):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_z]:
-            self.player.moveUp()
+            self.player.moveUp()     
+            self.stepMusic.playIfReady("step1",0)
         elif pressed[pygame.K_s]:
             self.player.moveDown()
+            self.stepMusic.playIfReady("step1",0)
         if pressed[pygame.K_q]:
             self.player.moveLeft()
+            self.stepMusic.playIfReady("step1",0)
         elif pressed[pygame.K_d]:
             self.player.moveRight()
+            self.stepMusic.playIfReady("step1",0)
 
     def run(self):
         running = True
 
         # Set the clock to 60fps
         clock = pygame.time.Clock()
-
+        
+        # self.startMusic.play("outdoor", 10)
+        # self.startMusic.setVolume()
         while running:
+
             # Handling the quit event
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -57,7 +70,7 @@ class Game:
                     running = False
 
                 # If the player left click
-                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name:
+                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name.lower():
                     self.player.lauchProjectile()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
@@ -66,9 +79,11 @@ class Game:
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
                         self.player.currentLevel += 5
+                        self.eventMusic.play("cheat",0)
                     elif event.key == K_ESCAPE:
                         self.player.playerDB.updateValue()
                         self.map.updateMonsterInDB()
+                        self.eventMusic.play("save",0)
                         print("Saving...")
 
             # Move every projectile
