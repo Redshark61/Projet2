@@ -3,7 +3,7 @@ import pygame
 from db.db import Database
 from db.difficulty import Difficulty
 from db.playerData import PlayerData as Player
-
+from musics import Music
 
 @dataclass
 class PlayerData:
@@ -25,6 +25,8 @@ class Menu:
         self.players = self.choosePlayer()
         self.titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
         self.buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
+        # Initiliaze music
+        self.menuMusic = Music()
 
     def run(self):
         while self.running:
@@ -46,6 +48,7 @@ class Menu:
         menuImage1Rect.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)
 
         menuImage2 = pygame.image.load("./assets/User Interface/game over 2.png")
+        
         self.screen.blit(menuImage2, (30, -10))
         self.screen.blit(menuImage1, menuImage1Rect)
 
@@ -162,7 +165,7 @@ class Menu:
 
         self.screen.blit(bgBack, bgBackRect)
         self.screen.blit(bgNewGame, bgNewGameRect)
-
+        
     def mainMenu(self):
 
         #### TITLE ####
