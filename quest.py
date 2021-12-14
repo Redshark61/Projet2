@@ -10,7 +10,7 @@ class Quest:
     questList = []
 
     def __init__(self, name, screen):
-        result, numberOfEnemies = Dungeon.getMonster(name)
+        _, numberOfEnemies = Dungeon.getMonsters(name)
         self.originalNumberOfEnemies = numberOfEnemies
         self.numberOfEnemies = numberOfEnemies
         self.originalName = name
@@ -46,7 +46,10 @@ class Quest:
 
         #### Draw the progress bar of enemies left ####
         maxWidth = 200
-        width = (self.numberOfEnemies / self.originalNumberOfEnemies) * maxWidth
+        try:
+            width = (self.numberOfEnemies / self.originalNumberOfEnemies) * maxWidth
+        except ZeroDivisionError:
+            width = 0
         pygame.draw.rect(self.surface, (0, 0, 0), (35, 53, width, 10))
 
         # don't draw the first line

@@ -233,9 +233,6 @@ class Menu:
     def choosePlayer():
         db = Database()
         db.connect('projet2')
-        results = db.query("SELECT * FROM difficulty")
-        for result in results:
-            Difficulty(result)
 
         results = db.query("SELECT * FROM player")
         players = []

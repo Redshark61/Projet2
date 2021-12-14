@@ -33,6 +33,7 @@ class Game:
         # Teleport the player to the start of the map
         if choice == 'new':
             self.map.teleportPlayer("spawnPlayer")
+            self.player.playerDB.updateValue()
 
     def handleInput(self):
         pressed = pygame.key.get_pressed()
@@ -62,9 +63,9 @@ class Game:
             # Handling the quit event
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.map.quitButtonRect is not None :
+                    if self.map.quitButtonRect is not None:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
-                           running = False
+                            running = False
                 if event.type == pygame.QUIT:
                     running = False
 
