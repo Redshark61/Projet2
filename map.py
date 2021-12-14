@@ -11,7 +11,7 @@ from player import NPC
 from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
-
+from musics import Music
 
 @dataclass
 class Portal:
@@ -54,6 +54,15 @@ class MapManager:
         self.results = MonsterDB.getAllMonster()
         self.isDBEmpty = len(self.results) == 0
 
+        # Initialize musics
+        self.playMusic = Music()
+        self.winDungeonMusic = Music() 
+        
+        # Loading
+        self.circle = Circle()
+        
+
+
 
         self.registerMap("assetFeu/FireZoneDonjon", 
                          portals=[
@@ -65,6 +74,7 @@ class MapManager:
                              Monster("Monsters/Undead/Skeleton-Soldier", xp=50, speed=(35, 40)),
                          ],
                          spawnName="FireZoneMonsterSpawn")
+
 
         self.registerMap("assetHub/carte_hub_p2",
                          portals=[
@@ -197,6 +207,7 @@ class MapManager:
                     bomb.kill()
 
     def getMap(self):
+       
         return self.maps[self.currentMap]
 
     def getGroup(self):
@@ -221,13 +232,14 @@ class MapManager:
                 if self.isWinScenePlaying:
                     if time.time() < self.timeInTimeToWait:
                         quest.winText()
+                        
                     else:
                         self.isDungeonFinished = False
                         self.isWinScenePlaying = False
                 else:
                     self.isWinScenePlaying = True
                     self.timeInTimeToWait = time.time() + timeToWait
-
+        
         self.getGroup().center(self.game.player.rect.center)
 
     def updateMap(self):
@@ -265,8 +277,13 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-        circle = Circle()
-        circle.rotateLogo()
+        
+        self.circle.rotateLogo()
+
+        if "donjon" in self.currentMap:
+            self.playMusic.play("dungeon",-1)
+        else:
+            self.playMusic.play("outdoor",-1)
 
     def respawn(self):
 
