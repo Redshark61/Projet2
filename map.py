@@ -13,6 +13,7 @@ from db.monster import Monster as MonsterDB
 from circle import Circle
 from musics import Music
 
+
 @dataclass
 class Portal:
     fromWorld: str
@@ -46,6 +47,8 @@ class MapManager:
 
     def __init__(self, game, screen):
         # Initalize the variables
+        self.circle = Circle()
+        self.playMusic = Music()
         self.game = game
         self.player = self.game.player
         self.screen = screen
@@ -129,7 +132,7 @@ class MapManager:
                     bomb.kill()
 
     def getMap(self):
-       
+
         return self.maps[self.currentMap]
 
     def getGroup(self):
@@ -154,14 +157,14 @@ class MapManager:
                 if self.isWinScenePlaying:
                     if time.time() < self.timeInTimeToWait:
                         quest.winText()
-                        
+
                     else:
                         self.isDungeonFinished = False
                         self.isWinScenePlaying = False
                 else:
                     self.isWinScenePlaying = True
                     self.timeInTimeToWait = time.time() + timeToWait
-        
+
         self.getGroup().center(self.game.player.rect.center)
 
     def updateMap(self):
@@ -199,13 +202,12 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-        
         self.circle.rotateLogo()
 
         if "donjon" in self.currentMap:
-            self.playMusic.play("dungeon",-1)
+            self.playMusic.play("dungeon", -1)
         else:
-            self.playMusic.play("outdoor",-1)
+            self.playMusic.play("outdoor", -1)
 
     def respawn(self):
 
