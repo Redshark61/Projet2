@@ -69,7 +69,7 @@ class Game:
                     running = False
 
                 # If the player left click
-                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name:
+                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name.lower():
                     self.player.lauchProjectile()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
