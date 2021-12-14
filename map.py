@@ -103,6 +103,12 @@ class MapManager:
                          portals=[
                              Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau"),
                              Portal("assetWater/WaterWorld", "assetWater/donjon/Donjon eau", "toWaterDonjon", "spawnPlayer"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld", "toNowhere", "fromRight"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld", "toCamp", "fromHill"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld", "toHill", "fromCamp"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld", "toRight","fromNowhere"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld", "toCrypt", "fromLeft"),
+                             Portal("assetWater/WaterWorld", "assetWater/WaterWorld","fromCrypt", "toLeft")
                          ],
                          entityData=[])
 
