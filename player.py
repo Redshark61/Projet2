@@ -204,9 +204,11 @@ class NPC(Entity):
     Boss class
     """
 
-    def __init__(self, mapName, name, game, xp, maxHealth, speed, isDBempty=True):
+    def __init__(self, monsterID, mapName, name, game, xp, maxHealth, speed, id=0, isDBempty=True):
         super().__init__(name)
         self.name = name
+        self.index = id
+        self.monsterID = monsterID
         self.xp = xp
         self.mapName = mapName
         self.maxHealth = maxHealth
@@ -215,16 +217,14 @@ class NPC(Entity):
         self.game = game
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
-        self.speed = speed
+        self.speed = speed * 0.05
         self.alive = True
-        self.index = 0
         if isDBempty:
-            self.index = Dungeon.addMonsters(mapName, self)
+            self.index = Dungeon.addMonsters(self)
 
     def removeFromDB(self):
         query = f"""
-        UPDATE monster
-        SET alive = False
+        DELETE FROM monstercreated
         WHERE id = '{self.index}'
         """
         Database.query(query)
@@ -245,6 +245,7 @@ class NPC(Entity):
         return self.rect.x, self.rect.y
 
     def move(self, player, walls):
+
         dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
         dist = math.hypot(dx, dy)
         try:

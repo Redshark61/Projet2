@@ -27,8 +27,13 @@ class PlayerData:
         """)
         PlayerData.playerID = results[0][0]
         # playerID = [player.id for player in Player.modelList if player.playerName == self.playerName][0]
-        query = f"""INSERT INTO playerdata (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
-                    VALUES ('{int(PlayerData.playerID)}','{self.health}', '{self.xp}', '{self.level}', '{self.position[0]}', '{self.position[1]}', '{self.currentMap}', '{self.difficultyID}', '{self.maxHealth}')"""
+        query = f"""
+        INSERT INTO playerdata 
+        (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
+        VALUES ('{int(PlayerData.playerID)}','{self.health}', '{self.xp}', '{self.level}', 
+        '{self.position[0]}', '{self.position[1]}', '{self.currentMap}', '{self.difficultyID}', 
+        '{self.maxHealth}')
+        """
         Database.query(query)
 
     def updateValue(self):
@@ -41,7 +46,7 @@ class PlayerData:
         self.difficultyID = 1
         self.playerName = self.player.playerName
         self.spritePath = self.player.name
-        self.difficultyName = [difficulty.name for difficulty in Difficulty.modelList if difficulty.ID == self.difficultyID][0]
+        # self.difficultyName = [difficulty.name for difficulty in Difficulty.modelList if difficulty.ID == self.difficultyID][0]
         if PlayerData.playerID is not None:
             self.updateDB()
 
@@ -82,14 +87,15 @@ class PlayerData:
 
     @staticmethod
     def deletePlayer(playerid):
-        query = f"""DELETE FROM monster
-        USING dungeon
-        WHERE dungeon.playerid = '{playerid}' AND dungeon.id = monster.dungeonid
+        query = f"""
+        DELETE FROM monstercreated
+        USING dungeonplayer
+        WHERE dungeonplayer.playerid = '{playerid}' AND monstercreated.dungeonid = dungeonplayer.id
         """
         Database.query(query)
         query = f"""
-        DELETE FROM dungeon
-        WHERE dungeon.playerid = '{playerid}'
+        DELETE FROM dungeonplayer
+        WHERE dungeonplayer.playerid = '{playerid}'
         """
         Database.query(query)
         query = f"""DELETE FROM player WHERE id = '{playerid}'"""
