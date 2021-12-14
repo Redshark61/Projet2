@@ -11,6 +11,7 @@ from player import NPC
 from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
+from musics import Music
 
 
 @dataclass
@@ -23,9 +24,12 @@ class Portal:
 
 @dataclass
 class Monster:
+    id: int
     name: str
     xp: int
     speed: int
+    damage: int
+    maxHealth: int = 100
     health: int = 100
 
 
@@ -43,6 +47,8 @@ class MapManager:
 
     def __init__(self, game, screen):
         # Initalize the variables
+        self.circle = Circle()
+        self.playMusic = Music()
         self.game = game
         self.player = self.game.player
         self.screen = screen
@@ -53,88 +59,25 @@ class MapManager:
         self.currentMap = "assetHub/carte_hub_p2"
         self.results = MonsterDB.getAllMonster()
         self.isDBEmpty = len(self.results) == 0
-        self.registerMap("assetHub/carte_hub_p2",
-                         portals=[
-                             Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
-                             Portal("assetHub/carte_hub_p2", "assetTerre/mapTerre", "toTerre", "spawnPlayer"),
-                             Portal("assetHub/carte_hub_p2", "assetFeu/Fire_zone2", "toFeu", "spawnPlayer"),
-                             Portal("assetHub/carte_hub_p2", "assetWater/WaterWorld", "toEau", "spawnPlayer"),
-                             Portal("assetHub/carte_hub_p2", "assetHub/donjonHub/carteDonjonHub", "toDonjonHub", "spawnPlayer"),
-                         ], entityData=[])
 
-        self.registerMap("assetAir/airWorld",
-                         portals=[
-                             Portal("assetAir/airWorld", "assetHub/carte_hub_p2", "toHub", "fromAir"),
-                             Portal("assetAir/airWorld", "assetAir/donjon/donjon", "toAirDonjon", "spawnPlayer"),
-                         ],
-                         entityData=[])
+        results = Database.query("SELECT * FROM world")
+        for result in results:
+            portals = Database.query(f"""SELECT * FROM portals WHERE fromworld = '{result[0]}'""")
+            portalsList = []
 
-        self.registerMap("assetFeu/Fire_zone2", 
-                         portals=[
-                            Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu"),
-                            Portal("assetFeu/Fire_zone2", "assetFeu/Fire_zone_donjon", "donjonEntry", "playerSpawn"),
-                            Portal("assetFeu/Fire_zone2", "assetFeu/Fire_zone2", "Boat1", "boat1Exit"),
-                            
-                         ],
-                         entityData=[])
-        
-        self.registerMap("assetFeu/Fire_zone_donjon",
-                         portals=[
-                             Portal("assetFeu/Fire_zone_donjon", "assetFeu/Fire_zone2", "donjonExit", "donjonExit"),
-                             
-                         ],
-                         entityData=[
-                            Monster("Monsters\Monsters\Dragons\BlackDragon", xp=70, speed=(50, 80)),
-                            Monster("Monsters\Monsters\Dragons\RedDragon", xp=100, health=600, speed=(70, 90)),
+            for portal in portals:
+                world1 = Database.query(f"""SELECT * FROM world WHERE id = {portal[1]}""")
+                world2 = Database.query(f"""SELECT * FROM world WHERE id = {portal[2]}""")
+                portalsList.append(Portal(world1[0][1], world2[0][1], portal[3], portal[4]))
 
-                         ], spawnName="fireMonstersSpawn")
+            entitiesList = []
+            if result[2]:
+                entities = Database.query(f"""SELECT * FROM monster WHERE dungeonid = '{result[0]}'""")
+                for entity in entities:
+                    speed = random.randint(entity[4], entity[3])
+                    entitiesList.append(Monster(entity[0], entity[6], entity[2], speed, entity[5], entity[1], entity[1]))
 
-        self.registerMap("assetTerre/mapTerre",
-                         portals=[
-                             Portal("assetTerre/mapTerre", "assetHub/carte_hub_p2", "toHub", "fromTerre"),
-                             Portal("assetTerre/mapTerre", "assetTerre/donjon/donjon", "toTerreDonjon", "spawnPlayer"),
-                         ],
-                         entityData=[])
-        self.registerMap("assetWater/WaterWorld",
-                         portals=[
-                             Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau"),
-                             Portal("assetWater/WaterWorld", "assetWater/donjon/Donjon eau", "toWaterDonjon", "spawnPlayer"),
-                         ],
-                         entityData=[])
-
-        self.registerMap("assetTerre/donjon/donjon",
-                         portals=[Portal("assetTerre/donjon/donjon", "assetTerre/mapTerre", "toTerre", "spawnToDonjon")],
-                         entityData=[
-                             Monster("Monsters/Demons/PurpleDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/KamikazeGoblin", xp=50, health=200, speed=(20, 30)),
-                         ],
-                         spawnName="TerreSpawnMonster")
-
-        self.registerMap("assetAir/donjon/donjon",
-                         portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
-                         entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
-                         ],
-                         spawnName="AirSpawnMonster")
-
-        self.registerMap("assetHub/donjonHub/carteDonjonHub",
-                         portals=[Portal("assetHub/donjonHub/carteDonjonHub", "assetHub/carte_hub_p2", "toHub", "spawnPlayer")],
-                         entityData=[
-                             Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                             Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
-                         ],
-                         spawnName="hubSpawnMonster")
-
-        self.registerMap("assetWater/donjon/Donjon eau",
-                         portals=[Portal("assetWater/donjon/Donjon eau", "assetWater/WaterWorld", "toWater", "spawnPlayer")],
-                         entityData=[
-                             Monster("Monsters/Pirates/PirateCaptain", xp=70, speed=(50, 60)),
-                             Monster("Monsters/Pirates/PirateGunner", xp=50, health=200, speed=(20, 30)),
-                             Monster("Monsters/Pirates/PirateGrunt", xp=30, speed=(15, 25))
-                         ],
-                         spawnName="waterSpawnMonster")
-
+            self.registerMap(result[1], portalsList, entitiesList, result[3])
         self.isDungeonFinished = False
         self.isWinScenePlaying = False
         self.timeInTimeToWait = 0
@@ -147,7 +90,7 @@ class MapManager:
         self.listOfquest = []
 
         for key, value in self.maps.items():
-            if "donjon" in value.name:
+            if "donjon" in value.name.lower():
                 self.numberOfDungeon += 1
                 self.listOfquest.append(Quest(key, self.screen))
 
@@ -155,7 +98,11 @@ class MapManager:
         """
         Update the player from the database
         """
-        results = Database.query(f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}' and dungeon.dungeonpath = '{mapName}'")
+        results = Database.query(f"""
+        SELECT * FROM dungeonplayer
+        INNER JOIN world on dungeonplayer.dungeonid = world.id
+        WHERE dungeonplayer.playerid = {PlayerData.playerID} and world.name = '{mapName}'
+        """)
         if len(results) == 0:
             Dungeon.addPlayer(self.player)
             Dungeon.addDungeon(mapName)
@@ -185,6 +132,7 @@ class MapManager:
                     bomb.kill()
 
     def getMap(self):
+
         return self.maps[self.currentMap]
 
     def getGroup(self):
@@ -253,8 +201,12 @@ class MapManager:
         self.player.rect.y = point.y
         self.player.saveLocation()
 
-        circle = Circle()
-        circle.rotateLogo()
+        self.circle.rotateLogo()
+
+        if "donjon" in self.currentMap:
+            self.playMusic.play("dungeon", -1)
+        else:
+            self.playMusic.play("outdoor", -1)
 
     def respawn(self):
 
@@ -305,28 +257,27 @@ class MapManager:
         entity = []
         spawnPoints = []
         for obj in tmxData.objects:
-            if obj.type == spawnName:
+            if obj.type == spawnName and spawnName is not None:
                 spawnPoints.append((obj.x, obj.y))
 
         for i, spawnPoint in enumerate(spawnPoints):
             if self.isDBEmpty:
                 randomMonster = random.choice(entityData)
-                entityName = randomMonster.name
-                entityXP = randomMonster.xp
-                entityHealth = randomMonster.health
-                entitySpeed = random.randint(randomMonster.speed[0], randomMonster.speed[1]) / 20
-                monster = NPC(mapName, entityName, self.game, entityXP, entityHealth, entitySpeed)
+                monster = NPC(randomMonster.id, mapName, randomMonster.name, self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
                 entity.append(monster)
                 group.add(monster)
             else:
-                if results[i][8]:
-                    monster = NPC(mapName, results[i][1], self.game, results[i][4], results[i][5], results[i][6], self.isDBEmpty)
-                    monster.rect.x = results[i][2]
-                    monster.rect.y = results[i][3]
-                    monster.alive = results[i][8]
-                    monster.index = results[i][9]
-                    entity.append(monster)
-                    group.add(monster)
+                if len(results) > 0:
+                    try:
+                        if results[i][8]:
+                            monster = NPC(results[i][6], mapName, results[i][12], self.game, results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
+                            monster.rect.x = results[i][0]
+                            monster.rect.y = results[i][1]
+                            monster.alive = True
+                            entity.append(monster)
+                            group.add(monster)
+                    except IndexError:
+                        break
 
         self.maps[mapName] = Map(mapName, walls, group, tmxData, portals, entity)
 

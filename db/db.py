@@ -10,7 +10,9 @@ class Database:
         try:
             cls.connection = psycopg2.connect(
                 user="postgres",
-                password="Zarole28",
+
+                password="tim110703",
+
                 host="localhost",
                 port="5432",
                 database=DBName)
@@ -32,3 +34,15 @@ class Database:
             return result
         cls.connection.commit()
         return None
+
+    @staticmethod
+    def getLastID(tableName):
+        # Get the id of the last monster inserted
+        query = f"""
+        SELECT id FROM {tableName}
+        ORDER BY id DESC
+        LIMIT 1
+        """
+        id = Database.query(query)[0][0]
+
+        return id

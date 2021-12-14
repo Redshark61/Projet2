@@ -10,7 +10,7 @@ class Quest:
     questList = []
 
     def __init__(self, name, screen):
-        result, numberOfEnemies = Dungeon.getMonster(name)
+        _, numberOfEnemies = Dungeon.getMonsters(name)
         self.originalNumberOfEnemies = numberOfEnemies
         self.numberOfEnemies = numberOfEnemies
         self.originalName = name
@@ -25,7 +25,6 @@ class Quest:
         # add the name of the quest to the surface
         self.font = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 20)
         self.textName = self.font.render(self.name, True, (0, 0, 0))
-
         self.textNumberEnemies = self.font.render(str(self.numberOfEnemies), True, (0, 0, 0))
         Quest.questList.append(self)
 
@@ -47,7 +46,10 @@ class Quest:
 
         #### Draw the progress bar of enemies left ####
         maxWidth = 200
-        width = (self.numberOfEnemies / self.originalNumberOfEnemies) * maxWidth
+        try:
+            width = (self.numberOfEnemies / self.originalNumberOfEnemies) * maxWidth
+        except ZeroDivisionError:
+            width = 0
         pygame.draw.rect(self.surface, (0, 0, 0), (35, 53, width, 10))
 
         # don't draw the first line
@@ -67,6 +69,7 @@ class Quest:
         text = font.render("You have won", True, (0, 255, 0))
         self.screen.blit(text, (self.screen.get_width()/2 - text.get_width()/2, self.screen.get_height()/2 - text.get_height()/2))
         pygame.display.update()
+      
 
     def tryToDrawnQuestPanel(self):
         if not Quest.isHidden:

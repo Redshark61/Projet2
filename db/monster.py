@@ -8,29 +8,20 @@ class Monster:
     def addMonster(cls, dungeonID, monster):
         # Insert a new monster into the database
         query = f"""
-        INSERT INTO monster 
-        (dungeonid, spritepath, positionx, positiony, health, speed, xp) 
+        INSERT INTO monstercreated
+        (monsterid, positionx, positiony, health, speed, dungeonid) 
         VALUES 
-        ({dungeonID}, '{monster.name}', {monster.rect.x}, {monster.rect.y}, {monster.health}, {monster.speed}, {monster.xp})
+        ({monster.monsterID}, '{monster.rect.x}', {monster.rect.y}, {monster.health}, {monster.speed}, {dungeonID})
         """
         Database.query(query)
-
-        # Get the id of the last monster inserted
-        query = """
-        SELECT id FROM monster
-        ORDER BY id DESC
-        LIMIT 1
-        """
-        id = Database.query(query)[0][0]
-
-        return id
+        return Database.getLastID("monstercreated")
 
     @staticmethod
     def update(monsters):
         # Update a monster in the database
         for monster in monsters:
             query = f"""
-            UPDATE monster 
+            UPDATE monstercreated
             SET positionx = {monster.rect.x}, positiony = {monster.rect.y}, health = {monster.health}
             WHERE id = {monster.index}"""
             Database.query(query)
@@ -39,10 +30,9 @@ class Monster:
     def getAllMonster():
         # Get the current dungeon
         query = f"""
-        SELECT * FROM monster
-        INNER JOIN dungeon ON monster.dungeonid = dungeon.id
-        INNER JOIN player ON dungeon.playerid = player.id
-        WHERE player.id = {PlayerData.playerID}
+        SELECT * FROM monstercreated
+        INNER JOIN dungeonplayer ON monstercreated.dungeonid = dungeonplayer.id
+        WHERE dungeonplayer.playerid = {PlayerData.playerID}
         """
         results = Database.query(query)
         return results
@@ -51,11 +41,13 @@ class Monster:
     def getMonsterFromMap(mapName):
         # Get the current dungeon
         query = f"""
-        SELECT monster.dungeonid, monster.spritepath, monster.positionx, monster.positiony, monster.xp, monster.health, monster.speed, monster.damage, monster.alive, monster.id
-        FROM monster
-        INNER JOIN dungeon ON monster.dungeonid = dungeon.id
-        INNER JOIN player ON dungeon.playerid = player.id
-        WHERE dungeon.dungeonpath = '{mapName}' AND dungeon.playerid = {PlayerData.playerID}
+        SELECT monstercreated.positionx, monstercreated.positiony, monstercreated.id, monstercreated.health, monstercreated.speed, monstercreated.dungeonid, monster.*
+        FROM monstercreated
+        INNER JOIN dungeonplayer ON dungeonplayer.id = monstercreated.dungeonid
+        INNER JOIN player ON dungeonplayer.playerid = player.id
+        INNER JOIN world ON world.id = dungeonplayer.dungeonid
+        INNER JOIN monster ON monster.id = monstercreated.monsterid
+        WHERE world.name = '{mapName}' AND dungeonplayer.playerid = {PlayerData.playerID}
         """
         results = Database.query(query)
         return results

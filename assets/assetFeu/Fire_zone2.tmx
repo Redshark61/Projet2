@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="210">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="251">
  <tileset firstgid="1" source="Lava.tsx"/>
  <tileset firstgid="2" source="magma.tsx"/>
  <tileset firstgid="3" source="CobbledGrounnd.tsx"/>
@@ -15,6 +15,7 @@
  <tileset firstgid="1535" source="FireMausoleum.tsx"/>
  <tileset firstgid="1607" source="Portal.tsx"/>
  <tileset firstgid="1608" source="Cliff-Lava2.tsx"/>
+ <tileset firstgid="1728" source="../assetHub/Portal.tsx"/>
  <layer id="1" name="Lava" width="50" height="50">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -336,7 +337,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1607,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1731,0,0,0,0
 </data>
  </layer>
  <layer id="10" name="Village" width="50" height="50">
@@ -649,8 +650,6 @@
   <object id="52" type="collision" x="384" y="272" width="31.6667" height="15"/>
   <object id="53" type="collision" x="384" y="239" width="15.3333" height="32"/>
   <object id="54" type="collision" x="400" y="208.667" width="17.3333" height="30.6667"/>
-  <object id="55" type="collision" x="417.667" y="207.667" width="14" height="3.33333"/>
-  <object id="56" type="collision" x="417.333" y="208.333" width="13.3333" height="14.3333"/>
   <object id="59" type="collision" x="447.875" y="192" width="32" height="15.625"/>
   <object id="60" type="collision" x="479.875" y="175.875" width="16.25" height="15.625"/>
   <object id="61" type="collision" x="495.75" y="96.25" width="16.25" height="79.75"/>
@@ -659,7 +658,7 @@
   <object id="64" type="collision" x="672.333" y="255" width="63.3333" height="16.3333"/>
   <object id="65" type="collision" x="640" y="271" width="31.3333" height="17.3333"/>
   <object id="66" type="collision" x="624" y="287" width="15" height="16.3333"/>
-  <object id="68" type="collision" x="416" y="343" width="192.333" height="40.6667"/>
+  <object id="68" type="collision" x="416" y="347.727" width="192.333" height="35.9394"/>
   <object id="69" type="collision" x="576.667" y="384" width="14" height="16.3333"/>
   <object id="70" type="collision" x="560" y="400" width="14.6667" height="15.3333"/>
   <object id="71" type="collision" x="544" y="415.667" width="15.3333" height="16"/>
@@ -719,7 +718,7 @@
   <object id="133" type="collision" x="510" y="766.667" width="30.6667" height="33.3333"/>
   <object id="134" type="collision" x="655.333" y="0" width="16.6667" height="124"/>
   <object id="136" type="collision" x="655.455" y="108.364" width="112.727" height="19.4545"/>
-  <object id="137" type="collision" x="784.364" y="108.545" width="15.8182" height="19.0909"/>
+  <object id="137" type="collision" x="787.364" y="108.545" width="12.8182" height="19.0909"/>
   <object id="138" name="toHub" x="719" y="767.75" width="16.5" height="32.25"/>
   <object id="139" type="magma" x="736" y="256.667" width="63.6667" height="15.6667"/>
   <object id="140" type="magma" x="671.667" y="271.333" width="79.3333" height="16.3333"/>
@@ -782,19 +781,61 @@
   <object id="197" type="magma" x="95.8182" y="464" width="47.6364" height="16"/>
   <object id="198" type="magma" x="15.2727" y="447.636" width="96.1818" height="16"/>
   <object id="199" type="magma" x="0" y="463.636" width="31.4545" height="16.3636"/>
-  <object id="200" name="spawnPlayer" x="395.333" y="92">
+  <object id="200" name="spawnPlayer" x="726" y="745.333">
    <point/>
   </object>
-  <object id="201" name="spawnBoss" x="262" y="266.667">
+  <object id="201" name="spawnBoss" x="772.667" y="505.334">
    <point/>
   </object>
   <object id="202" type="collision" x="623.5" y="315.5" width="37" height="6.75"/>
   <object id="203" type="collision" x="624.25" y="344.375" width="37" height="6.75"/>
   <object id="204" type="collision" x="379.125" y="315.188" width="37" height="6.75"/>
   <object id="205" type="collision" x="379.875" y="344.063" width="37" height="6.75"/>
-  <object id="206" type="collision" x="223.973" y="352.278" width="37" height="4.75" rotation="90"/>
-  <object id="207" type="collision" x="197.093" y="352.781" width="37" height="6.75" rotation="90"/>
-  <object id="208" type="collision" x="223.365" y="457.707" width="32.0671" height="4.11672" rotation="90"/>
-  <object id="209" type="collision" x="198.069" y="458.143" width="32.0671" height="5.85007" rotation="90"/>
+  <object id="210" type="collision" x="191.5" y="352.25" width="5" height="31.75"/>
+  <object id="211" type="collision" x="688.25" y="2.25" width="28.5" height="94"/>
+  <object id="212" type="collision" x="756.25" y="-1" width="27" height="95.25"/>
+  <object id="213" type="collision" x="219.75" y="351.75" width="4.25" height="48.5"/>
+  <object id="214" type="collision" x="192.25" y="462.25" width="4" height="29"/>
+  <object id="215" type="collision" x="219" y="463.5" width="5" height="28"/>
+  <object id="216" type="collision" x="80.75" y="618.75" width="14.25" height="5.5"/>
+  <object id="217" type="collision" x="129" y="616.75" width="13.25" height="7.25"/>
+  <object id="218" type="collision" x="177.5" y="618.5" width="13" height="5.25"/>
+  <object id="219" type="collision" x="210" y="618.5" width="12.5" height="4.5"/>
+  <object id="220" type="collision" x="97.5" y="651" width="13" height="5.5"/>
+  <object id="221" type="collision" x="161.5" y="665.75" width="11.5" height="6.25"/>
+  <object id="222" type="collision" x="1.75" y="746.75" width="12.25" height="4.75"/>
+  <object id="223" type="collision" x="33.25" y="745.5" width="13" height="6"/>
+  <object id="224" type="collision" x="81.5" y="745.25" width="13.25" height="5.75"/>
+  <object id="225" type="collision" x="1.5" y="780" width="12.75" height="3.75"/>
+  <object id="226" type="collision" x="49.75" y="778.75" width="12.75" height="4.5"/>
+  <object id="227" type="collision" x="752.25" y="127.5" width="15.25" height="47.75"/>
+  <object id="228" type="collision" x="784.875" y="127.25" width="15.125" height="48.75"/>
+  <object id="229" name="Boat2Entry" x="767" y="163" width="17" height="8"/>
+  <object id="230" type="collision" x="417.88" y="209.128" width="13.9064" height="29.4897"/>
+  <object id="231" type="collision" x="449.703" y="208.875" width="16.4167" height="30"/>
+  <object id="232" name="Boat1Entry" x="431.031" y="224.293" width="18.9244" height="8.08205"/>
+  <object id="233" type="collision" x="-1" y="799" width="803" height="2.5"/>
+  <object id="234" type="collision" x="-2" y="-3" width="3.5" height="802.5"/>
+  <object id="235" type="collision" x="-1" y="-2.5" width="804.5" height="3.5"/>
+  <object id="237" type="collision" x="798" y="-2.5" width="3.5" height="802"/>
+  <object id="238" type="collision" x="80.5455" y="336.182" width="93.8182" height="15.4545"/>
+  <object id="239" type="collision" x="159.636" y="303.818" width="15.2727" height="47.2727"/>
+  <object id="240" type="collision" x="159.818" y="304.182" width="47.4545" height="14.7273"/>
+  <object id="241" type="collision" x="192.909" y="257.273" width="14" height="46.9091"/>
+  <object id="242" type="collision" x="192.182" y="160" width="14.7273" height="48"/>
+  <object id="243" type="collision" x="208" y="159.091" width="78.5455" height="16.9091"/>
+  <object id="244" type="collision" x="272.364" y="0.727273" width="14.5455" height="160"/>
+  <object id="245" type="collision" x="128" y="-0.545455" width="14.9091" height="113.091"/>
+  <object id="246" type="collision" x="0" y="95.8182" width="80.3636" height="16"/>
+  <object id="247" name="DonjonExit" x="736.333" y="103.667">
+   <point/>
+  </object>
+  <object id="248" name="Boat1Exit" x="776.625" y="109.708">
+   <point/>
+  </object>
+  <object id="249" name="DonjonEntry" type="DonjonEntry" x="726.333" y="54.3333" width="19" height="14.6667"/>
+  <object id="250" name="Boat2Exit" x="439" y="183.667">
+   <point/>
+  </object>
  </objectgroup>
 </map>
