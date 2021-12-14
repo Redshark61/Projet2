@@ -53,6 +53,19 @@ class MapManager:
         self.currentMap = "assetHub/carte_hub_p2"
         self.results = MonsterDB.getAllMonster()
         self.isDBEmpty = len(self.results) == 0
+
+
+        self.registerMap("assetFeu/FireZoneDonjon", 
+                         portals=[
+                             Portal("assetFeu/FireZoneDonjon", "assetFeu/Fire_zone2", "DonjonExit", "DonjonExit"),
+                         ],
+                         entityData=[
+                             Monster("Monsters/Undead/Skeleton-Soldier", xp=70, speed=(45, 60)),
+                             Monster("Monsters/Undead/Skeleton-Soldier", xp=70, speed=(40, 50)),
+                             Monster("Monsters/Undead/Skeleton-Soldier", xp=50, speed=(35, 40)),
+                         ],
+                         spawnName="FireZoneMonsterSpawn")
+
         self.registerMap("assetHub/carte_hub_p2",
                          portals=[
                              Portal("assetHub/carte_hub_p2", "assetAir/airWorld", "toAir", "spawnPlayer"),
@@ -75,13 +88,25 @@ class MapManager:
                              Portal("assetTerre/mapTerre", "assetTerre/donjon/donjon", "toTerreDonjon", "spawnPlayer"),
                          ],
                          entityData=[])
-        self.registerMap("assetFeu/Fire_zone2", portals=[Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu")], entityData=[])
+        self.registerMap("assetFeu/Fire_zone2", 
+                         portals=[
+                             Portal("assetFeu/Fire_zone2", "assetHub/carte_hub_p2", "toHub", "fromFeu"),
+                             Portal("assetFeu/Fire_zone2", "assetFeu/FireZoneDonjon", "DonjonEntry", "DonjonEntry"),
+                             Portal("assetFeu/Fire_zone2", "assetFeu/Fire_zone2", "Boat1Entry", "Boat1Exit"),
+                             Portal("assetFeu/Fire_zone2", "assetFeu/Fire_zone2", "Boat2Entry", "Boat2Exit"),
+
+                         ],
+                         entityData=[])
+                         
+        
         self.registerMap("assetWater/WaterWorld",
                          portals=[
                              Portal("assetWater/WaterWorld", "assetHub/carte_hub_p2", "toHub", "fromEau"),
                              Portal("assetWater/WaterWorld", "assetWater/donjon/Donjon eau", "toWaterDonjon", "spawnPlayer"),
                          ],
                          entityData=[])
+
+
 
         self.registerMap("assetTerre/donjon/donjon",
                          portals=[Portal("assetTerre/donjon/donjon", "assetTerre/mapTerre", "toTerre", "spawnToDonjon")],
@@ -128,7 +153,7 @@ class MapManager:
         self.listOfquest = []
 
         for key, value in self.maps.items():
-            if "donjon" in value.name:
+            if "donjon" in value.name.lower():
                 self.numberOfDungeon += 1
                 self.listOfquest.append(Quest(key, self.screen))
 
