@@ -35,8 +35,8 @@ class Music:
     def pause(self):
         self.channel.pause()
 
-    def setVolume(self):
-        self.channel.set_volume(0)
+    def setVolume(self,volume):
+        self.channel.set_volume(volume)
 
     def stopMusic(self):
         self.channel.stop()   
