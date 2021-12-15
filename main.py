@@ -5,6 +5,7 @@ from musics import Music
 
 
 def main():
+    
     # Begining of the game
     pygame.init()
     # Change the icon of the game
