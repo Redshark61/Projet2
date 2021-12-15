@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 import pygame
 from db.db import Database
-from db.difficulty import Difficulty
 from db.playerData import PlayerData as Player
 from musics import Music
+
 
 @dataclass
 class PlayerData:
@@ -48,7 +48,7 @@ class Menu:
         menuImage1Rect.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)
 
         menuImage2 = pygame.image.load("./assets/User Interface/game over 2.png")
-        
+
         self.screen.blit(menuImage2, (30, -10))
         self.screen.blit(menuImage1, menuImage1Rect)
 
@@ -165,7 +165,7 @@ class Menu:
 
         self.screen.blit(bgBack, bgBackRect)
         self.screen.blit(bgNewGame, bgNewGameRect)
-        
+
     def mainMenu(self):
 
         #### TITLE ####
@@ -231,10 +231,8 @@ class Menu:
 
     @ staticmethod
     def choosePlayer():
-        db = Database()
-        db.connect('projet2')
 
-        results = db.query("SELECT * FROM player")
+        results = Database.query("SELECT * FROM player")
         players = []
         if len(results) >= 1:
             for result in results:

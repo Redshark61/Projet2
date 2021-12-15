@@ -11,6 +11,7 @@ def main():
     icon = pygame.image.load("./assets/User Interface/logop2_3.png")
     pygame.display.set_icon(icon)
 
+    # Set up the music
     menuMusic = Music()
     game = Game()
     menu = Menu(game.screen)

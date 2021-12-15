@@ -5,20 +5,16 @@ class Database:
 
     connection = None
 
-    @classmethod
-    def connect(cls, DBName):
-        try:
-            cls.connection = psycopg2.connect(
-                user="postgres",
+    try:
+        connection = psycopg2.connect(
+            user="postgres",
+            password="tim110703",
+            host="localhost",
+            port="5432",
+            database="projet2")
 
-                password="tim110703",
-
-                host="localhost",
-                port="5432",
-                database=DBName)
-
-        except(psycopg2.Error) as error:
-            print(f"Impossible de se connecter à la base Postgre {DBName}\n{error}")
+    except(psycopg2.Error) as error:
+        print(f"Impossible de se connecter à la base Postgre 'projet2'\n{error}")
 
     @classmethod
     def disconnect(cls):
