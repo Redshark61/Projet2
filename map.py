@@ -157,7 +157,6 @@ class MapManager:
                 if self.isWinScenePlaying:
                     if time.time() < self.timeInTimeToWait:
                         quest.winText()
-
                     else:
                         self.isDungeonFinished = False
                         self.isWinScenePlaying = False
