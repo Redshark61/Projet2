@@ -17,7 +17,6 @@ class Game:
         self.stepMusic = Music()
         self.startMusic = Music()
         self.eventMusic = Music()
-        
 
     def initalize(self, choice=None):
         # Creation of the player
@@ -38,24 +37,24 @@ class Game:
     def handleInput(self):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_z]:
-            self.player.moveUp()     
-            self.stepMusic.playIfReady("step1",0)
+            self.player.moveUp()
+            self.stepMusic.playIfReady("step1", 0)
         elif pressed[pygame.K_s]:
             self.player.moveDown()
-            self.stepMusic.playIfReady("step1",0)
+            self.stepMusic.playIfReady("step1", 0)
         if pressed[pygame.K_q]:
             self.player.moveLeft()
-            self.stepMusic.playIfReady("step1",0)
+            self.stepMusic.playIfReady("step1", 0)
         elif pressed[pygame.K_d]:
             self.player.moveRight()
-            self.stepMusic.playIfReady("step1",0)
+            self.stepMusic.playIfReady("step1", 0)
 
     def run(self):
         running = True
 
         # Set the clock to 60fps
         clock = pygame.time.Clock()
-        
+
         # self.startMusic.play("outdoor", 10)
         # self.startMusic.setVolume()
         while running:
@@ -67,6 +66,8 @@ class Game:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
                             running = False
                 if event.type == pygame.QUIT:
+                    self.player.playerDB.updateValue()
+                    self.map.updateMonsterInDB()
                     running = False
 
                 # If the player left click
@@ -79,11 +80,11 @@ class Game:
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
                         self.player.currentLevel += 5
-                        self.eventMusic.play("cheat",0)
+                        self.eventMusic.play("cheat", 0)
                     elif event.key == K_ESCAPE:
                         self.player.playerDB.updateValue()
                         self.map.updateMonsterInDB()
-                        self.eventMusic.play("save",0)
+                        self.eventMusic.play("save", 0)
                         print("Saving...")
 
             # Move every projectile
