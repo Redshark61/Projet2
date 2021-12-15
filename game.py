@@ -70,6 +70,8 @@ class Game:
                     if self.map.quitButtonRect is not None:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
                             running = False
+                    if self.map.returnButtonRect is not None:
+                        print("ca marche")
                 if event.type == pygame.QUIT:
                     self.player.playerDB.updateValue()
                     self.map.updateMonsterInDB()

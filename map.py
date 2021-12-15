@@ -59,6 +59,8 @@ class MapManager:
         self.currentMap = "assetHub/carte_hub_p2"
         self.results = MonsterDB.getAllMonster()
         self.isDBEmpty = len(self.results) == 0
+        self.buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
+
 
         results = Database.query("SELECT * FROM world")
         for result in results:
@@ -220,18 +222,18 @@ class MapManager:
             background2 = pygame.Surface(self.screen.get_size())
             background2.fill((0, 0, 0))
             banner = pygame.image.load('assets/Banner Game Over.png')
-            quitButton = pygame.image.load('assets/Quit Button.png')
-            returnButton = pygame.image.load('assets/RetourMenu.png')
+            quitButton = self.buttonFont.render("Quitter", True, (255, 255, 255))
+            returnButton = self.buttonFont.render("Retour", True, (255, 255, 255))
 
             self.screen.blit(background2, (0, 0))
             self.screen.blit(background, (30, 0))
             self.screen.blit(banner, (280, 50))
-            self.screen.blit(quitButton, (750, 600))
+            self.screen.blit(quitButton, (800, 600))
             self.quitButtonRect = quitButton.get_rect()
-            self.quitButtonRect.x, self.quitButtonRect.y = 750, 600
-            self.screen.blit(returnButton, (30, 600))
+            self.quitButtonRect.x, self.quitButtonRect.y = 800, 600
+            self.screen.blit(returnButton, (100, 600))
             self.returnButtonRect = returnButton.get_rect()
-            self.returnButtonRect.x, self.returnButtonRect.y = 30, 600
+            self.returnButtonRect.x, self.returnButtonRect.y = 100, 600
 
             pygame.display.flip()
 
