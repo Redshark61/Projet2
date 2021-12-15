@@ -1,6 +1,5 @@
 # pylint: disable=W0201
 import pygame
-from pygame.constants import K_ESCAPE, MOUSEBUTTONDOWN
 from player import Player
 from map import MapManager
 from quest import Quest
@@ -19,74 +18,95 @@ class Game:
         self.eventMusic = Music()
 
     def initalize(self, choice=None):
-        # Creation of the player
+        """
+        Setup all the variables of the game
+        """
+
+        # Creation of the player if the choice is 'new' (selected from the menu)
         if choice == 'new':
             self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
+        # Otherwise, load the player from the database
         else:
             self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
             self.startMusic.play("outdoor", -1)
             self.startMusic.setVolume(0.05)
-            
+
         # Initialize the map
         self.map = MapManager(self, self.screen)
-        # The target for the boss
-        self.ax, self.ay = self.player.rect.x, self.player.rect.y
-        # Teleport the player to the start of the map
+
+        # Teleport the player to the start of the map and save its location
         if choice == 'new':
             self.map.teleportPlayer("spawnPlayer")
             self.player.playerDB.updateValue()
 
     def handleInput(self):
+        """
+        Handle the player inputs
+        """
         pressed = pygame.key.get_pressed()
+
+        self.stepMusic.setVolume(0.1)
         if pressed[pygame.K_z]:
             self.player.moveUp()
             self.stepMusic.playIfReady("step1", 0)
-            self.stepMusic.setVolume(0.05)
         elif pressed[pygame.K_s]:
             self.player.moveDown()
             self.stepMusic.playIfReady("step1", 0)
-            self.stepMusic.setVolume(0.05)
         if pressed[pygame.K_q]:
             self.player.moveLeft()
             self.stepMusic.playIfReady("step1", 0)
-            self.stepMusic.setVolume(0.05)
         elif pressed[pygame.K_d]:
             self.player.moveRight()
             self.stepMusic.playIfReady("step1", 0)
-            self.stepMusic.setVolume(0.05)
 
     def run(self):
+        """
+        Main loop of the game
+        """
         running = True
 
         # Set the clock to 60fps
         clock = pygame.time.Clock()
 
-        
         while running:
 
             # Handling the quit event
             for event in pygame.event.get():
+
+                # If the player click
                 if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    # If the button to quit when you die exists
                     if self.map.quitButtonRect is not None:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
                             running = False
+
+                    # If the player left click while in a dungeon
+                    if 'donjon' in self.map.getMap().name.lower():
+                        self.player.lauchProjectile()
+
+                # If the player press the cross to quit
                 if event.type == pygame.QUIT:
+                    # Update the database
                     self.player.playerDB.updateValue()
                     self.map.updateMonsterInDB()
                     running = False
 
-                # If the player left click
-                if event.type == MOUSEBUTTONDOWN and 'donjon' in self.map.getMap().name.lower():
-                    self.player.lauchProjectile()
                 if event.type == pygame.KEYDOWN:
+                    # If the player press 'P'
                     if event.key == pygame.K_p:
+                        # Hide the quest panel
                         Quest.hideQuestPanel()
+                    # If the player press 'C'
                     elif event.key == pygame.K_c:
+                        # Add life and xp to the player
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
                         self.player.currentLevel += 5
                         self.eventMusic.play("cheat", 0)
-                    elif event.key == K_ESCAPE:
+                    # If the player press 'Escape'
+                    elif event.key == pygame.K_ESCAPE:
+                        # Save the game
                         self.player.playerDB.updateValue()
                         self.map.updateMonsterInDB()
                         self.eventMusic.play("save", 0)
@@ -97,8 +117,6 @@ class Game:
                 projectile.move()
 
             self.screen.fill((0, 0, 0))
-            # Display the player
-            self.screen.blit(self.player.image, self.player.rect)
             # Save its previous location
             self.player.saveLocation()
             self.handleInput()

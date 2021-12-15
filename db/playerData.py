@@ -1,6 +1,5 @@
 from db.db import Database
 from db.player import Player
-from db.difficulty import Difficulty
 
 
 class PlayerData:
@@ -81,6 +80,9 @@ class PlayerData:
 
     @staticmethod
     def setCurrentMap(map):
+        """
+        Set the map on wich the player should spawn
+        """
         query = f"""SELECT currentmap FROM playerdata WHERE playerid = '{PlayerData.playerID}'"""
         results = Database.query(query)[0][0]
         map.currentMap = results
