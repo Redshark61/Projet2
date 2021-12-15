@@ -16,6 +16,7 @@ def main():
     game = Game()
     menu = Menu(game.screen)
     menuMusic.playIfReady("menuMusic", -1)
+    menuMusic.setVolume(0.05)
     choice = menu.run()
 
     if choice is None:

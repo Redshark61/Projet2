@@ -24,7 +24,9 @@ class Game:
             self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
         else:
             self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
-
+            self.startMusic.play("outdoor", -1)
+            self.startMusic.setVolume(0.05)
+            
         # Initialize the map
         self.map = MapManager(self, self.screen)
         # The target for the boss
@@ -39,15 +41,19 @@ class Game:
         if pressed[pygame.K_z]:
             self.player.moveUp()
             self.stepMusic.playIfReady("step1", 0)
+            self.stepMusic.setVolume(0.05)
         elif pressed[pygame.K_s]:
             self.player.moveDown()
             self.stepMusic.playIfReady("step1", 0)
+            self.stepMusic.setVolume(0.05)
         if pressed[pygame.K_q]:
             self.player.moveLeft()
             self.stepMusic.playIfReady("step1", 0)
+            self.stepMusic.setVolume(0.05)
         elif pressed[pygame.K_d]:
             self.player.moveRight()
             self.stepMusic.playIfReady("step1", 0)
+            self.stepMusic.setVolume(0.05)
 
     def run(self):
         running = True
@@ -55,8 +61,7 @@ class Game:
         # Set the clock to 60fps
         clock = pygame.time.Clock()
 
-        # self.startMusic.play("outdoor", 10)
-        # self.startMusic.setVolume()
+        
         while running:
 
             # Handling the quit event

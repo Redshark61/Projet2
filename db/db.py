@@ -11,7 +11,9 @@ class Database:
             cls.connection = psycopg2.connect(
                 user="postgres",
 
-                password="Zarole28",
+
+                password="root",
+
 
                 host="localhost",
                 port="5432",
