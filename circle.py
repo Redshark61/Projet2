@@ -25,7 +25,9 @@ class Circle():
         pygame.display.flip()
 
     def rotateLogo(self):
+        
         self.music.play("loading",0)
+        self.music.setVolume(0.02)
         for i in range(4):
             self.rotateRadius += 90
             self.rotate = pygame.transform.rotate(self.loadLogo, self.rotateRadius)
