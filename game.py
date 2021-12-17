@@ -25,12 +25,12 @@ class Game:
 
         # Creation of the player if the choice is 'new' (selected from the menu)
         if choice == 'new':
-            self.player = Player(self.screen, self, "Soldiers/Melee/AssasinTemplate")
+            self.player = Player(
+                self.screen, self, "Soldiers/Melee/AssasinTemplate")
         # Otherwise, load the player from the database
         else:
-            self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
-            self.startMusic.play("outdoor", -1)
-            self.startMusic.setVolume(0.05)
+            self.player = Player(
+                self.screen, self, hasToUpload=True, choice=choice)
         # Initialize the map
         self.map = MapManager(self, self.screen)
 
@@ -123,7 +123,7 @@ class Game:
             # Update the map
             self.map.updateMap()
             # Draw the map
-            self.map.drawMap()           
+            self.map.drawMap()
             # Draw the health bar
             self.player.drawHealthBar()
             # Draw the xp bar
@@ -146,5 +146,4 @@ class Game:
             pygame.display.flip()
             clock.tick(60)
 
-        
     pygame.quit()
