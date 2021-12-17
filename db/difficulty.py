@@ -1,4 +1,7 @@
 class Difficulty:
+    """
+    NOT USED
+    """
 
     modelList = []
 

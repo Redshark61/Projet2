@@ -6,7 +6,9 @@ class Music:
 
     channelNumber = 0
     pygame.mixer.init()
+    # Create an empty dictionary of sounds
     sounds = {}
+    # Load all sounds in the sounds dictionary
     results = Database.query("SELECT name, soundpath FROM sounds")
     for sound in results:
         sounds[sound[0]] = pygame.mixer.Sound(sound[1])
@@ -28,9 +30,8 @@ class Music:
     def pause(self):
         self.channel.pause()
 
-    def setVolume(self,volume):
+    def setVolume(self, volume):
         self.channel.set_volume(volume)
 
     def stopMusic(self):
         self.channel.stop()
-
