@@ -5,7 +5,7 @@ from musics import Music
 
 
 def main():
-    
+
     # Begining of the game
     pygame.init()
     # Change the icon of the game
@@ -14,10 +14,18 @@ def main():
 
     # Set up the music
     menuMusic = Music()
+
+    # Initalize the screen but not the variables yet
     game = Game()
+
+    # Display the menu
     menu = Menu(game.screen)
+
+    # Play indefinitely the menu music
     menuMusic.playIfReady("menuMusic", -1)
     menuMusic.setVolume(0.05)
+
+    # Run the menu
     choice = menu.run()
 
     if choice is None:

@@ -9,46 +9,48 @@ class Dungeon:
 
     @classmethod
     def addPlayer(cls, player):
+        """
+        Create the current player for this dungeon
+        """
         cls.player = player
 
     @classmethod
-    def addDungeon(cls, mapName):
+    def addDungeon(cls, mapName: str):
+        """
+        Create the current dungeon for this player
+        """
+
         query = f"""SELECT id FROM WORLD WHERE name = '{mapName}'"""
         id = Database.query(query)[0][0]
         query = f"""
-        INSERT INTO dungeonplayer (dungeonid, playerid) VALUES ('{id}', '{PlayerData.playerID}')
+        INSERT INTO dungeonplayer (dungeonid, playerid)
+        VALUES ('{id}', '{PlayerData.playerID}')
         """
         Database.query(query)
 
     @classmethod
     def getDungeons(cls):
+        """
+        Get all the dungeons for this player
+        """
         query = f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}'"
         return Database.query(query)
 
     @staticmethod
-    def addMonsters(monster):
+    def addMonsters(monster) -> int:
+        """
+        Add the monster to the current dungeon
+        """
         result = Database.getLastID("dungeonplayer")
         id = Monster.addMonster(result, monster)
         return id
 
     @classmethod
-    def updateMonster(cls):
-        playerID = PlayerData.playerID
-        # Get the dungeon id from the playerID
-        query = f"SELECT * FROM dungeon WHERE playerid = '{playerID}'"
-        results = Database.query(query)
-        for dungeon in results:
-            query = f"SELECT * FROM monster WHERE dungeonid = '{dungeon[0]}'"
-            monsters = Database.query(query)
-            for monster in monsters:
-                query = f"""
-                UPDATE monster 
-                SET alive = '0' WHERE id = '{monster[0]}'"""
-                Database.query(query)
-
-    @classmethod
-    def getMonsters(cls, dungeonSpritePath):
-        # Get the dungeonID from the database based on the sprite path
+    def getMonsters(cls, dungeonSpritePath: str) -> tuple[list[tuple], int]:
+        """
+        Get all the monsters for this dungeon
+        """
+        # Get the id of the current dungeon
         query = f"""
         SELECT dungeonplayer.id FROM dungeonplayer 
         INNER JOIN world ON dungeonplayer.dungeonid = world.id
