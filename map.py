@@ -272,7 +272,6 @@ class MapManager:
             self.playMusic.play("dungeon", -1)
         else:
             self.playMusic.play("outdoor", -1)
-
         self.playMusic.setVolume(0.05)
 
     def respawn(self):

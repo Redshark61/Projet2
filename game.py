@@ -14,8 +14,9 @@ class Game:
         pygame.display.set_caption("Super jeu")
         # Initialize Musics
         self.stepMusic = Music()
-        self.startMusic = Music()
         self.eventMusic = Music()
+        self.playMusicOutdoor = Music()
+        self.playMusicDungeon = Music()
 
     def initalize(self, choice=None):
         """
@@ -30,7 +31,6 @@ class Game:
             self.player = Player(self.screen, self, hasToUpload=True, choice=choice)
             self.startMusic.play("outdoor", -1)
             self.startMusic.setVolume(0.05)
-
         # Initialize the map
         self.map = MapManager(self, self.screen)
 
@@ -123,7 +123,7 @@ class Game:
             # Update the map
             self.map.updateMap()
             # Draw the map
-            self.map.drawMap()
+            self.map.drawMap()           
             # Draw the health bar
             self.player.drawHealthBar()
             # Draw the xp bar
@@ -133,7 +133,18 @@ class Game:
             # make the player respawn when health drop to 0
             self.map.respawn()
 
+            if "donjon" in self.map.getMap().name.lower():
+                self.playMusicOutdoor.stopMusic()
+                self.playMusicDungeon.playIfReady("dungeon", -1)
+                self.playMusicDungeon.setVolume(0.05)
+            else:
+                self.playMusicDungeon.stopMusic()
+                self.playMusicOutdoor.playIfReady("outdoor", -1)
+                self.playMusicOutdoor.setVolume(0.05)
+
             pygame.display.update()
             pygame.display.flip()
             clock.tick(60)
+
+        
     pygame.quit()
