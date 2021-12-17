@@ -4,7 +4,6 @@ from db.player import Player
 
 class PlayerData:
 
-    modelList = []
     playerID = None
 
     def __init__(self, player):
@@ -13,19 +12,25 @@ class PlayerData:
         self.playerDB = Player(self)
 
     def addToList(self):
-        PlayerData.modelList.append(self)
+        """
+        Add the player into the database
+        """
         self.playerDB.addNewPlayer()
         self.addPlayer()
 
-    def __str__(self) -> str:
-        return f"{self.playerName=} - {self.health=} - {self.xp=} - {self.level=} - {self.position=} - {self.currentMap=} - {self.difficultyName=} - {self.spritePath=}"
-
     def addPlayer(self):
+        """
+        Add the player into the database
+        """
+        # Get the player id
         results = Database.query(f"""
-        SELECT player.id FROM player WHERE player.spritepath = '{self.spritePath}' and player.name = '{self.playerName}'
+        SELECT player.id 
+        FROM player
+        WHERE player.spritepath = '{self.spritePath}' and player.name = '{self.playerName}'
         """)
         PlayerData.playerID = results[0][0]
-        # playerID = [player.id for player in Player.modelList if player.playerName == self.playerName][0]
+
+        # Insert the player data into the database
         query = f"""
         INSERT INTO playerdata 
         (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
@@ -36,6 +41,9 @@ class PlayerData:
         Database.query(query)
 
     def updateValue(self):
+        """
+        Get all the value from player data
+        """
         self.health = int(self.player.health)
         self.maxHealth = int(self.player.maxHealth)
         self.xp = self.player.totalXP
@@ -45,11 +53,15 @@ class PlayerData:
         self.difficultyID = 1
         self.playerName = self.player.playerName
         self.spritePath = self.player.name
-        # self.difficultyName = [difficulty.name for difficulty in Difficulty.modelList if difficulty.ID == self.difficultyID][0]
+
+        # If the player already exist in the database, update the value
         if PlayerData.playerID is not None:
             self.updateDB()
 
     def updateDB(self):
+        """
+        Update the value of player data into the database
+        """
         query = f"""
         UPDATE playerdata 
         SET health = '{self.health}', xp = '{self.xp}', 
@@ -60,7 +72,10 @@ class PlayerData:
         Database.query(query)
 
     @staticmethod
-    def upload(player, choice):
+    def upload(player, choice: int):
+        """
+        update the player data with what's in the database
+        """
         query = f"""SELECT * FROM playerdata WHERE playerdata.playerid = '{choice}'"""
         result = Database.query(query)[0]
         PlayerData.playerID = result[0]
@@ -73,7 +88,10 @@ class PlayerData:
         player.maxHealth = result[8]
 
     @staticmethod
-    def getSpritePath(choice):
+    def getSpritePath(choice: int) -> str:
+        """
+        Get the sprite path of the player
+        """
         query = f"""SELECT spritepath FROM player WHERE id = '{choice}'"""
         result = Database.query(query)[0]
         return result[0]
@@ -88,17 +106,26 @@ class PlayerData:
         map.currentMap = results
 
     @staticmethod
-    def deletePlayer(playerid):
+    def deletePlayer(playerid: int):
+        """
+        Delete a player from the database
+        """
+
+        # delete all the monster of this player
         query = f"""
         DELETE FROM monstercreated
         USING dungeonplayer
         WHERE dungeonplayer.playerid = '{playerid}' AND monstercreated.dungeonid = dungeonplayer.id
         """
         Database.query(query)
+
+        # Then delete its dungeon
         query = f"""
         DELETE FROM dungeonplayer
         WHERE dungeonplayer.playerid = '{playerid}'
         """
+
+        # And finally delete the player
         Database.query(query)
         query = f"""DELETE FROM player WHERE id = '{playerid}'"""
         Database.query(query)

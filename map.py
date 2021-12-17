@@ -7,7 +7,7 @@ import pygame
 from db.db import Database
 from db.dungeon import Dungeon
 from db.playerData import PlayerData
-from player import NPC
+from player import NPCMonster
 from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
@@ -40,7 +40,7 @@ class Map:
     group: pyscroll.PyscrollGroup
     tmxData: pytmx.TiledMap
     portals: list[Portal]
-    npcs: list[NPC]
+    npcs: list[NPCMonster]
 
 
 class MapManager:
@@ -342,7 +342,7 @@ class MapManager:
             if self.isDBEmpty:
                 # Add the monster into it
                 randomMonster = random.choice(entityData)
-                monster = NPC(randomMonster.id, mapName, randomMonster.name, self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
+                monster = NPCMonster(randomMonster.id, mapName, randomMonster.name, self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
                 entity.append(monster)
                 group.add(monster)
             else:
@@ -351,7 +351,7 @@ class MapManager:
                     try:
                         # Create the monster and update its value with the data from the db
                         if results[i][8]:
-                            monster = NPC(results[i][6], mapName, results[i][12], self.game, results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
+                            monster = NPCMonster(results[i][6], mapName, results[i][12], self.game, results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
                             monster.rect.x = results[i][0]
                             monster.rect.y = results[i][1]
                             monster.alive = True
@@ -377,7 +377,7 @@ class MapManager:
         return mapData.tmxData.get_object_by_name(name)
 
     @staticmethod
-    def teleportNPC(point, npc: NPC):
+    def teleportNPC(point, npc: NPCMonster):
         """
         Teleport the monster to a given point
         """
