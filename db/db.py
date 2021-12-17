@@ -1,4 +1,5 @@
 import psycopg2
+from db.mdp import mdp
 
 
 class Database:
@@ -11,7 +12,7 @@ class Database:
     try:
         connection = psycopg2.connect(
             user="postgres",
-            password="root",
+            password=mdp,
             host="localhost",
             port="5432",
             database="projet2")
