@@ -8,7 +8,7 @@ class Database:
     try:
         connection = psycopg2.connect(
             user="postgres",
-            password="tim110703",
+            password="root",
             host="localhost",
             port="5432",
             database="projet2")
