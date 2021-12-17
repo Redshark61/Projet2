@@ -195,7 +195,7 @@ class MapManager:
             # Make the monster of the current map move
 
     def teleportPlayer(self, destinationName):
-
+        
         point = self.getObject(destinationName)
         self.player.rect.x = point.x
         self.player.rect.y = point.y
@@ -203,11 +203,8 @@ class MapManager:
 
         self.circle.rotateLogo()
 
-        if "donjon" in self.currentMap:
-            self.playMusic.play("dungeon", -1)
-        else:
-            self.playMusic.play("outdoor", -1)
-            
+       
+
         self.playMusic.setVolume(0.05)
     def respawn(self):
 
