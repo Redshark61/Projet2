@@ -33,6 +33,4 @@ class Music:
 
     def stopMusic(self):
         self.channel.stop()
-    #
-    # self.winDungeonMusic.play("dungeonWin",0)
-    # self.menuMusic.setVolume()
+
