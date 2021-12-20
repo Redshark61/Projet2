@@ -12,6 +12,7 @@ class Player:
         self.playerData = playerData
         self.spritePath = self.playerData.spritePath
         self.name = self.playerData.playerName
+        self.difficultyID = self.playerData.difficultyID
         self.creationDate = time.strftime("%d/%m/%Y %H:%M:%S")
 
     def addNewPlayer(self):
@@ -27,6 +28,6 @@ class Player:
         """
         Add the player save into the database
         """
-        query = """INSERT INTO player (spritepath, name) VALUES (%s, %s)"""
-        values = (self.spritePath, self.name)
+        query = """INSERT INTO player (spritepath, name, difficultyid) VALUES (%s, %s, %s)"""
+        values = (self.spritePath, self.name, self.difficultyID)
         Database.query(query, values)

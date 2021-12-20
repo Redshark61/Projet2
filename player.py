@@ -120,8 +120,9 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, screen: pygame.Surface, game, name: str = '', hasToUpload: bool = False, choice: bool = None):
+    def __init__(self, screen: pygame.Surface, game, name: str = '', hasToUpload: bool = False, choice: bool = None, difficulty: int = None):
         super().__init__(name, choice)
+        self.difficulty = difficulty
         self.game = game
         self.bombGroup = pygame.sprite.Group()
         self.screen = screen

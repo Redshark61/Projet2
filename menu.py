@@ -1,3 +1,4 @@
+import random
 from dataclasses import dataclass
 import pygame
 from db.db import Database
@@ -18,17 +19,21 @@ class Menu:
         self.screen = screen
         self.choice = None
         self.running = True
+        self.difficulty = None
         self.isPlayMenuOpen = False
         self.isMainMenuOpen = True
         self.isOptionsMenuOpen = False
+        self.isDifficultyMenuOpen = False
         # Load the players from the database
         self.players = self.choosePlayer()
 
         # Load the fonts
-        self.titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
-        self.buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
+        self.titleFont = pygame.font.Font(
+            "./assets/font/Knewave-Regular.ttf", 100)
+        self.buttonFont = pygame.font.Font(
+            "./assets/font/Knewave-Regular.ttf", 50)
 
-    def run(self):
+    def run(self) -> tuple[str, int]:
         """
         Run the menu, with all its buttons and stuff
         """
@@ -45,7 +50,7 @@ class Menu:
             pygame.display.update()
 
         # When the loop is over, return the choice
-        return self.choice
+        return self.choice, self.difficulty
 
     def printMenu(self):
         """
@@ -60,13 +65,16 @@ class Menu:
         # Load the logo image
         logo = pygame.image.load("./assets/User Interface/logop2_3.png")
         # scale logo down
-        logo = pygame.transform.scale(logo, (int(logo.get_width() / 2), int(logo.get_height() / 2)))
+        logo = pygame.transform.scale(
+            logo, (int(logo.get_width() / 2), int(logo.get_height() / 2)))
         # center logo
         logoRect = logo.get_rect()
-        logoRect.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)
+        logoRect.center = (self.screen.get_width() / 2,
+                           self.screen.get_height() / 2)
 
         # Load the background image
-        background = pygame.image.load("./assets/User Interface/game over 2.png")
+        background = pygame.image.load(
+            "./assets/User Interface/game over 2.png")
 
         # Display the background image
         self.screen.blit(background, (30, -10))
@@ -79,6 +87,37 @@ class Menu:
             self.playMenu()
         elif self.isOptionsMenuOpen:
             self.optionsMenu()
+        elif self.isDifficultyMenuOpen:
+            self.difficultyMenu()
+
+    def difficultyMenu(self):
+        results = Database.query("SELECT * FROM difficulty ORDER BY id")
+
+        #### TITLE ####
+        self.titleFont.render("Difficulty", True, (255, 255, 255))
+
+        #### BUTTONS ####
+        # Create the buttons
+        for _, difficulty in enumerate(results):
+            r, g, b = difficulty[-3:]
+            button = self.buttonFont.render(difficulty[1], True, (255, 255, 255))
+            buttonRect = button.get_rect()
+            buttonRect.height += 20
+            buttonRect.x = 100
+            # The button is displayed in the cneter, but offset when there are more buttons
+            buttonRect.centery = (self.screen.get_height() / 2) + ((buttonRect.height *
+                                                                    (results.index(difficulty) + 1))-((len(results)+1)/2*buttonRect.height))
+
+            # If the mouse is on the button, change the color
+            if buttonRect.collidepoint(pygame.mouse.get_pos()):
+                button = self.buttonFont.render(difficulty[1], True, (int(r), int(g), int(b)))
+                # Detect the click on the button
+                if pygame.mouse.get_pressed()[0]:
+                    self.isDifficultyMenuOpen = False
+                    self.choice = 'new'
+                    self.difficulty = difficulty[0]
+                    self.running = False
+            self.screen.blit(button, buttonRect)
 
     @staticmethod
     def clearSurface(surface: pygame.Surface):
@@ -96,7 +135,8 @@ class Menu:
 
         #### TITLE ####
         # Create the title text
-        titleText = self.titleFont.render("Choisir une partie", True, (255, 255, 255))
+        titleText = self.titleFont.render(
+            "Choisir une partie", True, (255, 255, 255))
         # center the title text on x-axis
         titleTextRect = titleText.get_rect()
         titleTextRect.centerx = (self.screen.get_width() / 2)
@@ -105,7 +145,8 @@ class Menu:
 
         ##### Create a new game button #####
         # Create the new game button text
-        newGameButtonText = self.buttonFont.render("Nouvelle Partie", True, (255, 255, 255))
+        newGameButtonText = self.buttonFont.render(
+            "Nouvelle Partie", True, (255, 255, 255))
         newGameButtonTextRect = newGameButtonText.get_rect()
 
         # The background of the button is a rectangle with the size of the text
@@ -128,11 +169,13 @@ class Menu:
                 bgRect.height += 20
                 bgRect.centerx = (self.screen.get_width() / 2)
                 # The button is displayed in the cneter, but offset when there are more buttons
-                bgRect.centery = (self.screen.get_height() / 2) + ((bgRect.height * (self.players.index(player) + 1))-((len(self.players)+1)/2*bgRect.height))
+                bgRect.centery = (self.screen.get_height() / 2) + ((bgRect.height *
+                                                                    (self.players.index(player) + 1))-((len(self.players)+1)/2*bgRect.height))
 
                 # Get the ratio bewtween the height of the text, and the height of the bin
                 scale = binImage.get_height() / buttonTextRect.height
-                binImage = pygame.transform.scale(binImage, (binImage.get_width() / scale, buttonTextRect.height))
+                binImage = pygame.transform.scale(
+                    binImage, (binImage.get_width() / scale, buttonTextRect.height))
 
                 #### Create a hover effect ####
                 if bgRect.collidepoint(pygame.mouse.get_pos()):
@@ -170,15 +213,18 @@ class Menu:
         # Detect if the user click on the new game button
         if bgNewGameRect.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
-                self.choice = 'new'
-                self.running = False
+                # self.choice = 'new'
+                # self.running = False
+                self.isPlayMenuOpen = False
+                self.isDifficultyMenuOpen = True
             bgNewGame.set_alpha(255)
 
         #### Create the back button ####
         backButtonText = self.buttonFont.render("Retour", True, (0, 0, 0))
         backButtonTextRect = backButtonText.get_rect()
 
-        bgBack = self.createBGSurface(backButtonTextRect, color=(255, 255, 255))
+        bgBack = self.createBGSurface(
+            backButtonTextRect, color=(255, 255, 255))
         bgBack.blit(backButtonText, backButtonTextRect)
         bgBackRect = bgBack.get_rect()
         bgBackRect.height += 20
@@ -221,8 +267,10 @@ class Menu:
         buttonText2 = self.buttonFont.render("Quitter", True, (255, 255, 255))
 
         buttonText1Rect, buttonText2Rect = buttonText1.get_rect(), buttonText2.get_rect()
-        btn1BG = self.createBGSurface(buttonText1Rect, offset=50, color=(0, 0, 0))
-        btn2BG = self.createBGSurface(buttonText2Rect, offset=50, color=(0, 0, 0))
+        btn1BG = self.createBGSurface(
+            buttonText1Rect, offset=50, color=(0, 0, 0))
+        btn2BG = self.createBGSurface(
+            buttonText2Rect, offset=50, color=(0, 0, 0))
 
         btn1BGRect = btn1BG.get_rect()
         btn2BGRect = btn2BG.get_rect()
@@ -281,6 +329,7 @@ class Menu:
         players = []
         if len(results) >= 1:
             for result in results:
-                players.append(PlayerData(result[0], result[2], result[1], result[3]))
+                players.append(PlayerData(
+                    result[0], result[2], result[1], result[3]))
 
         return players

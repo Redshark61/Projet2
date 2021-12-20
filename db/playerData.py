@@ -35,11 +35,11 @@ class PlayerData:
         # Insert the player data into the database
         query = """
         INSERT INTO playerdata 
-        (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
-        VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s)
+        (playerid, health, xp, level, positionx, positiony, currentmap, maxhealth)
+        VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
         """
         values = (int(PlayerData.playerID), self.health, self.xp, self.level,
-                  self.position[0], self.position[1], self.currentMap, self.difficultyID, self.maxHealth)
+                  self.position[0], self.position[1], self.currentMap, self.maxHealth)
         Database.query(query, values)
 
     def updateValue(self):
@@ -52,7 +52,7 @@ class PlayerData:
         self.level = self.player.currentLevel
         self.position = (self.player.rect.x, self.player.rect.y)
         self.currentMap = self.player.map
-        self.difficultyID = 1
+        self.difficultyID = int(self.player.difficulty) if self.player.difficulty is not None else None
         self.playerName = self.player.playerName
         self.spritePath = self.player.name
 
@@ -68,11 +68,11 @@ class PlayerData:
         UPDATE playerdata 
         SET health = %s, xp = %s, 
         level = %s, positionx = %s, positiony = %s, 
-        currentmap = %s, difficultyid = %s,
+        currentmap = %s,
         maxhealth = %s
         WHERE playerid = %s"""
         values = (self.health, self.xp, self.level,
-                  self.position[0], self.position[1], self.currentMap, self.difficultyID, self.maxHealth, PlayerData.playerID)
+                  self.position[0], self.position[1], self.currentMap, self.maxHealth, PlayerData.playerID)
         Database.query(query, values)
 
     @staticmethod
@@ -89,7 +89,10 @@ class PlayerData:
         player.rect.x = result[4]
         player.rect.y = result[5]
         player.map = result[6]
-        player.maxHealth = result[8]
+        player.maxHealth = result[7]
+        query = """SELECT difficultyid FROM player WHERE id = %s"""
+        result = Database.query(query, (choice,))[0]
+        player.difficulty = result[0]
 
     @staticmethod
     def getSpritePath(choice: int) -> str:
