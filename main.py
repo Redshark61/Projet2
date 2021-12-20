@@ -2,6 +2,7 @@ import pygame
 from game import Game
 from menu import Menu
 from musics import Music
+from quest import Quest
 
 
 def main():
@@ -12,28 +13,34 @@ def main():
     icon = pygame.image.load("./assets/User Interface/logop2_3.png")
     pygame.display.set_icon(icon)
 
-    # Set up the music
-    menuMusic = Music()
-
-    # Initalize the screen but not the variables yet
+    again = True
     game = Game()
+    startNewGame = False
+    while again :
 
-    # Display the menu
-    menu = Menu(game.screen)
+        Quest.index = 1
+        # Set up the music
+        menuMusic = Music(again)
+        # again = False
+        # Initalize the screen but not the variables yet
 
-    # Play indefinitely the menu music
-    menuMusic.playIfReady("menuMusic", -1)
-    menuMusic.setVolume(0.05)
+        # Display the menu
+        menu = Menu(game.screen)
 
-    # Run the menu
-    choice = menu.run()
+        # Play indefinitely the menu music
+        menuMusic.playIfReady("menuMusic", -1)
+        menuMusic.setVolume(0.05)
 
-    if choice is None:
-        return
-    menuMusic.stopMusic()
-    game.initalize(choice)
+        # Run the menu
+        choice = menu.run()
 
-    game.run()
+        if choice is None:
+            return
+        menuMusic.stopMusic()
+        game.initalize(choice)
+
+        again = game.run(startNewGame)
+        startNewGame = again
 
 
 if __name__ == "__main__":
