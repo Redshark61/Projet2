@@ -65,3 +65,16 @@ When you create a new world, you might want to create a portal to another world.
 - `toworld` : a foreign key to the world where the portal leads to
 - `startpoint` : the name of the start point of the portal
 - `spawnpoint` : the name of point where the player will spawn after the portal
+
+## Contributor
+
+- [Lordhiraishin](https://github.com/Lordhiraishin)
+- [Adribag](https://github.com/Adribag)
+- [Alpharius61](https://github.com/Alpharius61)
+- [Nico-Libert](https://github.com/Nico-Libert)
+
+<a href="https://github.com/Redshark61/projet2/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Redshark61/projet2" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks)
