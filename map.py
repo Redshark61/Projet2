@@ -70,24 +70,30 @@ class MapManager:
         # For each map
         for result in results:
             # Get the portals associated with the map
-            portals = Database.query(f"""SELECT * FROM portals WHERE fromworld = '{result[0]}'""")
+            portals = Database.query(
+                f"""SELECT * FROM portals WHERE fromworld = '{result[0]}'""")
             portalsList = []
 
             for portal in portals:
                 # Add the portal to the list
-                world1 = Database.query(f"""SELECT * FROM world WHERE id = {portal[1]}""")
-                world2 = Database.query(f"""SELECT * FROM world WHERE id = {portal[2]}""")
-                portalsList.append(Portal(world1[0][1], world2[0][1], portal[3], portal[4]))
+                world1 = Database.query(
+                    f"""SELECT * FROM world WHERE id = {portal[1]}""")
+                world2 = Database.query(
+                    f"""SELECT * FROM world WHERE id = {portal[2]}""")
+                portalsList.append(
+                    Portal(world1[0][1], world2[0][1], portal[3], portal[4]))
 
             entitiesList = []
             # If the map is a dungeon, it has monsters
             if result[2]:
                 # Get the monsters associated with the map
-                entities = Database.query(f"""SELECT * FROM monster WHERE dungeonid = '{result[0]}'""")
+                entities = Database.query(
+                    f"""SELECT * FROM monster WHERE dungeonid = '{result[0]}'""")
                 for entity in entities:
                     # Add the monster to the list
                     speed = random.randint(entity[4], entity[3])
-                    entitiesList.append(Monster(entity[0], entity[6], entity[2], speed, entity[5], entity[1], entity[1]))
+                    entitiesList.append(Monster(
+                        entity[0], entity[6], entity[2], speed, entity[5], entity[1], entity[1]))
 
             # Register the map
             self.registerMap(result[1], portalsList, entitiesList, result[3])
@@ -196,7 +202,8 @@ class MapManager:
 
         for quest in self.listOfquest:
             # Update every quest
-            quest.updateNumberOfMonster(len(self.maps[quest.originalName].npcs))
+            quest.updateNumberOfMonster(
+                len(self.maps[quest.originalName].npcs))
             quest.tryToDrawnQuestPanel()
 
             # If the quest is the current map and its finished
@@ -270,12 +277,6 @@ class MapManager:
         # Make the logo appear and animate
         self.circle.rotateLogo()
 
-        if "donjon" in self.currentMap:
-            self.playMusic.play("dungeon", -1)
-        else:
-            self.playMusic.play("outdoor", -1)
-        self.playMusic.setVolume(0.05)
-
     def respawn(self):
         """
         Function wich check if the player is dead
@@ -312,7 +313,8 @@ class MapManager:
         # Load the tmx file
         tmxData = pytmx.util_pygame.load_pygame(f"./assets/{mapName}.tmx")
         mapData = pyscroll.data.TiledMapData(tmxData)
-        mapLayer = pyscroll.orthographic.BufferedRenderer(mapData, self.screen.get_size(), clamp_camera=True)
+        mapLayer = pyscroll.orthographic.BufferedRenderer(
+            mapData, self.screen.get_size(), clamp_camera=True)
 
         if 'donjon' in mapName.lower():
             # If it's a dungeon, zoom in and add the dungeon to the db
@@ -343,7 +345,8 @@ class MapManager:
             if self.isDBEmpty:
                 # Add the monster into it
                 randomMonster = random.choice(entityData)
-                monster = NPCMonster(randomMonster.id, mapName, randomMonster.name, self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
+                monster = NPCMonster(randomMonster.id, mapName, randomMonster.name,
+                                     self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
                 entity.append(monster)
                 group.add(monster)
             else:
@@ -352,7 +355,8 @@ class MapManager:
                     try:
                         # Create the monster and update its value with the data from the db
                         if results[i][8]:
-                            monster = NPCMonster(results[i][6], mapName, results[i][12], self.game, results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
+                            monster = NPCMonster(results[i][6], mapName, results[i][12], self.game,
+                                                 results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
                             monster.rect.x = results[i][0]
                             monster.rect.y = results[i][1]
                             monster.alive = True
@@ -363,7 +367,8 @@ class MapManager:
                         break
 
         # Add the map into the dictionary
-        self.maps[mapName] = Map(mapName, walls, group, tmxData, portals, entity)
+        self.maps[mapName] = Map(
+            mapName, walls, group, tmxData, portals, entity)
 
         # teleport monsters to their spawn point
         for monster, spawnPoint in zip(entity, spawnPoints):
