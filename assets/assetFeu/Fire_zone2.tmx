@@ -834,7 +834,7 @@
    <point/>
   </object>
   <object id="249" name="DonjonEntry" type="DonjonEntry" x="726.333" y="54.3333" width="19" height="14.6667"/>
-  <object id="250" name="Boat2Exit" x="439" y="183.667">
+  <object id="250" name="Boat2Exit" x="433.75" y="175.417">
    <point/>
   </object>
  </objectgroup>
