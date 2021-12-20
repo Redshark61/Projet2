@@ -30,7 +30,7 @@ class Database:
             cls.connection.close()
 
     @classmethod
-    def query(cls, query: str) -> list[tuple] | None:
+    def query(cls, query: str) -> list[tuple] :
         """
         Execute a SQL query and return the result, NOne if the query is not an "Insert"
         """

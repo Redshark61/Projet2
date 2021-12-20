@@ -37,6 +37,8 @@ class Game:
         # Teleport the player to the start of the map and save its location
         if choice == 'new':
             self.map.teleportPlayer("spawnPlayer")
+            self.map.updateMonsterInDB()
+
             self.player.playerDB.updateValue()
 
     def handleInput(self):
@@ -59,11 +61,13 @@ class Game:
             self.player.moveRight()
             self.stepMusic.playIfReady("step1", 0)
 
-    def run(self):
+    def run(self, startNewGame):
         """
         Main loop of the game
         """
         running = True
+        if startNewGame:
+            self.map.teleportPlayer("spawnPlayer")
 
         # Set the clock to 60fps
         clock = pygame.time.Clock()
@@ -79,9 +83,9 @@ class Game:
                     # If the button to quit when you die exists
                     if self.map.quitButtonRect is not None:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
-                            running = False
+                            return False
                     if self.map.returnButtonRect is not None:
-                        print("ca marche")
+                        return True
 
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
