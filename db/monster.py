@@ -9,13 +9,15 @@ class Monster:
         """
         Add monster into the database
         """
-        query = f"""
+        query = """
         INSERT INTO monstercreated
         (monsterid, positionx, positiony, health, speed, dungeonid) 
         VALUES 
-        ({monster.monsterID}, '{monster.rect.x}', {monster.rect.y}, {monster.health}, {monster.speed}, {dungeonID})
+        (%s, %s, %s, %s, %s, %s)
         """
-        Database.query(query)
+        values = (monster.monsterID, monster.rect.x, monster.rect.y,
+                  monster.health, monster.speed, dungeonID)
+        Database.query(query, values)
         return Database.getLastID("monstercreated")
 
     @staticmethod
@@ -24,23 +26,25 @@ class Monster:
         Update the value of monster data into the database
         """
         for monster in monsters:
-            query = f"""
+            query = """
             UPDATE monstercreated
-            SET positionx = {monster.rect.x}, positiony = {monster.rect.y}, health = {monster.health}
-            WHERE id = {monster.index}"""
-            Database.query(query)
+            SET positionx = %s, positiony = %s, health = %s
+            WHERE id = %s"""
+            values = (monster.rect.x, monster.rect.y,
+                      monster.health, monster.index)
+            Database.query(query, values)
 
     @staticmethod
     def getAllMonster() -> list[tuple]:
         """
         Get all the monsters for this player
         """
-        query = f"""
+        query = """
         SELECT * FROM monstercreated
         INNER JOIN dungeonplayer ON monstercreated.dungeonid = dungeonplayer.id
-        WHERE dungeonplayer.playerid = {PlayerData.playerID}
+        WHERE dungeonplayer.playerid = %s
         """
-        results = Database.query(query)
+        results = Database.query(query, (PlayerData.playerID,))
         return results
 
     @staticmethod
@@ -48,14 +52,15 @@ class Monster:
         """
         Get all the monster data for this player and current map
         """
-        query = f"""
+        query = """
         SELECT monstercreated.positionx, monstercreated.positiony, monstercreated.id, monstercreated.health, monstercreated.speed, monstercreated.dungeonid, monster.*
         FROM monstercreated
         INNER JOIN dungeonplayer ON dungeonplayer.id = monstercreated.dungeonid
         INNER JOIN player ON dungeonplayer.playerid = player.id
         INNER JOIN world ON world.id = dungeonplayer.dungeonid
         INNER JOIN monster ON monster.id = monstercreated.monsterid
-        WHERE world.name = '{mapName}' AND dungeonplayer.playerid = {PlayerData.playerID}
+        WHERE world.name = %s AND dungeonplayer.playerid = %s
         """
-        results = Database.query(query)
+        values = (mapName, PlayerData.playerID)
+        results = Database.query(query, values)
         return results

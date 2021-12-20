@@ -27,5 +27,6 @@ class Player:
         """
         Add the player save into the database
         """
-        query = f"""INSERT INTO player (spritepath, name) VALUES ('{self.spritePath}', '{self.name}')"""
-        Database.query(query)
+        query = """INSERT INTO player (spritepath, name) VALUES (%s, %s)"""
+        values = (self.spritePath, self.name)
+        Database.query(query, values)
