@@ -62,8 +62,8 @@ class MapManager:
         self.results = MonsterDB.getAllMonster()
         # If there are no monsters yet, it means that the player is new
         self.isDBEmpty = len(self.results) == 0
-        self.buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
-
+        self.buttonFont = pygame.font.Font(
+            "./assets/font/Knewave-Regular.ttf", 50)
 
         # Load the maps
         results = Database.query("SELECT * FROM world")
@@ -157,6 +157,14 @@ class MapManager:
         # If the player touch a wall, move him back
         if self.player.feet.collidelist(self.getMap().walls) > -1:
             self.player.rect.topleft = self.player.oldPosition
+
+        if 'feu' in self.getMap().name.lower():
+            tmxData = self.getMap().tmxData
+            for obj in tmxData.objects:
+                if obj.type == "magma":
+                    magma = pygame.Rect(obj.x, obj.y, obj.width, obj.height)
+                    if self.player.feet.colliderect(magma):
+                        self.player.health -= 2
 
         # For each monster, check its collisions
         for npc in self.getMap().npcs:
@@ -288,8 +296,10 @@ class MapManager:
             background2 = pygame.Surface(self.screen.get_size())
             background2.fill((0, 0, 0))
             banner = pygame.image.load('assets/Banner Game Over.png')
-            quitButton = self.buttonFont.render("Quitter", True, (255, 255, 255))
-            returnButton = self.buttonFont.render("Retour", True, (255, 255, 255))
+            quitButton = self.buttonFont.render(
+                "Quitter", True, (255, 255, 255))
+            returnButton = self.buttonFont.render(
+                "Retour", True, (255, 255, 255))
 
             self.screen.blit(background2, (0, 0))
             self.screen.blit(background, (30, 0))
