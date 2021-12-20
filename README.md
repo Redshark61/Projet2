@@ -1,76 +1,67 @@
-# projet2
+# Projet 2
 
-- [Créer une nouvelle map](#creer-une-nouvelle-map)
+- [Presentation](#presentation)
+- [Installation](#installation)
+- [Technical Description](#technical-description)
+- [Contributor](#contributor)
 
-## Français
+## Presentation
 
-### Créer une nouvelle map
+This game is a simple pygame project. It's a RPG like game where you can fight with monsters and clear dungeon to save the world.
 
-- Overworld :
+## Installation
 
-    Dans le fichier `map.py` de votre projet, ajouter la ligne suivante dans le init :
+- [Download Python 3.9 or newer](https://www.python.org/downloads/)
+- Create a virtual environment with the command: `py -m venv my_env`
+- Activate the virtual environment with the command: `my_env/Scripts/activate`
+- Install the dependencies with the command: `pip install -r requirements.txt`
+- Launch the game with the command: `python main.py`
 
-    ```python
-            self.registerMap("1", portals=[], entityData=[], spawnName="")
-    ```
+## Technical Description
 
-    Dans le `1` il faut mettre le chemin vers le fichier `tmx` de votre map à partir du dossier asset. Par exemple pour une carte dans `assets/monde/monde.tmx` vous allez mettre `monde/monde`.
+### Maps
 
-    ---
-    Pour le **paramètre portal**, il faut mettre une instance de `Portal` pour chaque portail vers un autre monde.
+The game is built with a map system. The map is composed of a grid of tiles. Each tile is a square of size 32x32 pixels. Maps are build using Tiled, and the path leading to the tileset is specified in the database.
 
-    *Exemple* : un portail qui part du `monde 2`, vers le `monde 3`, quand le joueur rentre dans la collision `toMonde3`, et apparaît au point de spawn `spawnPlayer`. On écrira donc :
+Each map need to specify either or not it is a dungeon.
 
-    ```python
-    self.registerMap("monde 2/monde 2", portals=[
-        Portal("monde 2/monde 2", "monde 3/monde 3", "toMonde3", "spawnPlayer")
-    ], entityData=[], spawnName="")
-    ```
+![Overview of the "world" tab of the database](docs/capture1.png)
 
-    Les paramètres sont dans l'ordre:
+*Specification* in order to create a new map:
 
-  1. Le chemin du monde d'où l'on vient
-  2. Le chemin du monde vers lequel on va
-  3. La collision qui permet de rentrer dans le monde
-  4. Le point de spawn du joueur
+- In the database :
+  - `name` : The name of the map : `path/to/map` from the `assets` folder
+  - `isDungeon` : Specify if the map is a dungeon or not
+  - `spawnName` : the name of the spawn point for the monster if the map is a dungeon
 
-  **IMPORTANT :** il faut qu'il y ait de le mot *donjon* dans le nom de votre map si c'est un donjon.
+- File
+  - Place the file in the `assets` folder, with a folder name relevant to the map
 
-  ---
-  Pour le **paramètre entityData**, il faut mettre une liste d'instance de `Monstre` à créer.
-  
-  Si aucun monstre ne doit être créé, mettre une liste vide.
-  
-  Par exemple :
+<br>
 
-  ```python
-  entityData = [
-    Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-    Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
-  ]
-  ```
+### Dungeons
 
-  Paramètres :
-  1. *Chemin* qui mène au PNG du monstre (en partant de assets/Characters).
-  2. *Nombre d'expérience* que le monstre donne quand il meurt.
-  3. *Vitesse* du monstre (aléatoire entre les deux valeurs). *Maximum 100*
-  4. Enfin le paramètre *health* est optionnel, si il n'est pas précisé, le monstre a 100pv.
+If the world is a dungeon, you must indicate a `spawname` in the `world` table : it's the place where the monsters will spawn in dungeon. Speaking of which, you must specify the monsters you want to create.
 
-  ---
-  Pour le **paramètre spawnName**, il faut mettre le nom du point de spawn des monstres.
+![Overview of the "monster" tab of the database](docs/capture2.png)
 
-  Laisser une string vide si aucun monstre ne doit spawner.
-  
-  **Ce nom doit être différent pour chaque donjon !**
+- Specification
+  - `maxhealth` : The health points of the monster
+  - `xp` : The experience points of the monster
+  - `speedmax` : The max speed points of the monster (set the same speed for min and max if you want a specific speed)
+  - `speedmin` : The min speed points of the monster (set the same speed for min and max if you want a specific speed)
+  - `damage` : The attack points of the monster
+  - `name` : The path of the monster from the `assets` folder
 
-  *Exemple* :
+### Portals
 
-  ```python
-        self.registerMap("assetAir/donjon/donjon",
-                        portals=[Portal("assetAir/donjon/donjon", "assetAir/airWorld", "toAir", "spawnPlayer")],
-                        entityData=[
-                            Monster("Monsters/Demons/RedDemon", xp=30, speed=(50, 60)),
-                            Monster("Monsters/Orcs/Orc", xp=50, health=200, speed=(20, 30)),
-                        ],
-                        spawnName="AirSpawnMonster")
-  ```
+![Overview of the "portal" tab of the database](docs/capture3.png)
+
+When you create a new world, you might want to create a portal to another world. You can do it by creating a portal in the database.
+
+*Specifity*:
+
+- `fromworld` : a foreign key to the world where the portal is
+- `toworld` : a foreign key to the world where the portal leads to
+- `startpoint` : the name of the start point of the portal
+- `spawnpoint` : the name of point where the player will spawn after the portal
