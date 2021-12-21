@@ -236,7 +236,7 @@ class NPCMonster(Entity):
     """
     hitSound = Music()
 
-    def __init__(self, monsterID: int, mapName: str, name: str, game, xp: int, maxHealth: int, speed: int, id: int = 0, isDBempty: bool = True):
+    def __init__(self, monsterID: int, mapName: str, name: str, game, xp: int, maxHealth: int, speed: int, monsterDamage: int, id: int = 0, isDBempty: bool = True):
         super().__init__(name)
         # Set up the properties of the monster from the database
         self.name = name
@@ -251,6 +251,7 @@ class NPCMonster(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed * 0.05
+        self.monsterDamage = monsterDamage
         self.alive = True
         # If there are no monster for the given player, add it to the database
         if isDBempty:
@@ -267,7 +268,7 @@ class NPCMonster(Entity):
         """
         Database.query(query)
 
-    def damage(self, damage: int):
+    def takeDamage(self, damage: int):
         """
         Take damage
         """

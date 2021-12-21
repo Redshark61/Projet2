@@ -35,6 +35,8 @@ class Menu:
 
     def __init__(self, screen: pygame.Surface):
         self.screen = screen
+        Menu.isMainMenuOpen = True
+        Menu.running = True
         self.choice = None
         self.difficulty = None
         self.difficulties = Database.query("SELECT * FROM difficulty ORDER BY id")

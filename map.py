@@ -251,7 +251,7 @@ class MapManager:
             if hasMonsterCollidedWithBomb:
                 # Deal damage to the monster, accoding to this calculation :
                 damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
-                npc.damage(damage)
+                npc.takeDamage(damage)
 
             # If the monster is dead
             if npc.health <= 0:
@@ -356,7 +356,7 @@ class MapManager:
                 # Add the monster into it
                 randomMonster = random.choice(entityData)
                 monster = NPCMonster(randomMonster.id, mapName, randomMonster.name,
-                                     self.game, randomMonster.xp, randomMonster.health, randomMonster.speed)
+                                     self.game, randomMonster.xp, randomMonster.health, randomMonster.speed, randomMonster.damage)
                 entity.append(monster)
                 group.add(monster)
             else:
