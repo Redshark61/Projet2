@@ -23,22 +23,24 @@ class PlayerData:
         Add the player into the database
         """
         # Get the player id
-        results = Database.query(f"""
+        query = """
         SELECT player.id 
         FROM player
-        WHERE player.spritepath = '{self.spritePath}' and player.name = '{self.playerName}'
-        """)
+        WHERE player.spritepath = %s and player.name = %s
+        """
+        values = (self.spritePath, self.playerName)
+        results = Database.query(query, values)
         PlayerData.playerID = results[0][0]
 
         # Insert the player data into the database
-        query = f"""
+        query = """
         INSERT INTO playerdata 
-        (playerid, health, xp, level, positionx, positiony, currentmap, difficultyid, maxhealth)
-        VALUES ('{int(PlayerData.playerID)}','{self.health}', '{self.xp}', '{self.level}', 
-        '{self.position[0]}', '{self.position[1]}', '{self.currentMap}', '{self.difficultyID}', 
-        '{self.maxHealth}')
+        (playerid, health, xp, level, positionx, positiony, currentmap, maxhealth)
+        VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
         """
-        Database.query(query)
+        values = (int(PlayerData.playerID), self.health, self.xp, self.level,
+                  self.position[0], self.position[1], self.currentMap, self.maxHealth)
+        Database.query(query, values)
 
     def updateValue(self):
         """
@@ -50,7 +52,7 @@ class PlayerData:
         self.level = self.player.currentLevel
         self.position = (self.player.rect.x, self.player.rect.y)
         self.currentMap = self.player.map
-        self.difficultyID = 1
+        self.difficultyID = int(self.player.difficulty) if self.player.difficulty is not None else None
         self.playerName = self.player.playerName
         self.spritePath = self.player.name
 
@@ -62,22 +64,24 @@ class PlayerData:
         """
         Update the value of player data into the database
         """
-        query = f"""
+        query = """
         UPDATE playerdata 
-        SET health = '{self.health}', xp = '{self.xp}', 
-        level = '{self.level}', positionx = '{self.position[0]}', positiony = '{self.position[1]}', 
-        currentmap = '{self.currentMap}', difficultyid = '{self.difficultyID}',
-        maxhealth = '{self.maxHealth}'
-        WHERE playerid = '{PlayerData.playerID}'"""
-        Database.query(query)
+        SET health = %s, xp = %s, 
+        level = %s, positionx = %s, positiony = %s, 
+        currentmap = %s,
+        maxhealth = %s
+        WHERE playerid = %s"""
+        values = (self.health, self.xp, self.level,
+                  self.position[0], self.position[1], self.currentMap, self.maxHealth, PlayerData.playerID)
+        Database.query(query, values)
 
     @staticmethod
     def upload(player, choice: int):
         """
         update the player data with what's in the database
         """
-        query = f"""SELECT * FROM playerdata WHERE playerdata.playerid = '{choice}'"""
-        result = Database.query(query)[0]
+        query = """SELECT * FROM playerdata WHERE playerdata.playerid = %s"""
+        result = Database.query(query, (choice,))[0]
         PlayerData.playerID = result[0]
         player.health = result[1]
         player.totalXP = result[2]
@@ -85,15 +89,18 @@ class PlayerData:
         player.rect.x = result[4]
         player.rect.y = result[5]
         player.map = result[6]
-        player.maxHealth = result[8]
+        player.maxHealth = result[7]
+        query = """SELECT difficultyid FROM player WHERE id = %s"""
+        result = Database.query(query, (choice,))[0]
+        player.difficulty = result[0]
 
     @staticmethod
     def getSpritePath(choice: int) -> str:
         """
         Get the sprite path of the player
         """
-        query = f"""SELECT spritepath FROM player WHERE id = '{choice}'"""
-        result = Database.query(query)[0]
+        query = """SELECT spritepath FROM player WHERE id = %s"""
+        result = Database.query(query, (choice,))[0]
         return result[0]
 
     @staticmethod
@@ -101,8 +108,8 @@ class PlayerData:
         """
         Set the map on wich the player should spawn
         """
-        query = f"""SELECT currentmap FROM playerdata WHERE playerid = '{PlayerData.playerID}'"""
-        results = Database.query(query)[0][0]
+        query = """SELECT currentmap FROM playerdata WHERE playerid = %s"""
+        results = Database.query(query, (PlayerData.playerID,))[0][0]
         map.currentMap = results
 
     @staticmethod
@@ -112,22 +119,22 @@ class PlayerData:
         """
 
         # delete all the monster of this player
-        query = f"""
+        query = """
         DELETE FROM monstercreated
         USING dungeonplayer
-        WHERE dungeonplayer.playerid = '{playerid}' AND monstercreated.dungeonid = dungeonplayer.id
+        WHERE dungeonplayer.playerid = %s AND monstercreated.dungeonid = dungeonplayer.id
         """
-        Database.query(query)
+        Database.query(query, (playerid,))
 
         # Then delete its dungeon
-        query = f"""
+        query = """
         DELETE FROM dungeonplayer
-        WHERE dungeonplayer.playerid = '{playerid}'
+        WHERE dungeonplayer.playerid = %s
         """
 
         # And finally delete the player
-        Database.query(query)
-        query = f"""DELETE FROM player WHERE id = '{playerid}'"""
-        Database.query(query)
-        query = f"""DELETE FROM playerdata WHERE playerid = '{playerid}'"""
-        Database.query(query)
+        Database.query(query, (playerid,))
+        query = """DELETE FROM player WHERE id = %s"""
+        Database.query(query, (playerid,))
+        query = """DELETE FROM playerdata WHERE playerid = %s"""
+        Database.query(query, (playerid,))

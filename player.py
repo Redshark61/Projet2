@@ -120,8 +120,9 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, screen: pygame.Surface, game, name: str = '', hasToUpload: bool = False, choice: bool = None):
-        super().__init__(name, choice)
+    def __init__(self, screen: pygame.Surface, game, path: str = '', name='', hasToUpload: bool = False, choice: bool = None, difficulty: int = None):
+        super().__init__(path, choice)
+        self.difficulty = difficulty
         self.game = game
         self.bombGroup = pygame.sprite.Group()
         self.screen = screen
@@ -134,8 +135,8 @@ class Player(Entity, pygame.sprite.Sprite):
         self.currentLevel = 0
         self.totalXP = 0
         # The player name is the name of the file + random number
-        self.playerName = name.split('/')[-1] + str(random.randint(0, 100))
-        self.name = name
+        self.playerName = name
+        self.name = path
         self.map = 'assetHub/carte_hub_p2'
         # Set up the sounds
         self.projectileSound = Music()
@@ -235,7 +236,7 @@ class NPCMonster(Entity):
     """
     hitSound = Music()
 
-    def __init__(self, monsterID: int, mapName: str, name: str, game, xp: int, maxHealth: int, speed: int, id: int = 0, isDBempty: bool = True):
+    def __init__(self, monsterID: int, mapName: str, name: str, game, xp: int, maxHealth: int, speed: int, monsterDamage: int, id: int = 0, isDBempty: bool = True):
         super().__init__(name)
         # Set up the properties of the monster from the database
         self.name = name
@@ -250,6 +251,7 @@ class NPCMonster(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed * 0.05
+        self.monsterDamage = monsterDamage
         self.alive = True
         # If there are no monster for the given player, add it to the database
         if isDBempty:
@@ -266,7 +268,7 @@ class NPCMonster(Entity):
         """
         Database.query(query)
 
-    def damage(self, damage: int):
+    def takeDamage(self, damage: int):
         """
         Take damage
         """

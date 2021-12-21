@@ -4,6 +4,8 @@ from player import Player
 from map import MapManager
 from quest import Quest
 from musics import Music
+from FinalNight import Night
+import Variables
 
 
 class Game:
@@ -18,7 +20,7 @@ class Game:
         self.playMusicOutdoor = Music()
         self.playMusicDungeon = Music()
 
-    def initalize(self, choice=None):
+    def initalize(self, choice=None, difficulty=None, playerName=None):
         """
         Setup all the variables of the game
         """
@@ -26,13 +28,14 @@ class Game:
         # Creation of the player if the choice is 'new' (selected from the menu)
         if choice == 'new':
             self.player = Player(
-                self.screen, self, "Soldiers/Melee/AssasinTemplate")
+                self.screen, self, "Soldiers/Melee/AssasinTemplate", playerName, difficulty=difficulty)
         # Otherwise, load the player from the database
         else:
             self.player = Player(
                 self.screen, self, hasToUpload=True, choice=choice)
         # Initialize the map
         self.map = MapManager(self, self.screen)
+        Variables.map = self.map
 
         # Teleport the player to the start of the map and save its location
         if choice == 'new':
@@ -40,6 +43,7 @@ class Game:
             self.map.updateMonsterInDB()
 
             self.player.playerDB.updateValue()
+        Night.dataRecovery()
 
     def handleInput(self):
         """
@@ -83,9 +87,12 @@ class Game:
                     # If the button to quit when you die exists
                     if self.map.quitButtonRect is not None:
                         if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
+                            print("Quit")
                             return False
                     if self.map.returnButtonRect is not None:
-                        return True
+                        if self.map.returnButtonRect.collidepoint(pygame.mouse.get_pos()):
+                            print("Return")
+                            return True
 
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
@@ -138,6 +145,8 @@ class Game:
             self.player.bombGroup.draw(self.screen)
             # make the player respawn when health drop to 0
             self.map.respawn()
+            # Check if it's the Night or the day
+            Night.timeCheck()
 
             if "donjon" in self.map.getMap().name.lower():
                 self.playMusicOutdoor.stopMusic()

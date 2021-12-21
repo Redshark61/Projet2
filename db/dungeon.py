@@ -20,28 +20,28 @@ class Dungeon:
         Create the current dungeon for this player
         """
 
-        query = f"""SELECT id FROM WORLD WHERE name = '{mapName}'"""
-        id = Database.query(query)[0][0]
-        query = f"""
+        query = """SELECT id FROM WORLD WHERE name = %s"""
+        id = Database.query(query, (mapName,))[0][0]
+        query = """
         INSERT INTO dungeonplayer (dungeonid, playerid)
-        VALUES ('{id}', '{PlayerData.playerID}')
+        VALUES (%s, %s)
         """
-        Database.query(query)
+        Database.query(query, (id, PlayerData.playerID))
 
     @classmethod
     def getDungeons(cls):
         """
         Get all the dungeons for this player
         """
-        query = f"SELECT * FROM dungeon WHERE playerid = '{PlayerData.playerID}'"
-        return Database.query(query)
+        query = "SELECT * FROM dungeon WHERE playerid = %s"
+        return Database.query(query, (PlayerData.playerID,))
 
     @staticmethod
     def addMonsters(monster) -> int:
         """
         Add the monster to the current dungeon
         """
-        result = Database.getLastID("dungeonplayer")
+        result = Database.getLastID(("dungeonplayer"))
         id = Monster.addMonster(result, monster)
         return id
 
@@ -51,13 +51,15 @@ class Dungeon:
         Get all the monsters for this dungeon
         """
         # Get the id of the current dungeon
-        query = f"""
+        query = """
         SELECT dungeonplayer.id FROM dungeonplayer 
         INNER JOIN world ON dungeonplayer.dungeonid = world.id
-        WHERE world.name = '{dungeonSpritePath}' AND dungeonplayer.playerid = '{PlayerData.playerID}'
+        WHERE world.name = %s AND dungeonplayer.playerid = %s
         """
-        dungeonID = Database.query(query)[0][0]
-        query = f"""SELECT * FROM monstercreated WHERE dungeonid = {dungeonID}"""
-        results = Database.query(query)
+        dungeonID = Database.query(
+            query, (dungeonSpritePath, PlayerData.playerID))[0][0]
+
+        query = """SELECT * FROM monstercreated WHERE dungeonid = %s"""
+        results = Database.query(query, (dungeonID,))
         monsterNumber = len(results)
         return results, monsterNumber

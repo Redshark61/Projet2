@@ -1,5 +1,6 @@
 import psycopg2
 from db.mdp import mdp
+from psycopg2.extensions import AsIs
 
 
 class Database:
@@ -30,13 +31,18 @@ class Database:
             cls.connection.close()
 
     @classmethod
-    def query(cls, query: str) -> list[tuple] :
+    def query(cls, query: str, values: tuple = None, isTable: int = False) -> list[tuple]:
         """
         Execute a SQL query and return the result, NOne if the query is not an "Insert"
         """
 
         cursor = cls.connection.cursor()
-        cursor.execute(query)
+        # If the value is a table, we need to use the AsIs function in order to remove the quotes '
+        if isTable:
+            cursor.execute(query, (AsIs(values[0]),))
+        else:
+            cursor.execute(query, values)
+
         if "SELECT" in query.upper():
             result = cursor.fetchall()
             return result
@@ -48,11 +54,11 @@ class Database:
         """
         Get the id of the required table
         """
-        query = f"""
-        SELECT id FROM {tableName}
+        query = """
+        SELECT id FROM %s
         ORDER BY id DESC
         LIMIT 1
         """
-        id = Database.query(query)[0][0]
+        id = Database.query(query, (tableName,), True)[0][0]
 
         return id

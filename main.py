@@ -16,7 +16,7 @@ def main():
     again = True
     game = Game()
     startNewGame = False
-    while again :
+    while again:
 
         Quest.index = 1
         # Set up the music
@@ -32,12 +32,12 @@ def main():
         menuMusic.setVolume(0.05)
 
         # Run the menu
-        choice = menu.run()
+        choice, difficulty, name = menu.run()
 
         if choice is None:
             return
         menuMusic.stopMusic()
-        game.initalize(choice)
+        game.initalize(choice, difficulty, name)
 
         again = game.run(startNewGame)
         startNewGame = again
