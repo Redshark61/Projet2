@@ -53,7 +53,7 @@ class Monster:
         Get all the monster data for this player and current map
         """
         query = """
-        SELECT monstercreated.positionx, monstercreated.positiony, monstercreated.id, monstercreated.health, monstercreated.speed, monstercreated.dungeonid, monster.*
+        SELECT monstercreated.*, monster.*
         FROM monstercreated
         INNER JOIN dungeonplayer ON dungeonplayer.id = monstercreated.dungeonid
         INNER JOIN player ON dungeonplayer.playerid = player.id

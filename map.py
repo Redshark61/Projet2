@@ -364,11 +364,11 @@ class MapManager:
                 if len(results) > 0:
                     try:
                         # Create the monster and update its value with the data from the db
-                        if results[i][8]:
-                            monster = NPCMonster(results[i][6], mapName, results[i][12], self.game,
-                                                 results[i][8], results[i][7], results[i][9], results[i][2], self.isDBEmpty)
-                            monster.rect.x = results[i][0]
-                            monster.rect.y = results[i][1]
+                        if results[i][7]:
+                            monster = NPCMonster(results[i][0], mapName, results[i][14], self.game,
+                                                 results[i][10], results[i][9], results[i][5], results[i][13], results[i][3], self.isDBEmpty)
+                            monster.rect.x = results[i][1]
+                            monster.rect.y = results[i][2]
                             monster.alive = True
                             entity.append(monster)
                             group.add(monster)
