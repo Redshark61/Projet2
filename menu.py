@@ -14,7 +14,10 @@ class PlayerData:
 
 
 class Menu:
+    # Only initialize the font and the main variables
     pygame.font.init()
+    running = True
+    # Set all the states
     isPlayMenuOpen = False
     isMainMenuOpen = True
     isOptionsMenuOpen = False
@@ -25,15 +28,17 @@ class Menu:
     titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
     buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
 
+    # User input specific variables
     userText = ''
     active = False
     pressedOnce = False
-    running = True
 
-    def __init__(self, screen):
+    def __init__(self, screen: pygame.Surface):
         self.screen = screen
         self.choice = None
         self.difficulty = None
+        self.difficulties = Database.query("SELECT * FROM difficulty ORDER BY id")
+
         # Load the players from the database
         self.players = self.choosePlayer()
 
@@ -94,6 +99,7 @@ class Menu:
             self.nameMenu()
 
     def nameMenu(self):
+        # Create the back button
         Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen = util.createButton(
             self.screen, Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen, "Retour")
 
@@ -103,14 +109,19 @@ class Menu:
         util.textInput(self.screen, activeColor, passiveColor)
 
     def difficultyMenu(self):
-        results = Database.query("SELECT * FROM difficulty ORDER BY id")
+        """
+        Display the difficulty menu
+        """
+
+        # get the difficulties from the database
 
         #### TITLE ####
         Menu.titleFont.render("Difficulty", True, (255, 255, 255))
 
         #### BUTTONS ####
-        # Create the buttons
-        for _, difficulty in enumerate(results):
+        # Create the buttons for each difficulty
+        for _, difficulty in enumerate(self.difficulties):
+            # Colors are the last three colomns from the database
             r, g, b = difficulty[-3:]
             button = Menu.buttonFont.render(difficulty[1], True, (255, 255, 255))
             buttonRect = button.get_rect()
@@ -118,9 +129,9 @@ class Menu:
             buttonRect.x = 100
             # The button is displayed in the cneter, but offset when there are more buttons
             buttonRect.centery = (self.screen.get_height() / 2) + ((buttonRect.height *
-                                                                    (results.index(difficulty) + 1))-((len(results)+1)/2*buttonRect.height))
+                                                                    (self.difficulties.index(difficulty) + 1))-((len(self.difficulties)+1)/2*buttonRect.height))
 
-            # If the mouse is on the button, change the color
+            # If the mouse is on a difficulty button, change the color
             if buttonRect.collidepoint(pygame.mouse.get_pos()):
                 button = Menu.buttonFont.render(difficulty[1], True, (int(r), int(g), int(b)))
                 # Detect the click on the button
