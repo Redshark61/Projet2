@@ -18,7 +18,7 @@ class Game:
         self.playMusicOutdoor = Music()
         self.playMusicDungeon = Music()
 
-    def initalize(self, choice=None, difficulty=None):
+    def initalize(self, choice=None, difficulty=None, playerName=None):
         """
         Setup all the variables of the game
         """
@@ -26,7 +26,7 @@ class Game:
         # Creation of the player if the choice is 'new' (selected from the menu)
         if choice == 'new':
             self.player = Player(
-                self.screen, self, "Soldiers/Melee/AssasinTemplate", difficulty=difficulty)
+                self.screen, self, "Soldiers/Melee/AssasinTemplate", playerName, difficulty=difficulty)
         # Otherwise, load the player from the database
         else:
             self.player = Player(

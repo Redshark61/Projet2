@@ -120,8 +120,8 @@ class Player(Entity, pygame.sprite.Sprite):
     Player class
     """
 
-    def __init__(self, screen: pygame.Surface, game, name: str = '', hasToUpload: bool = False, choice: bool = None, difficulty: int = None):
-        super().__init__(name, choice)
+    def __init__(self, screen: pygame.Surface, game, path: str = '', name='', hasToUpload: bool = False, choice: bool = None, difficulty: int = None):
+        super().__init__(path, choice)
         self.difficulty = difficulty
         self.game = game
         self.bombGroup = pygame.sprite.Group()
@@ -135,8 +135,8 @@ class Player(Entity, pygame.sprite.Sprite):
         self.currentLevel = 0
         self.totalXP = 0
         # The player name is the name of the file + random number
-        self.playerName = name.split('/')[-1] + str(random.randint(0, 100))
-        self.name = name
+        self.playerName = name
+        self.name = path
         self.map = 'assetHub/carte_hub_p2'
         # Set up the sounds
         self.projectileSound = Music()

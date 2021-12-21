@@ -32,12 +32,12 @@ def main():
         menuMusic.setVolume(0.05)
 
         # Run the menu
-        choice, difficulty = menu.run()
+        choice, difficulty, name = menu.run()
 
         if choice is None:
             return
         menuMusic.stopMusic()
-        game.initalize(choice, difficulty)
+        game.initalize(choice, difficulty, name)
 
         again = game.run(startNewGame)
         startNewGame = again
