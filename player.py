@@ -227,7 +227,7 @@ class Player(Entity, pygame.sprite.Sprite):
         Check if the player is colliding with an enemy
         """
         if self.rect.colliderect(entity.rect):
-            self.damage(0.2)
+            self.damage(entity.monsterDamage/10)
 
 
 class NPCMonster(Entity):
