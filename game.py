@@ -160,6 +160,8 @@ class Game:
             pygame.display.flip()
             clock.tick(60)
 
-        return Menu.drawDeathMenu()
-
+        # Dont shwo the death wenu if the player is not dead
+        if isDead:
+            return Menu.drawDeathMenu()
+        return False
     pygame.display.quit()
