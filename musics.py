@@ -13,9 +13,9 @@ class Music:
     for sound in results:
         sounds[sound[0]] = pygame.mixer.Sound(sound[1])
 
-    def __init__(self,again = False):
+    def __init__(self, again=False):
         pygame.mixer.set_num_channels(20)
-        if again :
+        if again:
             Music.channelNumber = 0
         # set a new channel for every new instance
         self.channel = pygame.mixer.Channel(self.channelNumber)

@@ -86,16 +86,6 @@ class Game:
                 # If the player click
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
-                    # If the button to quit when you die exists
-                    # if self.map.quitButtonRect is not None:
-                    #     if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
-                    #         print("Quit")
-                    #         return False
-                    # if self.map.returnButtonRect is not None:
-                    #     if self.map.returnButtonRect.collidepoint(pygame.mouse.get_pos()):
-                    #         print("Return")
-                    #         return True
-
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
                         self.player.lauchProjectile()

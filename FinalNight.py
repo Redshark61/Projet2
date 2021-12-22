@@ -31,7 +31,6 @@ class Night:
         INNER JOIN player ON player.difficultyid = difficulty.id
         WHERE player.id = {PlayerData.playerID}
         """)
-        print(cls.dayLength)
 
     @classmethod
     def timeCheck(cls):
@@ -47,7 +46,6 @@ class Night:
         if time.time() > cls.periodTime:
             cls.periodTime = time.time() + cls.dayLength[0][0]
             variables.night = not variables.night
-            print(f"Night: {variables.night}")
             cls.monsterStatsModified = False
 
         if variables.night and not cls.monsterStatsModified:
