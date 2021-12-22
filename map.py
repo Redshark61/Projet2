@@ -12,6 +12,7 @@ from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
 from musics import Music
+import variables
 
 
 @dataclass
@@ -223,9 +224,11 @@ class MapManager:
                     # While the current time smaller than the time we want to wait
                     if time.time() < self.timeInTimeToWait:
                         # Draw the winning scene
-                        quest.winText()
+                        # quest.winText()
+                        variables.displayWinText = True
                     else:
                         # When the time is over, we want to go back to stop displaying the scene
+                        variables.displayWinText = False
                         self.isDungeonFinished = False
                         self.isWinScenePlaying = False
                 else:

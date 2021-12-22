@@ -1,5 +1,4 @@
 import math
-import random
 import pygame
 from db.db import Database
 from db.dungeon import Dungeon
@@ -176,8 +175,8 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         Gain XP
         """
-        self.currentXP += xp
-        self.totalXP += xp
+        self.currentXP += int(xp)
+        self.totalXP += int(xp)
 
         # If the player has enough XP, level up
         if self.currentXP >= self.maxXP:

@@ -4,8 +4,8 @@ from player import Player
 from map import MapManager
 from quest import Quest
 from musics import Music
-from FinalNight import Night
-import Variables
+from finalNight import Night
+import variables
 
 
 class Game:
@@ -13,6 +13,7 @@ class Game:
     def __init__(self):
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
+        variables.screen = self.screen
         pygame.display.set_caption("Super jeu")
         # Initialize Musics
         self.stepMusic = Music()
@@ -35,7 +36,7 @@ class Game:
                 self.screen, self, hasToUpload=True, choice=choice)
         # Initialize the map
         self.map = MapManager(self, self.screen)
-        Variables.map = self.map
+        variables.map = self.map
 
         # Teleport the player to the start of the map and save its location
         if choice == 'new':
@@ -147,6 +148,10 @@ class Game:
             self.map.respawn()
             # Check if it's the Night or the day
             Night.timeCheck()
+            Night.drawBlueFilter()
+
+            if variables.displayWinText:
+                Quest.winText()
 
             if "donjon" in self.map.getMap().name.lower():
                 self.playMusicOutdoor.stopMusic()

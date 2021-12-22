@@ -3,6 +3,7 @@ from game import Game
 from menu import Menu
 from musics import Music
 from quest import Quest
+import variables
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
 
     again = True
     game = Game()
+    variables.game = game
     startNewGame = False
     while again:
 

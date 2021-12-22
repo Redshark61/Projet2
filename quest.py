@@ -1,5 +1,6 @@
 import pygame
 from db.dungeon import Dungeon
+import variables
 
 
 class Quest:
@@ -72,16 +73,17 @@ class Quest:
         self.textNumberEnemies = self.font.render(
             str(self.numberOfEnemies), True, (0, 0, 0))
 
-    def winText(self):
+    @staticmethod
+    def winText():
         """
         display "you won" in the center of the screen in 60px font for 5seconds
         """
 
         font = pygame.font.Font('./assets/font/Knewave-Regular.ttf', 60)
         text = font.render("You won", True, (0, 255, 0))
-        self.screen.blit(text, (self.screen.get_width(
-        )/2 - text.get_width()/2, self.screen.get_height()/2 - text.get_height()/2))
-        pygame.display.update()
+        variables.screen.blit(text, (variables.screen.get_width(
+        )/2 - text.get_width()/2, variables.screen.get_height()/2 - text.get_height()/2))
+        # pygame.display.update()
 
     def tryToDrawnQuestPanel(self):
         """
