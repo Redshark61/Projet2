@@ -12,7 +12,7 @@ from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
 from musics import Music
-import variables
+import Variables as variables
 
 
 @dataclass
@@ -166,6 +166,7 @@ class MapManager:
                     magma = pygame.Rect(obj.x, obj.y, obj.width, obj.height)
                     if self.player.feet.colliderect(magma):
                         self.player.health -= 2
+                        # self.respawn()
 
         # For each monster, check its collisions
         for npc in self.getMap().npcs:
@@ -288,33 +289,12 @@ class MapManager:
         # Make the logo appear and animate
         self.circle.rotateLogo()
 
-    def respawn(self):
+    def isDead(self):
         """
         Function wich check if the player is dead
         """
 
-        if self.player.health == 0:
-            # If the player is dead, display the death scene
-            background = pygame.image.load('assets/Background Game Over.png')
-            background2 = pygame.Surface(self.screen.get_size())
-            background2.fill((0, 0, 0))
-            banner = pygame.image.load('assets/Banner Game Over.png')
-            quitButton = self.buttonFont.render(
-                "Quitter", True, (255, 255, 255))
-            returnButton = self.buttonFont.render(
-                "Retour", True, (255, 255, 255))
-
-            self.screen.blit(background2, (0, 0))
-            self.screen.blit(background, (30, 0))
-            self.screen.blit(banner, (280, 50))
-            self.screen.blit(quitButton, (800, 600))
-            self.quitButtonRect = quitButton.get_rect()
-            self.quitButtonRect.x, self.quitButtonRect.y = 800, 600
-            self.screen.blit(returnButton, (100, 600))
-            self.returnButtonRect = returnButton.get_rect()
-            self.returnButtonRect.x, self.returnButtonRect.y = 100, 600
-
-            pygame.display.flip()
+        return self.player.health == 0
 
     def registerMap(self, mapName, portals, entityData, spawnName=""):
         """
