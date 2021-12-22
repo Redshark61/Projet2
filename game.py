@@ -15,7 +15,7 @@ class Game:
         # Initialize the screen
         self.screen = pygame.display.set_mode((1080, 720))
         variables.screen = self.screen
-        pygame.display.set_caption("Super jeu")
+        pygame.display.set_caption("The Night Monsters Fever")
         # Initialize Musics
         self.stepMusic = Music()
         self.eventMusic = Music()
