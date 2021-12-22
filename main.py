@@ -3,7 +3,7 @@ from game import Game
 from menu import Menu
 from musics import Music
 from quest import Quest
-import variables
+import Variables as variables
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
         # Initalize the screen but not the variables yet
 
         # Display the menu
-        menu = Menu(game.screen)
+        menu = Menu()
 
         # Play indefinitely the menu music
         menuMusic.playIfReady("menuMusic", -1)

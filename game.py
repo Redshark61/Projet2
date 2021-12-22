@@ -1,11 +1,12 @@
 # pylint: disable=W0201
 import pygame
+from menu import Menu
 from player import Player
 from map import MapManager
 from quest import Quest
 from musics import Music
 from finalNight import Night
-import variables
+import Variables as variables
 
 
 class Game:
@@ -86,14 +87,14 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
                     # If the button to quit when you die exists
-                    if self.map.quitButtonRect is not None:
-                        if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
-                            print("Quit")
-                            return False
-                    if self.map.returnButtonRect is not None:
-                        if self.map.returnButtonRect.collidepoint(pygame.mouse.get_pos()):
-                            print("Return")
-                            return True
+                    # if self.map.quitButtonRect is not None:
+                    #     if self.map.quitButtonRect.collidepoint(pygame.mouse.get_pos()):
+                    #         print("Quit")
+                    #         return False
+                    # if self.map.returnButtonRect is not None:
+                    #     if self.map.returnButtonRect.collidepoint(pygame.mouse.get_pos()):
+                    #         print("Return")
+                    #         return True
 
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
@@ -145,10 +146,13 @@ class Game:
             # Draw the projectiles
             self.player.bombGroup.draw(self.screen)
             # make the player respawn when health drop to 0
-            self.map.respawn()
             # Check if it's the Night or the day
             Night.timeCheck()
             Night.drawBlueFilter()
+
+            isDead = self.map.isDead()
+            if isDead:
+                running = False
 
             if variables.displayWinText:
                 Quest.winText()
@@ -166,4 +170,6 @@ class Game:
             pygame.display.flip()
             clock.tick(60)
 
-    pygame.quit()
+        return Menu.drawDeathMenu()
+
+    pygame.display.quit()

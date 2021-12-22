@@ -2,7 +2,7 @@ import time
 import pygame
 from db.db import Database
 from db.playerData import PlayerData
-import variables
+import Variables as variables
 
 
 class Night:

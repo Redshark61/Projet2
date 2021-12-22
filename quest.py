@@ -1,6 +1,6 @@
 import pygame
 from db.dungeon import Dungeon
-import variables
+import Variables as variables
 
 
 class Quest:
