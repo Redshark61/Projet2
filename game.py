@@ -150,6 +150,9 @@ class Game:
             Night.timeCheck()
             Night.drawBlueFilter()
 
+            if variables.displayWinText:
+                Quest.winText()
+
             if "donjon" in self.map.getMap().name.lower():
                 self.playMusicOutdoor.stopMusic()
                 self.playMusicDungeon.playIfReady("dungeon", -1)
