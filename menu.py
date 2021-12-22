@@ -1,3 +1,4 @@
+import sys
 from dataclasses import dataclass
 import pygame
 from db.db import Database
@@ -55,6 +56,8 @@ class Menu:
 
                 if event.type == pygame.QUIT:
                     Menu.running = False
+                    pygame.quit()
+                    sys.exit()
 
                 # The display changes dipending on the user interaction(load game, quit, etc)
                 self.printMenu()
@@ -263,10 +266,11 @@ class Menu:
 
         #### BUTTONS ####
         # Create the button text
-        buttonText1 = Menu.buttonFont.render("Jouer", True, (255, 255, 255))
-        buttonText2 = Menu.buttonFont.render("Quitter", True, (255, 255, 255))
+        buttonText1 = Menu.buttonFont.render("Jouer", True, (245, 159, 34))
+        buttonText2 = Menu.buttonFont.render("Quitter", True, (245, 159, 34))
 
         buttonText1Rect, buttonText2Rect = buttonText1.get_rect(), buttonText2.get_rect()
+
         btn1BG = util.createBGSurface(
             buttonText1Rect, offset=00, color=(0, 0, 0))
         btn2BG = util.createBGSurface(
@@ -275,34 +279,29 @@ class Menu:
         btn1BGRect = btn1BG.get_rect()
         btn2BGRect = btn2BG.get_rect()
 
-        # Position the buttons bg
-        btn1BGRect.x = 100
-        btn1BGRect.y = 200
-        btn2BGRect.x = 100
-        btn2BGRect.y = 400
 
-        # Center the text on the backgroud
-        buttonText1Rect.center = (btn1BGRect.width/2, btn1BGRect.height/2)
-        buttonText2Rect.center = (btn2BGRect.width/2, btn2BGRect.height/2)
+        # Position the buttons bg
+        buttonText1Rect.x = 100
+        buttonText1Rect.y = 200
+        buttonText2Rect.x = 100
+        buttonText2Rect.y = 400
 
         mouse = pygame.mouse.get_pos()
 
         # Add hover effects on hover
-        if btn1BGRect.collidepoint(mouse):
-            btn1BG.set_alpha(255)
+        if buttonText1Rect.collidepoint(mouse):
+            buttonText1.set_alpha(255)
             if pygame.mouse.get_pressed()[0]:
                 Menu.isPlayMenuOpen = True
                 Menu.isMainMenuOpen = False
 
-        if btn2BGRect.collidepoint(mouse):
-            btn2BG.set_alpha(255)
+        if buttonText2Rect.collidepoint(mouse):
+            buttonText2.set_alpha(255)
             if pygame.mouse.get_pressed()[0]:
                 Menu.running = False
 
-        btn2BG.blit(buttonText2, buttonText2Rect)
-        btn1BG.blit(buttonText1, buttonText1Rect)
-        variables.screen.blit(btn1BG, btn1BGRect)
-        variables.screen.blit(btn2BG, btn2BGRect)
+        variables.screen.blit(buttonText1, buttonText1Rect)
+        variables.screen.blit(buttonText2, buttonText2Rect)
 
         if buttonText2Rect.collidepoint(mouse) or buttonText1Rect.collidepoint(mouse):
             pygame.mouse.set_cursor(*pygame.cursors.diamond)
