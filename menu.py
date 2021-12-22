@@ -101,11 +101,14 @@ class Menu:
         elif Menu.isNameMenuOpen:
             self.nameMenu()
 
-    def nameMenu(self):
+    @staticmethod
+    def nameMenu():
         # Create the back button
         Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen = util.createButton(
             variables.screen, Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen, "Retour")
 
+        Menu.isNameMenuOpen, _ = util.createButton(
+            variables.screen, Menu.isNameMenuOpen, Menu.active, "Suivant", position='br', name="menu.Menu.running", value=False)
         activeColor = (0, 0, 0)
         passiveColor = (100, 100, 100)
         # Create the text input

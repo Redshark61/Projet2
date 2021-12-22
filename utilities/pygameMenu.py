@@ -19,19 +19,25 @@ def clearSurface(surface: pygame.Surface):
     surface.fill((0, 0, 0))
 
 
-def createButton(screen, incomingState: bool, goingState: bool, text: str, position: str = 'bl') -> tuple[int, int]:
+def createButton(screen, incomingState: bool, goingState: bool, text: str, position: str = 'bl', **kwargs) -> tuple[bool, bool]:
     """
     Create a simple button to switch between states :
-        - incomingState : the state the menu IS on click
-        - goingState : the state the menu WILL be on click
+        - `incomingState` : the state the menu IS on click
+        - `goingState` : the state the menu WILL be on click
 
     The position argument is a string that can be :
         - `bl` : bottom left
         - `br` : bottom right
         - `tl` : top left
         - `tr` : top right
-    """
 
+    The kwargs is used to pass other arguments when the button is clicked. To do so,
+    add a pair of 'name', 'value' parameters to the kwargs, for example :
+    `name="menu.Menu.running", value=False` if you want to stop the menu to run.
+
+    The only things, think like if you
+    were inside the createButton function, so instead of writing `name = "Menu.running"` you should write `name = "menu.Menu.running"`.
+    """
     # Load the font
     backButton = menu.Menu.buttonFont.render(text, True, (0, 0, 0))
     # Get its rect
@@ -63,6 +69,14 @@ def createButton(screen, incomingState: bool, goingState: bool, text: str, posit
         if pygame.mouse.get_pressed()[0]:
             incomingState = False
             goingState = True
+
+            # Maybe there are other arguments to assign value, so we use kwargs
+            for key, value in kwargs.items():
+                if key == 'name':
+                    propertyName = value
+                else:
+                    propertyValue = value
+                    exec(f"{propertyName} = {propertyValue}")
 
     # Display the button
     screen.blit(bg, bgRect)
