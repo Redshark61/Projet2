@@ -5,7 +5,7 @@ from player import Player
 from map import MapManager
 from quest import Quest
 from musics import Music
-from finalNight import Night
+from FinalNight import Night
 import Variables as variables
 
 
