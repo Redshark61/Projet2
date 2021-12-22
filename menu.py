@@ -1,3 +1,4 @@
+import sys
 from dataclasses import dataclass
 import pygame
 from db.db import Database
@@ -55,6 +56,8 @@ class Menu:
 
                 if event.type == pygame.QUIT:
                     Menu.running = False
+                    pygame.quit()
+                    sys.exit()
 
                 # The display changes dipending on the user interaction(load game, quit, etc)
                 self.printMenu()
