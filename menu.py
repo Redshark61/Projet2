@@ -26,7 +26,7 @@ class Menu:
     isNameMenuOpen = False
 
     # Load the fonts
-    titleFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 100)
+    titleFont = pygame.font.Font("./assets/font/Shadowed.ttf", 60)
     buttonFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 50)
 
     # User input specific variables
@@ -255,7 +255,7 @@ class Menu:
 
         #### TITLE ####
         # Create the title text
-        titleText = Menu.titleFont.render("Les AUTRES", True, (255, 255, 255))
+        titleText = Menu.titleFont.render("The Night Monsters Fever", True, (245, 159, 34))
         # center the title text on x-axis
         titleTextRect = titleText.get_rect()
         titleTextRect.center = ((variables.screen.get_width() / 2), 50)
@@ -268,9 +268,9 @@ class Menu:
 
         buttonText1Rect, buttonText2Rect = buttonText1.get_rect(), buttonText2.get_rect()
         btn1BG = util.createBGSurface(
-            buttonText1Rect, offset=50, color=(0, 0, 0))
+            buttonText1Rect, offset=00, color=(0, 0, 0))
         btn2BG = util.createBGSurface(
-            buttonText2Rect, offset=50, color=(0, 0, 0))
+            buttonText2Rect, offset=00, color=(0, 0, 0))
 
         btn1BGRect = btn1BG.get_rect()
         btn2BGRect = btn2BG.get_rect()
