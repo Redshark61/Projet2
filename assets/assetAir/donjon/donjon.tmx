@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="54">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="38" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="64">
  <tileset firstgid="1" source="0x72_16x16DungeonTileset_walls.v2.tsx"/>
  <tileset firstgid="257" source="0x72_16x16DungeonTileset.v4.tsx"/>
  <layer id="1" name="floor" width="38" height="25">
@@ -153,30 +153,30 @@
    <point/>
   </object>
   <object id="15" type="collision" x="9" y="11" width="490" height="18"/>
-  <object id="16" type="collision" x="492" y="4.75" width="6.5" height="109"/>
-  <object id="17" type="collision" x="490.5" y="89" width="95.5" height="23.75"/>
-  <object id="18" type="collision" x="573.5" y="80" width="14" height="319.5"/>
+  <object id="16" type="collision" x="492" y="4.75" width="6.5" height="107.25"/>
+  <object id="17" type="collision" x="492" y="89" width="94" height="23.75"/>
+  <object id="18" type="collision" x="576.563" y="80" width="10.9375" height="319.5"/>
   <object id="19" type="collision" x="6" y="378" width="580" height="25"/>
-  <object id="20" type="collision" x="74" y="314" width="348.5" height="23.5"/>
-  <object id="21" type="collision" x="106" y="283.5" width="319" height="18.5"/>
-  <object id="22" type="collision" x="415.5" y="281" width="5" height="43.5"/>
-  <object id="23" type="collision" x="490.5" y="235.5" width="8" height="83.5"/>
-  <object id="24" type="collision" x="489" y="293" width="60.5" height="27.5"/>
+  <object id="20" type="collision" x="75.9375" y="314" width="343.926" height="20.6818"/>
+  <object id="21" type="collision" x="106" y="285.318" width="314.455" height="16.6818"/>
+  <object id="22" type="collision" x="415.227" y="285" width="5" height="43.5"/>
+  <object id="23" type="collision" x="492.125" y="237.063" width="6.375" height="81.9375"/>
+  <object id="24" type="collision" x="492.125" y="293" width="56.0625" height="26.125"/>
   <object id="25" type="collision" x="539.5" y="236.5" width="9" height="69.5"/>
-  <object id="26" type="collision" x="494" y="232.5" width="48.5" height="32.5"/>
+  <object id="26" type="collision" x="494" y="236.938" width="48.5" height="28.0625"/>
   <object id="27" type="collision" x="384.5" y="203" width="30.5" height="24"/>
   <object id="28" type="collision" x="410" y="77" width="5" height="136"/>
   <object id="29" type="collision" x="316" y="170.5" width="73.5" height="19"/>
   <object id="30" type="collision" x="384" y="167" width="4" height="36.5"/>
-  <object id="31" type="collision" x="311.5" y="105" width="8.5" height="72.5"/>
+  <object id="31" type="collision" x="315.864" y="105" width="4.13636" height="72.5"/>
   <object id="32" type="collision" x="97" y="106" width="93.5" height="20.5"/>
   <object id="33" type="collision" x="226.5" y="107" width="89" height="22.5"/>
-  <object id="34" type="collision" x="95.5" y="125" width="6.5" height="52"/>
-  <object id="35" type="collision" x="72.5" y="156" width="29" height="18.5"/>
+  <object id="34" type="collision" x="95.5" y="125" width="5.0625" height="49.75"/>
+  <object id="35" type="collision" x="75.125" y="156" width="25.0625" height="18.5"/>
   <object id="36" type="collision" x="75" y="77.5" width="4.5" height="81.5"/>
-  <object id="37" type="collision" x="72" y="75.5" width="341.5" height="17"/>
+  <object id="37" type="collision" x="75.875" y="76.8125" width="337.625" height="15.6875"/>
   <object id="38" type="collision" x="10.5" y="11" width="3.5" height="371"/>
-  <object id="39" type="collision" x="75.25" y="204" width="3.5" height="112.5"/>
+  <object id="39" type="collision" x="76.375" y="204" width="2.375" height="112.5"/>
   <object id="40" type="collision" x="79" y="204.25" width="17" height="18.25"/>
   <object id="41" type="collision" x="89.75" y="219.5" width="22.25" height="21.5"/>
   <object id="42" type="collision" x="107.5" y="220.75" width="2.75" height="68.75"/>
@@ -207,6 +207,36 @@
    <point/>
   </object>
   <object id="53" type="AirSpawnMonster" x="55.6667" y="119.333">
+   <point/>
+  </object>
+  <object id="54" type="AirSpawnMonster" x="215" y="249.832">
+   <point/>
+  </object>
+  <object id="55" type="AirSpawnMonster" x="340" y="270.5">
+   <point/>
+  </object>
+  <object id="56" type="AirSpawnMonster" x="291.5" y="178.332">
+   <point/>
+  </object>
+  <object id="57" type="AirSpawnMonster" x="260.5" y="239">
+   <point/>
+  </object>
+  <object id="58" type="AirSpawnMonster" x="391" y="263">
+   <point/>
+  </object>
+  <object id="59" type="AirSpawnMonster" x="320.5" y="358">
+   <point/>
+  </object>
+  <object id="60" type="AirSpawnMonster" x="450.5" y="172">
+   <point/>
+  </object>
+  <object id="61" type="AirSpawnMonster" x="541.5" y="149">
+   <point/>
+  </object>
+  <object id="62" type="AirSpawnMonster" x="369" y="56.5">
+   <point/>
+  </object>
+  <object id="63" type="AirSpawnMonster" x="47.5" y="237.5">
    <point/>
   </object>
  </objectgroup>
