@@ -206,7 +206,7 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         Take damage
         """
-        self.health -= damage
+        self.health -= damage + (self.currentLevel*1.25)
         self.health = max(0, self.health)
         self.drawHealthBar()
 
@@ -252,7 +252,7 @@ class NPCMonster(Entity):
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
         self.speed = speed * 0.05
-        self.monsterDamage = monsterDamage
+        self.monsterDamage = monsterDamage 
         self.alive = True
         # If there are no monster for the given player, add it to the database
         if isDBempty:
