@@ -271,14 +271,6 @@ class Menu:
 
         buttonText1Rect, buttonText2Rect = buttonText1.get_rect(), buttonText2.get_rect()
 
-        btn1BG = util.createBGSurface(
-            buttonText1Rect, offset=00, color=(0, 0, 0))
-        btn2BG = util.createBGSurface(
-            buttonText2Rect, offset=00, color=(0, 0, 0))
-
-        btn1BGRect = btn1BG.get_rect()
-        btn2BGRect = btn2BG.get_rect()
-
         # Position the buttons bg
         buttonText1Rect.x = 100
         buttonText1Rect.y = 200
