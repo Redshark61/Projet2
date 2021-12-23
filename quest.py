@@ -1,3 +1,4 @@
+import time
 import pygame
 from db.dungeon import Dungeon
 import Variables as variables

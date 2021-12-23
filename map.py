@@ -217,26 +217,24 @@ class MapManager:
             quest.tryToDrawnQuestPanel()
 
             # If the quest is the current map and its finished
-            if quest.originalName == self.currentMap and self.isDungeonFinished:
-                # We want to wait 5 seconds
-                timeToWait = 5
-                # If the winning scene is playing (by default it's not)
-                if self.isWinScenePlaying:
-                    # While the current time smaller than the time we want to wait
-                    if time.time() < self.timeInTimeToWait:
+            if self.isDungeonFinished:
+                # While the current time smaller than the time we want to wait
+                if time.time() < self.timeInTimeToWait:
+                    if self.isWinScenePlaying:
                         # Draw the winning scene
                         # quest.winText()
                         variables.displayWinText = True
                     else:
-                        # When the time is over, we want to go back to stop displaying the scene
-                        variables.displayWinText = False
-                        self.isDungeonFinished = False
-                        self.isWinScenePlaying = False
-                else:
-                    # The scene is not playing yet, we want to display it
+                        self.isWinScenePlaying = True
+                elif not self.isWinScenePlaying:
+                    # When the time is over, we want to go back to stop displaying the scene
+                    # If the time is over, we can go to the next map
                     self.isWinScenePlaying = True
-                    # Calculate the time we want to wait
-                    self.timeInTimeToWait = time.time() + timeToWait
+                    self.timeInTimeToWait = time.time() + 5
+                else:
+                    variables.displayWinText = False
+                    self.isDungeonFinished = False
+                    self.isWinScenePlaying = False
 
         # draw the map in the center
         self.getGroup().center(self.game.player.rect.center)
