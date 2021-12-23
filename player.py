@@ -177,6 +177,8 @@ class Player(Entity, pygame.sprite.Sprite):
         """
         self.currentXP += int(xp)
         self.totalXP += int(xp)
+        self.health = self.health + int(xp) / 5 if (self.health + int(xp) /
+                                                    5) < self.maxHealth else self.maxHealth
 
         # If the player has enough XP, level up
         if self.currentXP >= self.maxXP:
