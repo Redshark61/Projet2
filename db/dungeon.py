@@ -63,3 +63,14 @@ class Dungeon:
         results = Database.query(query, (dungeonID,))
         monsterNumber = len(results)
         return results, monsterNumber
+
+
+    @classmethod
+    def getNumberOfWorlds(cls):
+        query = f"""
+        SELECT * FROM world 
+        WHERE isdungeon = false
+        """
+        results = Database.query(query)[0][0]
+        worldNumber = results
+        return results, worldNumber

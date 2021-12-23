@@ -209,12 +209,22 @@ class MapManager:
         # Draw the health bar of each monster
         for npc in self.getMap().npcs:
             npc.drawHealthBar()
-
+        index = 1
         for quest in self.listOfquest:
             # Update every quest
-            quest.updateNumberOfMonster(
-                len(self.maps[quest.originalName].npcs))
-            quest.tryToDrawnQuestPanel()
+            quest.updateNumberOfMonster(len(self.maps[quest.originalName].npcs))
+
+            # If the quest is finished (no more monster)
+            if len(self.maps[quest.originalName].npcs) == 0:
+                # Remove the quest from the list
+                self.listOfquest.remove(quest)
+            
+            # If the quest is not finished
+            else:
+                # re-update the quest's index in order to display it correctly when a dungeon is finished
+                quest.index = index
+                index+=1
+                quest.tryToDrawnQuestPanel()
 
             # If the quest is the current map and its finished
             if self.isDungeonFinished:

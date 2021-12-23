@@ -9,6 +9,9 @@ class Quest:
     index = 1
     isHidden = False
     questList = []
+    recentIndex = 100
+    lastRemoved = None
+    removedList = []
 
     def __init__(self, name: str, screen):
         _, numberOfEnemies = Dungeon.getMonsters(name)
@@ -54,7 +57,7 @@ class Quest:
         maxWidth = 200
         try:
             width = (self.numberOfEnemies /
-                     self.originalNumberOfEnemies) * maxWidth
+                    self.originalNumberOfEnemies) * maxWidth
         except ZeroDivisionError:
             width = 0
         pygame.draw.rect(self.surface, (0, 0, 0), (35, 53, width, 10))
@@ -62,7 +65,7 @@ class Quest:
         # don't draw the first line
         if self.index != 1:
             pygame.draw.line(self.surface, (60, 60, 60),
-                             (10, 0), (self.width-10, 0), 2)
+                            (10, 0), (self.width-10, 0), 2)
 
         self.screen.blit(self.surface, (x, y))
 
