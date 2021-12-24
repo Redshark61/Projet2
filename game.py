@@ -19,8 +19,9 @@ class Game:
         # Initialize Musics
         self.stepMusic = Music()
         self.eventMusic = Music()
-        self.playMusicOutdoor = Music()
-        self.playMusicDungeon = Music()
+        self.playMusicOutdoor = Music(isAmbient=True)
+        self.playMusicDungeon = Music(isAmbient=True)
+        self.click = Music()
 
     def initalize(self, choice=None, difficulty=None, playerName=None):
         """
@@ -84,7 +85,7 @@ class Game:
 
                 # If the player click
                 if event.type == pygame.MOUSEBUTTONDOWN:
-
+                    self.click.playIfReady("click", 0)
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
                         self.player.lauchProjectile()

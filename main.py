@@ -22,8 +22,7 @@ def main():
 
         Quest.index = 1
         # Set up the music
-        menuMusic = Music(again)
-        # again = False
+        menuMusic = Music(startNewGame, True)
         # Initalize the screen but not the variables yet
 
         # Display the menu

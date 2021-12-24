@@ -7,21 +7,33 @@ class Music:
 
     channelNumber = 0
     pygame.mixer.init()
+
     # Create an empty dictionary of sounds
     sounds = {}
+
     # Load all sounds in the sounds dictionary
     results = Database.query("SELECT name, soundpath FROM sounds")
     for sound in results:
         sounds[sound[0]] = pygame.mixer.Sound(sound[1])
 
-    def __init__(self, again=False):
+    ambientSound = []
+    sfxSound = []
+
+    def __init__(self, again=False, isAmbient=False):
         pygame.mixer.set_num_channels(20)
         if again:
             Music.channelNumber = 0
+        self.channelNumber = Music.channelNumber
         # set a new channel for every new instance
         self.channel = pygame.mixer.Channel(self.channelNumber)
-        Music.channelNumber += 1
         self.setVolume(var.volume)
+
+        # If the music is ambient, then add it to the ambientSound list
+        if isAmbient:
+            Music.ambientSound.append(self)
+        else:
+            Music.sfxSound.append(self)
+        Music.channelNumber += 1
 
     def play(self, soundName, loop):
         self.channel.play(self.sounds[soundName], loop)

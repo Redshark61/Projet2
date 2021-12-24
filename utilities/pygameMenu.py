@@ -152,17 +152,30 @@ def textInput(screen: pygame.Surface, activeColor: tuple[int, int, int], passive
     inputRect.w = max(100, textSurface.get_width()+10)
 
 
-def Slider():
-    x = 400
-    width = menu.Menu.sliderWidth
-    height = var.screen.get_height() / 2
+def slider(soundType: str, offsetY: int = 0):
 
+    # x position of slider
+    x = 500
+
+    # Get the width of the slider depending on its type
+    if soundType == 'sfx':
+        width = menu.Menu.sliderWidthSfx
+        index = 0
+    elif soundType == 'ambient':
+        width = menu.Menu.sliderWidthAmbient
+        index = 1
+
+    height = var.screen.get_height() / 2 + offsetY
+
+    # Create a surface for the slider (background and foreground)
     bg = pygame.Surface((300, 20))
     fg = pygame.Surface((width, 20))
 
+    # Colors
     bg.fill((255, 0, 0))
     fg.fill((0, 255, 0))
 
+    # Position of the slider
     fgRect = fg.get_rect()
     bgRect = bg.get_rect()
     bgRect.centery = height
@@ -170,17 +183,52 @@ def Slider():
     bgRect.x = x
     fgRect.x = x
 
+    # Display the sliders
     var.screen.blit(bg, bgRect)
     var.screen.blit(fg, fgRect)
+
+    # Display the circle wich you can drag
     dot = pygame.draw.circle(var.screen, (0, 0, 0), (x + width, height), 13)
 
-    if (dot.collidepoint(pygame.mouse.get_pos()) or menu.Menu.sliderClicked) and pygame.mouse.get_pressed()[0] and not menu.Menu.sliderHandled:
+    # If the player is hovering, are still clicking the current slider
+    isClicking = (dot.collidepoint(pygame.mouse.get_pos()) or menu.Menu.sliderClicked[index])
+
+    # If the player is hovering over the slider, and is clicking on the current slider
+    if isClicking and pygame.mouse.get_pressed()[0] and menu.Menu.sliderType in (soundType, ''):
         menu.Menu.handled = True
-        menu.Menu.sliderClicked = True
-        menu.Menu.sliderWidth = max(min(pygame.mouse.get_pos()[0] - x, 300), 0)
-        soundVolume = menu.Menu.sliderWidth / 300
-        var.volume = soundVolume
+        menu.Menu.sliderClicked[index] = True
+
+        # slider type define wich slider is currently being dragged
+        menu.Menu.sliderType = soundType
+
+        if soundType == "ambient":
+            menu.Menu.soundStateAmbient = True
+            # Get the min between the width of the slider and 300px (not to go further than 300px)
+            # and get the max between the width of the slider and 0px (not to go below than 0px)
+            menu.Menu.sliderWidthAmbient = max(min(pygame.mouse.get_pos()[0] - x, 300), 0)
+            soundVolume = menu.Menu.sliderWidthAmbient / 300
+            var.volumeAmbient = soundVolume
+        elif soundType == "sfx":
+            menu.Menu.soundStateSfx = True
+            menu.Menu.sliderWidthSfx = max(min(pygame.mouse.get_pos()[0] - x, 300), 0)
+            soundVolume = menu.Menu.sliderWidthSfx / 300
+            var.volumeSfx = soundVolume
+
+        # In any case, re adjust the volume with the new values
         utilities.sounds.setVolume()
+
+    # If the previous condition is false, then it means that the player is not clicking on the slider anymore
     else:
-        menu.Menu.sliderClicked = False
+        menu.Menu.sliderClicked[index] = False
         menu.Menu.handled = False
+        menu.Menu.sliderType = ''
+
+
+def displayTitle(text: str, font: pygame.font.Font):
+    """
+    Display the title of the menu
+    """
+    title = font.render(text, True, (255, 255, 255))
+    titleRect = title.get_rect()
+    titleRect.center = ((var.screen.get_width() / 2), 50)
+    var.screen.blit(title, titleRect)
