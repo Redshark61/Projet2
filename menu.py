@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import pygame
 from db.db import Database
 from db.playerData import PlayerData as Player
+from musics import Music
 import utilities.pygameMenu
 import utilities.sounds
 import Variables as variables
@@ -21,9 +22,13 @@ class Menu:
     pygame.font.init()
     running = True
     handled = False
+
+    # slider var
     sliderHandled = False
-    sliderWidth = 150
-    sliderClicked = False
+    sliderWidthSfx = 150
+    sliderWidthAmbient = 150
+    sliderClicked = [False, False]
+    sliderType = ''
 
     # Set all the states
     isPlayMenuOpen = False
@@ -31,7 +36,8 @@ class Menu:
     isOptionsMenuOpen = False
     isDifficultyMenuOpen = False
     isNameMenuOpen = False
-    soundState = True
+    soundStateAmbient = True
+    soundStateSfx = True
 
     # Load the fonts
     titleFont = pygame.font.Font("./assets/font/Shadowed.ttf", 60)
@@ -49,7 +55,7 @@ class Menu:
         self.choice = None
         self.difficulty = None
         self.difficulties = Database.query("SELECT * FROM difficulty ORDER BY id")
-
+        self.click = Music()
         # Load the players from the database
         self.players = self.choosePlayer()
 
@@ -65,6 +71,8 @@ class Menu:
                     Menu.running = False
                     pygame.quit()
                     sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.click.playIfReady("click", 0)
 
                 # The display changes dipending on the user interaction(load game, quit, etc)
                 self.printMenu()
@@ -111,38 +119,63 @@ class Menu:
         elif Menu.isNameMenuOpen:
             self.nameMenu()
 
-    def optionsMenu(self):
+    @staticmethod
+    def optionsMenu():
 
         #### TITLE ####
         # Create the title text
-        titleText = Menu.titleFont.render("Options", True, (255, 255, 255))
-        # center the title text on x-axis
-        titleTextRect = titleText.get_rect()
-        titleTextRect.center = ((variables.screen.get_width() / 2), 50)
-        variables.screen.blit(titleText, titleTextRect)
+        utilities.pygameMenu.displayTitle("Options", Menu.titleFont)
 
         #### Create the back button ####
         Menu.isOptionsMenuOpen, Menu.isMainMenuOpen = utilities.pygameMenu.createButton(
             variables.screen, Menu.isOptionsMenuOpen, Menu.isMainMenuOpen, "Retour")
 
         #### BUTTONS ####
-        soundCheck = Menu.buttonFont.render(
-            f"Sound {'On' if Menu.soundState else 'Off'}", True, (255, 255, 255))
-        soundCheckRect = soundCheck.get_rect()
-        soundCheckRect.x = 100
-        soundCheckRect.centery = (variables.screen.get_height() / 2)
+        smallerFont = pygame.font.Font("./assets/font/Knewave-Regular.ttf", 30)
+        # ambient sound button
+        ambientSoundButton = smallerFont.render(
+            f"Ambient Sound {'On' if Menu.soundStateAmbient else 'Off'}", True, (255, 255, 255))
+        ambientSoundButtonRect = ambientSoundButton.get_rect()
+        ambientSoundButtonRect.x = 100
+        ambientSoundButtonRect.centery = (variables.screen.get_height() / 2)
 
-        if soundCheckRect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] and not Menu.handled:
-            Menu.soundState = not Menu.soundState
+        # If the ambient sound button is pressed
+        if ambientSoundButtonRect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] and not Menu.handled:
+            # switch the variable
+            Menu.soundStateAmbient = not Menu.soundStateAmbient
             Menu.handled = True
-            utilities.sounds.shutSounds()
+            # Set volume to 0 and width of the slider to 0
+            variables.volumeAmbient = 0
+            Menu.sliderWidthAmbient = 0
+            utilities.sounds.setVolume()
         else:
             Menu.handled = False
 
-        #### Slider #####
-        utilities.pygameMenu.Slider()
+        # SFX sound button
+        sfxSoundButton = smallerFont.render(
+            f"SFX Sound {'On' if Menu.soundStateSfx else 'Off'}", True, (255, 255, 255))
+        sfxSoundButtonRect = sfxSoundButton.get_rect()
+        sfxSoundButtonRect.x = 100
+        sfxSoundButtonRect.centery = (variables.screen.get_height() / 2) + ambientSoundButtonRect.height + 10
 
-        variables.screen.blit(soundCheck, soundCheckRect)
+        # If the ambient sound button is pressed
+        if sfxSoundButtonRect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] and not Menu.handled:
+            # Set volume to 0 and width of the slider to 0
+            Menu.soundStateSfx = not Menu.soundStateSfx
+            Menu.handled = True
+            # Set volume to 0 and width of the slider to 0
+            variables.volumeSfx = 0
+            Menu.sliderWidthSfx = 0
+            utilities.sounds.setVolume()
+        else:
+            Menu.handled = False
+
+        #### slider #####
+        utilities.pygameMenu.slider('ambient')
+        utilities.pygameMenu.slider('sfx', ambientSoundButtonRect.height + 10)
+
+        variables.screen.blit(ambientSoundButton, ambientSoundButtonRect)
+        variables.screen.blit(sfxSoundButton, sfxSoundButtonRect)
 
     @staticmethod
     def nameMenu():
@@ -165,7 +198,8 @@ class Menu:
         # get the difficulties from the database
 
         #### TITLE ####
-        Menu.titleFont.render("Difficulty", True, (255, 255, 255))
+
+        utilities.pygameMenu.displayTitle("Difficulte", Menu.titleFont)
 
         #### BUTTONS ####
         # Create the buttons for each difficulty
@@ -204,12 +238,8 @@ class Menu:
 
         #### TITLE ####
         # Create the title text
-        titleText = Menu.titleFont.render(
-            "Choisir une partie", True, (255, 255, 255))
-        # center the title text on x-axis
-        titleTextRect = titleText.get_rect()
-        titleTextRect.center = ((variables.screen.get_width() / 2), 50)
-        variables.screen.blit(titleText, titleTextRect)
+
+        utilities.pygameMenu.displayTitle("Choisir une partie", Menu.titleFont)
 
         ##### Create a new game button #####
         # Create the new game button text

@@ -1,5 +1,6 @@
 import time
 import pygame
+from utilities.sounds import setVolume
 from musics import Music
 
 pygame.init()
@@ -23,7 +24,7 @@ class Circle():
         pygame.display.flip()
 
     def rotateLogo(self):
-
+        setVolume()
         self.music.play("loading", 0)
         for _ in range(4):
             self.rotateRadius += 90

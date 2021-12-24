@@ -11,7 +11,6 @@ from player import NPCMonster
 from quest import Quest
 from db.monster import Monster as MonsterDB
 from circle import Circle
-from musics import Music
 import Variables as variables
 
 
@@ -49,7 +48,6 @@ class MapManager:
     def __init__(self, game, screen):
         # Initalize the variables
         self.circle = Circle()
-        self.playMusic = Music()
         self.game = game
         self.player = self.game.player
         self.screen = screen
@@ -218,12 +216,12 @@ class MapManager:
             if len(self.maps[quest.originalName].npcs) == 0:
                 # Remove the quest from the list
                 self.listOfquest.remove(quest)
-            
+
             # If the quest is not finished
             else:
                 # re-update the quest's index in order to display it correctly when a dungeon is finished
                 quest.index = index
-                index+=1
+                index += 1
                 quest.tryToDrawnQuestPanel()
 
             # If the quest is the current map and its finished
