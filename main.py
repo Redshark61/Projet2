@@ -31,7 +31,6 @@ def main():
 
         # Play indefinitely the menu music
         menuMusic.playIfReady("menuMusic", -1)
-        menuMusic.setVolume(0.05)
 
         # Run the menu
         choice, difficulty, name = menu.run()

@@ -1,5 +1,6 @@
 import pygame
 from db.db import Database
+import Variables as var
 
 
 class Music:
@@ -20,6 +21,7 @@ class Music:
         # set a new channel for every new instance
         self.channel = pygame.mixer.Channel(self.channelNumber)
         Music.channelNumber += 1
+        self.setVolume(var.volume)
 
     def play(self, soundName, loop):
         self.channel.play(self.sounds[soundName], loop)
