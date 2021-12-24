@@ -12,3 +12,8 @@ def shutSounds():
     else:
         for i in range(Music.channelNumber):
             pygame.mixer.Channel(i).set_volume(var.volume)
+
+
+def setVolume():
+    for i in range(Music.channelNumber):
+        pygame.mixer.Channel(i).set_volume(var.volume)

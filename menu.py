@@ -21,6 +21,9 @@ class Menu:
     pygame.font.init()
     running = True
     handled = False
+    sliderHandled = False
+    sliderWidth = 150
+    sliderClicked = False
 
     # Set all the states
     isPlayMenuOpen = False
@@ -126,9 +129,8 @@ class Menu:
         soundCheck = Menu.buttonFont.render(
             f"Sound {'On' if Menu.soundState else 'Off'}", True, (255, 255, 255))
         soundCheckRect = soundCheck.get_rect()
-        soundCheckRect.height += 20
         soundCheckRect.x = 100
-        soundCheckRect.centery = (variables.screen.get_height() / 2) + (soundCheckRect.height * 1)
+        soundCheckRect.centery = (variables.screen.get_height() / 2)
 
         if soundCheckRect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] and not Menu.handled:
             Menu.soundState = not Menu.soundState
@@ -136,6 +138,9 @@ class Menu:
             utilities.sounds.shutSounds()
         else:
             Menu.handled = False
+
+        #### Slider #####
+        utilities.pygameMenu.Slider()
 
         variables.screen.blit(soundCheck, soundCheckRect)
 
