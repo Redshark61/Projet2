@@ -53,7 +53,6 @@ class Game:
         """
         pressed = pygame.key.get_pressed()
 
-        self.stepMusic.setVolume(0.1)
         if pressed[pygame.K_z]:
             self.player.moveUp()
             self.stepMusic.playIfReady("step1", 0)
@@ -150,11 +149,9 @@ class Game:
             if "donjon" in self.map.getMap().name.lower():
                 self.playMusicOutdoor.stopMusic()
                 self.playMusicDungeon.playIfReady("dungeon", -1)
-                self.playMusicDungeon.setVolume(0.05)
             else:
                 self.playMusicDungeon.stopMusic()
                 self.playMusicOutdoor.playIfReady("outdoor", -1)
-                self.playMusicOutdoor.setVolume(0.05)
 
             pygame.display.update()
             pygame.display.flip()
