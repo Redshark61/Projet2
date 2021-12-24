@@ -1,5 +1,7 @@
 import pygame
 import menu
+import Variables as var
+import utilities
 
 
 def createBGSurface(text: pygame.Rect, offset: int = 10, color: tuple[int] = (0, 0, 0)) -> pygame.Surface:
@@ -148,3 +150,37 @@ def textInput(screen: pygame.Surface, activeColor: tuple[int, int, int], passive
     # set width of textfield so that text cannot get
     # outside of user's text input
     inputRect.w = max(100, textSurface.get_width()+10)
+
+
+def Slider():
+    x = 400
+    width = menu.Menu.sliderWidth
+    height = var.screen.get_height() / 2
+
+    bg = pygame.Surface((300, 20))
+    fg = pygame.Surface((width, 20))
+
+    bg.fill((255, 0, 0))
+    fg.fill((0, 255, 0))
+
+    fgRect = fg.get_rect()
+    bgRect = bg.get_rect()
+    bgRect.centery = height
+    fgRect.centery = height
+    bgRect.x = x
+    fgRect.x = x
+
+    var.screen.blit(bg, bgRect)
+    var.screen.blit(fg, fgRect)
+    dot = pygame.draw.circle(var.screen, (0, 0, 0), (x + width, height), 13)
+
+    if (dot.collidepoint(pygame.mouse.get_pos()) or menu.Menu.sliderClicked) and pygame.mouse.get_pressed()[0] and not menu.Menu.sliderHandled:
+        menu.Menu.handled = True
+        menu.Menu.sliderClicked = True
+        menu.Menu.sliderWidth = max(min(pygame.mouse.get_pos()[0] - x, 300), 0)
+        soundVolume = menu.Menu.sliderWidth / 300
+        var.volume = soundVolume
+        utilities.sounds.setVolume()
+    else:
+        menu.Menu.sliderClicked = False
+        menu.Menu.handled = False

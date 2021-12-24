@@ -3,7 +3,8 @@ from dataclasses import dataclass
 import pygame
 from db.db import Database
 from db.playerData import PlayerData as Player
-import utilities.pygameMenu as util
+import utilities.pygameMenu
+import utilities.sounds
 import Variables as variables
 
 
@@ -19,12 +20,18 @@ class Menu:
     # Only initialize the font and the main variables
     pygame.font.init()
     running = True
+    handled = False
+    sliderHandled = False
+    sliderWidth = 150
+    sliderClicked = False
+
     # Set all the states
     isPlayMenuOpen = False
     isMainMenuOpen = True
     isOptionsMenuOpen = False
     isDifficultyMenuOpen = False
     isNameMenuOpen = False
+    soundState = True
 
     # Load the fonts
     titleFont = pygame.font.Font("./assets/font/Shadowed.ttf", 60)
@@ -104,18 +111,51 @@ class Menu:
         elif Menu.isNameMenuOpen:
             self.nameMenu()
 
+    def optionsMenu(self):
+
+        #### TITLE ####
+        # Create the title text
+        titleText = Menu.titleFont.render("Options", True, (255, 255, 255))
+        # center the title text on x-axis
+        titleTextRect = titleText.get_rect()
+        titleTextRect.center = ((variables.screen.get_width() / 2), 50)
+        variables.screen.blit(titleText, titleTextRect)
+
+        #### Create the back button ####
+        Menu.isOptionsMenuOpen, Menu.isMainMenuOpen = utilities.pygameMenu.createButton(
+            variables.screen, Menu.isOptionsMenuOpen, Menu.isMainMenuOpen, "Retour")
+
+        #### BUTTONS ####
+        soundCheck = Menu.buttonFont.render(
+            f"Sound {'On' if Menu.soundState else 'Off'}", True, (255, 255, 255))
+        soundCheckRect = soundCheck.get_rect()
+        soundCheckRect.x = 100
+        soundCheckRect.centery = (variables.screen.get_height() / 2)
+
+        if soundCheckRect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] and not Menu.handled:
+            Menu.soundState = not Menu.soundState
+            Menu.handled = True
+            utilities.sounds.shutSounds()
+        else:
+            Menu.handled = False
+
+        #### Slider #####
+        utilities.pygameMenu.Slider()
+
+        variables.screen.blit(soundCheck, soundCheckRect)
+
     @staticmethod
     def nameMenu():
         # Create the back button
-        Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen = util.createButton(
+        Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen = utilities.pygameMenu.createButton(
             variables.screen, Menu.isNameMenuOpen, Menu.isDifficultyMenuOpen, "Retour")
 
-        Menu.isNameMenuOpen, _ = util.createButton(
+        Menu.isNameMenuOpen, _ = utilities.pygameMenu.createButton(
             variables.screen, Menu.isNameMenuOpen, Menu.active, "Suivant", position='br', name="menu.Menu.running", value=False)
         activeColor = (0, 0, 0)
         passiveColor = (100, 100, 100)
         # Create the text input
-        util.textInput(variables.screen, activeColor, passiveColor)
+        utilities.pygameMenu.textInput(variables.screen, activeColor, passiveColor)
 
     def difficultyMenu(self):
         """
@@ -151,7 +191,7 @@ class Menu:
                     self.difficulty = difficulty[0]
 
             # Create a back button
-            Menu.isDifficultyMenuOpen, Menu.isMainMenuOpen = util.createButton(
+            Menu.isDifficultyMenuOpen, Menu.isMainMenuOpen = utilities.pygameMenu.createButton(
                 variables.screen, Menu.isDifficultyMenuOpen, Menu.isMainMenuOpen, "Retour")
             variables.screen.blit(button, buttonRect)
 
@@ -178,7 +218,7 @@ class Menu:
         newGameButtonTextRect = newGameButtonText.get_rect()
 
         # The background of the button is a rectangle with the size of the text
-        bgNewGame = util.createBGSurface(newGameButtonTextRect)
+        bgNewGame = utilities.pygameMenu.createBGSurface(newGameButtonTextRect)
         bgNewGame.blit(newGameButtonText, newGameButtonTextRect)
         bgNewGameRect = bgNewGame.get_rect()
 
@@ -191,7 +231,7 @@ class Menu:
                 # Create the button text
                 buttonText = Menu.buttonFont.render(player.name, True, (255, 255, 255))
                 buttonTextRect = buttonText.get_rect()
-                bg = util.createBGSurface(buttonTextRect)
+                bg = utilities.pygameMenu.createBGSurface(buttonTextRect)
                 bg.blit(buttonText, buttonTextRect)
                 bgRect = bg.get_rect()
                 bgRect.height += 20
@@ -244,11 +284,12 @@ class Menu:
 
         #### Create the back button ####
 
-        Menu.isPlayMenuOpen, Menu.isMainMenuOpen = util.createButton(
+        Menu.isPlayMenuOpen, Menu.isMainMenuOpen = utilities.pygameMenu.createButton(
             variables.screen, Menu.isPlayMenuOpen, Menu.isMainMenuOpen, "Retour")
         variables.screen.blit(bgNewGame, bgNewGameRect)
 
-    def mainMenu(self):
+    @staticmethod
+    def mainMenu():
         """
         Display the main menu, with buttons:
         - Play
@@ -266,35 +307,47 @@ class Menu:
 
         #### BUTTONS ####
         # Create the button text
-        buttonText1 = Menu.buttonFont.render("Jouer", True, (245, 159, 34))
-        buttonText2 = Menu.buttonFont.render("Quitter", True, (245, 159, 34))
+        playText = Menu.buttonFont.render("Jouer", True, (245, 159, 34))
+        exitText = Menu.buttonFont.render("Quitter", True, (245, 159, 34))
+        optionsText = Menu.buttonFont.render("Options", True, (245, 159, 34))
 
-        buttonText1Rect, buttonText2Rect = buttonText1.get_rect(), buttonText2.get_rect()
+        playTextRect, exitTextRect, optionsTextRect = playText.get_rect(), exitText.get_rect(), optionsText.get_rect()
 
         # Position the buttons bg
-        buttonText1Rect.x = 100
-        buttonText1Rect.y = 200
-        buttonText2Rect.x = 100
-        buttonText2Rect.y = 400
+        playTextRect.x = 100
+        playTextRect.y = 200
+
+        optionsTextRect.x = 100
+        optionsTextRect.y = 300
+
+        exitTextRect.x = 100
+        exitTextRect.y = 400
 
         mouse = pygame.mouse.get_pos()
 
         # Add hover effects on hover
-        if buttonText1Rect.collidepoint(mouse):
-            buttonText1.set_alpha(255)
+        if playTextRect.collidepoint(mouse):
+            playText.set_alpha(255)
             if pygame.mouse.get_pressed()[0]:
                 Menu.isPlayMenuOpen = True
                 Menu.isMainMenuOpen = False
 
-        if buttonText2Rect.collidepoint(mouse):
-            buttonText2.set_alpha(255)
+        if exitTextRect.collidepoint(mouse):
+            exitText.set_alpha(255)
             if pygame.mouse.get_pressed()[0]:
                 Menu.running = False
 
-        variables.screen.blit(buttonText1, buttonText1Rect)
-        variables.screen.blit(buttonText2, buttonText2Rect)
+        if optionsTextRect.collidepoint(mouse):
+            optionsText.set_alpha(255)
+            if pygame.mouse.get_pressed()[0]:
+                Menu.isMainMenuOpen = False
+                Menu.isOptionsMenuOpen = True
 
-        if buttonText2Rect.collidepoint(mouse) or buttonText1Rect.collidepoint(mouse):
+        variables.screen.blit(playText, playTextRect)
+        variables.screen.blit(exitText, exitTextRect)
+        variables.screen.blit(optionsText, optionsTextRect)
+
+        if exitTextRect.collidepoint(mouse) or playTextRect.collidepoint(mouse) or optionsTextRect.collidepoint(mouse):
             pygame.mouse.set_cursor(*pygame.cursors.diamond)
         else:
             pygame.mouse.set_cursor(*pygame.cursors.tri_left)
