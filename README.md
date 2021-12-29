@@ -7,7 +7,7 @@
 
 ## Presentation
 
-This game is a simple pygame project. It's a RPG like game where you can fight with monsters and clear dungeon to save the world.
+This game is a simple pygame project. It's a RPG like game where you can fight with monsters and clear dungeon to save the world. You have 4 difficulity levels, each one with different day/night length. The harder the level, the shorter the day duration is. During the night, monsters are stronger, but they give more experience to you.
 
 ## Installation
 
