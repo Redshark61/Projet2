@@ -195,8 +195,6 @@ class Menu:
         Display the difficulty menu
         """
 
-        # get the difficulties from the database
-
         #### TITLE ####
 
         utilities.pygameMenu.displayTitle("Difficulte", Menu.titleFont)
@@ -206,7 +204,8 @@ class Menu:
         for _, difficulty in enumerate(self.difficulties):
             # Colors are the last three colomns from the database
             r, g, b = difficulty[-3:]
-            button = Menu.buttonFont.render(difficulty[1], True, (255, 255, 255))
+            text = f"{difficulty[1]} - {difficulty[2]//60}min {' '+str(difficulty[2]%60)+'s' if difficulty[2]%60 != 0 else ''}"
+            button = Menu.buttonFont.render(text, True, (255, 255, 255))
             buttonRect = button.get_rect()
             buttonRect.height += 20
             buttonRect.x = 100
@@ -216,7 +215,7 @@ class Menu:
 
             # If the mouse is on a difficulty button, change the color
             if buttonRect.collidepoint(pygame.mouse.get_pos()):
-                button = Menu.buttonFont.render(difficulty[1], True, (int(r), int(g), int(b)))
+                button = Menu.buttonFont.render(text, True, (int(r), int(g), int(b)))
                 # Detect the click on the button
                 if pygame.mouse.get_pressed()[0]:
                     Menu.isDifficultyMenuOpen = False

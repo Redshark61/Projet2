@@ -251,7 +251,7 @@ class NPCMonster(Entity):
         self.game = game
         self.monster = pygame.sprite.GroupSingle()
         self.player = self.game.player
-        self.speed = speed * 0.05
+        self.speed = speed
         self.monsterDamage = monsterDamage
         self.alive = True
         # If there are no monster for the given player, add it to the database
@@ -289,15 +289,15 @@ class NPCMonster(Entity):
         """
         make the monster move towards the player, and stop it when it collides with a wall
         """
-        dx, dy = (player.rect.x - self.rect.x, player.rect.y - self.rect.y)
-        dist = math.hypot(dx, dy)
+
+        start = pygame.Vector2(self.rect.center)
+        end = pygame.Vector2(player.rect.center)
         try:
-            dx, dy = dx / dist, dy / dist
-            self.rect.y += dy * self.speed
-            self.rect.x += dx * self.speed
-        except ZeroDivisionError:
-            self.rect.y += 0
-            self.rect.x += 0
+            direction = (end - start).normalize() * (self.speed / 30+1)
+        except ValueError:
+            direction = pygame.Vector2(0, 0)
+        self.rect.x += direction.x
+        self.rect.y += direction.y
 
         if not self.checkCollisionWalls(walls):
             self.saveLocation()

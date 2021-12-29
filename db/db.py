@@ -19,8 +19,7 @@ class Database:
             database="projet2")
 
     except(psycopg2.Error) as error:
-        print(
-            f"Impossible de se connecter à la base Postgre 'projet2'\n{error}")
+        print(f"Impossible de se connecter à la base Postgre 'projet2'\n{error}")
 
     @classmethod
     def disconnect(cls):
