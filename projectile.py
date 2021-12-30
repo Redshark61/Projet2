@@ -33,12 +33,17 @@ class Projectile(pygame.sprite.Sprite):
         """
         Move the projectile to the destination point (mouse position)
         """
-        dx, dy = (self.destinationPoint[0] - self.beginPos[0],
-                  self.destinationPoint[1] - self.beginPos[1])
-        stepx, stepy = (dx / 25., dy / 25.)
-        self.rect.x += stepx
-        self.rect.y += stepy
-        if self.lengthMoved >= 25:
+
+        start = pygame.Vector2(self.beginPos)
+        end = pygame.Vector2(self.destinationPoint)
+        try:
+            direction = (end - start).normalize() * 6
+        except ValueError:
+            direction = pygame.Vector2(0, 0)
+        self.rect.x += direction.x
+        self.rect.y += direction.y
+
+        if self.lengthMoved >= 30:
             self.remove()
         self.lengthMoved += 1
 
