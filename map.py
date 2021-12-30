@@ -252,8 +252,13 @@ class MapManager:
         self.checkCollision()
 
         for index, npc in enumerate(self.getMap().npcs):
-            # Move the npc
-            npc.move(self.player, self.getMap().walls)
+            # Get the distance between the player and the monster
+            distance = pygame.Vector2(self.player.rect.centerx, self.player.rect.centery).distance_to(
+                (npc.rect.centerx, npc.rect.centery))
+            # If the distance is smaller than the distance to attack (in px)
+            if abs(distance) < 100:
+                # Move the npc
+                npc.move(self.player, self.getMap().walls)
             # Check if the monster has collided with a bomb
             hasMonsterCollidedWithBomb = npc.hasCollided()
 
