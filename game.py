@@ -22,6 +22,7 @@ class Game:
         self.playMusicOutdoor = Music(isAmbient=True)
         self.playMusicDungeon = Music(isAmbient=True)
         self.click = Music()
+        self.cheatMode = False
 
     def initalize(self, choice=None, difficulty=None, playerName=None):
         """
@@ -84,7 +85,7 @@ class Game:
             for event in pygame.event.get():
 
                 # If the player click
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and (event.button == 1 or self.cheatMode):
                     self.click.playIfReady("click", 0)
                     # If the player left click while in a dungeon
                     if 'donjon' in self.map.getMap().name.lower():
@@ -104,6 +105,7 @@ class Game:
                         Quest.hideQuestPanel()
                     # If the player press 'C'
                     elif event.key == pygame.K_c:
+                        self.cheatMode = True
                         # Add life and xp to the player
                         self.player.maxHealth += 300
                         self.player.health = self.player.maxHealth
