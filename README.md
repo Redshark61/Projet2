@@ -1,4 +1,4 @@
-# Projet 2
+# Night Monster Fever
 
 - [Presentation](#presentation)
 - [Installation](#installation)
