@@ -134,7 +134,7 @@ class PlayerData:
 
         # And finally delete the player
         Database.query(query, (playerid,))
-        query = """DELETE FROM player WHERE id = %s"""
-        Database.query(query, (playerid,))
         query = """DELETE FROM playerdata WHERE playerid = %s"""
+        Database.query(query, (playerid,))
+        query = """DELETE FROM player WHERE id = %s"""
         Database.query(query, (playerid,))
