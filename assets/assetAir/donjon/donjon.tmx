@@ -182,10 +182,10 @@
   <object id="42" type="collision" x="107.5" y="220.75" width="2.75" height="68.75"/>
  </objectgroup>
  <objectgroup id="7" name="spawnMonsters">
-  <object id="45" type="AirSpawnMonster" x="120" y="214.666">
+  <object id="45" type="AirSpawnMonster" x="79.5" y="182.166">
    <point/>
   </object>
-  <object id="46" type="AirSpawnMonster" x="171" y="253.334">
+  <object id="46" type="AirSpawnMonster" x="159" y="268.834">
    <point/>
   </object>
   <object id="47" type="AirSpawnMonster" x="450.334" y="351.334">
@@ -209,19 +209,10 @@
   <object id="53" type="AirSpawnMonster" x="55.6667" y="119.333">
    <point/>
   </object>
-  <object id="54" type="AirSpawnMonster" x="215" y="249.832">
+  <object id="54" type="AirSpawnMonster" x="314.5" y="268.332">
    <point/>
   </object>
-  <object id="55" type="AirSpawnMonster" x="340" y="270.5">
-   <point/>
-  </object>
-  <object id="56" type="AirSpawnMonster" x="291.5" y="178.332">
-   <point/>
-  </object>
-  <object id="57" type="AirSpawnMonster" x="260.5" y="239">
-   <point/>
-  </object>
-  <object id="58" type="AirSpawnMonster" x="391" y="263">
+  <object id="55" type="AirSpawnMonster" x="377" y="270.5">
    <point/>
   </object>
   <object id="59" type="AirSpawnMonster" x="320.5" y="358">
