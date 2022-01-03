@@ -12,7 +12,7 @@ class Night:
     DAY = 1
     NIGHT = 2
     # Locals
-    status=UNINIT
+    status = UNINIT
     periodTime = 0
     monsterStatsModified = True
     dayLength = None
@@ -44,34 +44,33 @@ class Night:
         Launch clock of the day and modify monster's stats as it's necessary
         """
         if cls.status == cls.UNINIT:
-        # Initilize timer at first time
+            # Initilize timer at first time
             cls.periodTime = time.time() + cls.dayLength
             cls.status = cls.DAY
 
-        elif  time.time() > cls.periodTime:
+        elif time.time() > cls.periodTime:
             cls.periodTime = time.time() + cls.dayLength
-            
-            if cls.status==cls.DAY:
+
+            if cls.status == cls.DAY:
                 cls.status = cls.NIGHT
             else:
                 cls.status = cls.DAY
             cls.updateNPC()
 
-
     @classmethod
-    def updateNPC(cls):        
+    def updateNPC(cls):
         for npc in variables.map.getMap().npcs:
             if cls.status == cls.DAY:
-                npc.health = npc.health/cls.healthModificator
-                npc.maxHealth = npc.maxHealth/cls.healthModificator
-                npc.monsterDamage = npc.monsterDamage/cls.damageModificator
-                npc.xp = npc.xp/cls.xpModificator
-            
+                npc.health = npc.health / cls.healthModificator
+                npc.maxHealth = npc.maxHealth / cls.healthModificator
+                npc.monsterDamage = npc.monsterDamage / cls.damageModificator
+                npc.xp = npc.xp / cls.xpModificator
+
             elif cls.status == cls.NIGHT:
-                npc.health = npc.health*cls.healthModificator
-                npc.maxHealth = npc.maxHealth*cls.healthModificator
-                npc.monsterDamage = npc.monsterDamage*cls.damageModificator
-                npc.xp = npc.xp*cls.xpModificator
+                npc.health = npc.health * cls.healthModificator
+                npc.maxHealth = npc.maxHealth * cls.healthModificator
+                npc.monsterDamage = npc.monsterDamage * cls.damageModificator
+                npc.xp = npc.xp * cls.xpModificator
 
     @classmethod
     def drawBlueFilter(cls):
@@ -85,10 +84,10 @@ class Night:
         blueFilter.fill((13, 1, 138))
         blueFilter.set_alpha(cls.alpha)
         # The ratio is how much we need to add to the alpha value in the time of the period
-        ratio = 150/cls.dayLength / 3
+        ratio = 150 / cls.dayLength / 3
 
         # If it's the night
-        if cls.status==cls.NIGHT:
+        if cls.status == cls.NIGHT:
             # Add opacity to the filter
             cls.alpha += ratio if cls.alpha < 150 else 0
             blueFilter.set_alpha(cls.alpha)
@@ -97,4 +96,3 @@ class Night:
             cls.alpha -= ratio if cls.alpha > 0 else 0
             blueFilter.set_alpha(cls.alpha)
             variables.screen.blit(blueFilter, (0, 0))
-

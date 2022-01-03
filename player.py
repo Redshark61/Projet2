@@ -1,4 +1,3 @@
-import math
 import pygame
 from db.db import Database
 from db.dungeon import Dungeon
@@ -293,7 +292,7 @@ class NPCMonster(Entity):
         start = pygame.Vector2(self.rect.center)
         end = pygame.Vector2(player.rect.center)
         try:
-            direction = (end - start).normalize() * (self.speed / 30+1)
+            direction = (end - start).normalize() * (self.speed / 32+1)
         except ValueError:
             direction = pygame.Vector2(0, 0)
         self.rect.x += direction.x

@@ -164,7 +164,6 @@ class MapManager:
                     magma = pygame.Rect(obj.x, obj.y, obj.width, obj.height)
                     if self.player.feet.colliderect(magma):
                         self.player.health -= 2
-                        # self.respawn()
 
         # For each monster, check its collisions
         for npc in self.getMap().npcs:
@@ -173,7 +172,7 @@ class MapManager:
         # For every bomb, check its collisions with the walls
         for bomb in self.player.bombGroup:
             for wall in self.getMap().walls:
-                if (wall.x*1.75 <= bomb.rect.x+8 <= (wall.x*1.75 + wall.width*1.75)) and (wall.y*1.75 <= bomb.rect.y+8 <= (wall.y*1.75 + wall.height*1.75)):
+                if (wall.x * 1.75 <= bomb.rect.x + 8 <= (wall.x * 1.75 + wall.width * 1.75)) and (wall.y * 1.75 <= bomb.rect.y + 8 <= (wall.y * 1.75 + wall.height * 1.75)):
                     bomb.kill()
 
     def getMap(self) -> Map:
@@ -265,7 +264,7 @@ class MapManager:
             # If yes
             if hasMonsterCollidedWithBomb:
                 # Deal damage to the monster, accoding to this calculation :
-                damage = 6 if self.player.currentLevel == 0 else self.player.currentLevel * 10
+                damage = self.player.currentLevel + 1 * 15
                 npc.takeDamage(damage)
 
             # If the monster is dead
