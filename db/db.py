@@ -1,6 +1,6 @@
 import psycopg2
-from db.mdp import mdp
 from psycopg2.extensions import AsIs
+from db.mdp import mdp
 
 
 class Database:
