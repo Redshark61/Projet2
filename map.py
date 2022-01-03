@@ -69,25 +69,20 @@ class MapManager:
         # For each map
         for result in results:
             # Get the portals associated with the map
-            portals = Database.query(
-                f"""SELECT * FROM portals WHERE fromworld = '{result[0]}'""")
+            portals = Database.query("SELECT * FROM portals WHERE fromworld = %s", values=(result[0],))
             portalsList = []
 
             for portal in portals:
                 # Add the portal to the list
-                world1 = Database.query(
-                    f"""SELECT * FROM world WHERE id = {portal[1]}""")
-                world2 = Database.query(
-                    f"""SELECT * FROM world WHERE id = {portal[2]}""")
-                portalsList.append(
-                    Portal(world1[0][1], world2[0][1], portal[3], portal[4]))
+                world1 = Database.query("SELECT * FROM world WHERE id = %s", values=(portal[1],))
+                world2 = Database.query("SELECT * FROM world WHERE id = %s", values=(portal[2],))
+                portalsList.append(Portal(world1[0][1], world2[0][1], portal[3], portal[4]))
 
             entitiesList = []
             # If the map is a dungeon, it has monsters
             if result[2]:
                 # Get the monsters associated with the map
-                entities = Database.query(
-                    f"""SELECT * FROM monster WHERE dungeonid = '{result[0]}'""")
+                entities = Database.query("SELECT * FROM monster WHERE dungeonid = %s", values=(result[0],))
                 for entity in entities:
                     # Add the monster to the list
                     speed = random.randint(entity[4], entity[3])
@@ -121,11 +116,11 @@ class MapManager:
         Update the player from the database
         """
         # get the dungeon associated with the player
-        results = Database.query(f"""
+        results = Database.query("""
         SELECT * FROM dungeonplayer
         INNER JOIN world on dungeonplayer.dungeonid = world.id
-        WHERE dungeonplayer.playerid = {PlayerData.playerID} and world.name = '{mapName}'
-        """)
+        WHERE dungeonplayer.playerid = %s and world.name = %s
+        """, values=(PlayerData.playerID, mapName))
         # Add the dungeon to the database if it doesn't exist
         if len(results) == 0:
             Dungeon.addPlayer(self.player)
